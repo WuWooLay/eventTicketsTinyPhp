@@ -24,8 +24,7 @@ You Only Need To Know Below That . In `index.php`
 ## in Coifg VitualHost
 ## Open C:\xampp\apache\conf\extra\httpd-vhosts.conf 
 
-<pre>
-    <code>
+``` apacheconf
         <VirtualHost *:80>
             DocumentRoot "C:/XAMPP/htdocs/"
             ServerName localhost
@@ -62,5 +61,4 @@ You Only Need To Know Below That . In `index.php`
                 Require all granted
             </Directory>
         </VirtualHost>
-    </code>
-</pre>
+```
