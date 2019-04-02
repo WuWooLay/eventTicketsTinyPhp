@@ -31,8 +31,8 @@
     public function model ($modelsDir) {
         // echo "View Function ${viewDir}";
         include "./app/models/${modelsDir}.php";
-
-        return new $modelsDir;
+        $model = new $modelsDir;
+        return $model;
     }
 
  }

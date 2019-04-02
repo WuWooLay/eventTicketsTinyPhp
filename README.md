@@ -12,3 +12,55 @@ You Only Need To Know Below That . In `index.php`
 * @param $url[1] = Method
 * @param $url[2] = Params 
 
+## Open C:\Windows\System32\drivers\etc\hosts
+## And Copy Paste Below (Remove #hash Tag)
+
+### hosts
+
+127.0.0.1 localhost
+127.0.0.1 eventticket.com
+127.0.0.1 127.0.0.1:8000
+
+## in Coifg VitualHost
+## Open C:\xampp\apache\conf\extra\httpd-vhosts.conf 
+
+<pre>
+    <code>
+        <VirtualHost *:80>
+            DocumentRoot "C:/XAMPP/htdocs/"
+            ServerName localhost
+            <Directory "C:/XAMPP/htdocs/">
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride all
+                Order Deny,Allow
+                Allow from all
+                Require all granted
+            </Directory>
+        </VirtualHost>
+
+
+        <VirtualHost *:80>
+            DocumentRoot "C:/XAMPP/htdocs/eventticket
+            ServerName eventticket.com
+            <Directory "C:/XAMPP/htdocs/eventticket">
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride all
+                Order Deny,Allow
+                Allow from all
+                Require all granted
+            </Directory>
+        </VirtualHost>
+        
+        <VirtualHost *:8000>
+            DocumentRoot "C:/XAMPP/htdocs/eventticket"
+            ServerName 127.0.0.1:8000
+            <Directory "C:/XAMPP/htdocs/eventticket">
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride all
+                Order Deny,Allow
+                Allow from all
+                Require all granted
+            </Directory>
+        </VirtualHost>
+    </code>
+</pre>

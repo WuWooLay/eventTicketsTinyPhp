@@ -12,7 +12,6 @@
      */
     function __construct  () {
         parent::__construct();
-        echo "Events Controller <br> ";     
     }
 
     /**
