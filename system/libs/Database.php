@@ -7,25 +7,127 @@
 
 class Database extends PDO {
 
-        // Constructor Function Make Connect Database
+    // Constructor Function Make Connect Database
     function __construct($dsn, $user, $pass) {
         try { 
-            // $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-            // set the PDO error mode to exception
-            // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // echo "Connected successfully";
             parent::__construct($dsn, $user, $pass);
         } catch(PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }
     }
 
-    public function select ($tableName) {
-        $sql = "SELECT * FROM ${tableName}";
+    /**
+     * @param sql Example "SELECT * FROM TableName" 
+     * @param fetchStyle mean Out Style Associated Arr, Numeric Arr
+     * @param data mean selector Data for Binding
+     * @example [
+     *              ":id" => 1
+     *          ]
+     */
+    public function select ($sql, $data = array(), $fetchStyle = parent::FETCH_ASSOC) {
+        
         $stmt = $this->prepare($sql);
-        $stmt->execute();
+        
+        foreach($data as $key => $value ){
+            $stmt->bindParam($key, $value);
+        }
 
-        return $stmt->fetchAll(parent::FETCH_ASSOC);
+        $stmt->execute();
+        return $stmt->fetchAll($fetchStyle);
+    }
+
+    /**
+     * @param table "TableName"
+     * @param data Example "INSERT INTO TableName('name','title') VALUES (':name',':title')"
+     * @example Given Parmas [
+     *              "name" => $_POST['name'],
+     *              "title" => $_POST['title']
+     *          ]
+     * @example first Array for Keys        "name, title"
+     *          Second Array for Values     ":name, :title"
+     */
+    public function insert($table, $data) {
+
+        // name, value
+        $keys = implode(", ", array_keys($data));
+        // :name :value
+        $values = ":". implode(", :", array_keys($data));
+        
+        // die($keys . $values);
+        // die(print_r($data));
+
+        $sql = "INSERT INTO ${table}($keys) VALUES(${values})";
+        // die($sql);
+        $stmt = $this->prepare($sql);
+
+        foreach($data as $key => $value) {
+            $stmt->bindParam(":${key}", $value);
+        }
+
+        if($stmt->execute()) {
+            $data["id"] = $this->lastInsertId();
+            return [
+                "status"=> true,
+                "data"=> $data
+            ];
+        } else {
+            return [
+                "status"=> false,
+            ];
+        }
+    }
+
+    /**
+     * @param table "TableName"
+     * @param cond Mean Condition 
+     * @example WHERE id = 1 ??
+     * @param data Example "UPDATE TableName SET name=:name, title=:title WHERE cond "
+     * @example Given Parmas [
+     *              "name" => $_POST['name'],
+     *              "title" => $_POST['title']
+     *          ]
+     * @example toChange name=:name, title=:title
+     */
+
+    public function update($table, $data, $cond) {
+
+        $updateKeys = NULL;
+        // to Get name=:name,
+        foreach($data as $key => $value) {
+            $updateKeys .= "${key}=:${key},";
+        };
+        /**
+         *  if name=:name, password=:password, 
+         *  We DOn't Need Last Comma **,**
+         */        
+        $updateKeys = rtrim($updateKeys, ',');
+
+        $sql = "UPDATE ${table} SET ${updateKeys} WHERE ${cond}";
+        $stmt = $this->prepare($sql);
+
+        foreach($data as $key => $value) {
+            $stmt->bindParam(":${key}", $value);
+        }
+
+        return $stmt->execute();
+
+    }
+
+    /**
+     * @param table "TableName"
+     * @param cond Mean Condition 
+     * @example WHERE id = 1 ??
+     * @param data Example "DELETE FROM `TableName` WHERE `cond` LIMIT `limit`"
+     */
+    public function delete($table, $cond) {
+        $sql = "UPDATE ${table} SET `deleted_at`=:del WHERE ${cond} ";
+        $del = "NOW()";
+        $stmt = $this->prepare($sql);
+        $stmt->bindParam(":del", $del);
+        return $stmt->execute();
+
+        // ForceDelete Below
+        // $sql = "DELETE FROM ${table} WHERE ${cond} LIMIT ${limit}";
     }
     
 }

@@ -37,6 +37,14 @@
         $TestModel = $this->load->model('testModel');
 
         /**
+         * Token MiddleWare
+         */
+        // $token = isset($_GET['_token']) ? $_GET['_token'] : false;
+        // if($token == false) {
+        //     return die($this->json(['errors'=>$token], 400));
+        // } 
+
+        /**
          *  @desc   If {id} is not Null
          */
         if($id) {
@@ -65,8 +73,90 @@
            
             // $this->load->view('category', $data);
         }
-
         
+    }
+
+    /** 
+    * @route   /test/insertcat 
+    * @desc    Insert Category
+    */ 
+    public function insertCat() {
+
+        $errors = array();
+
+        if(
+            !isset($_POST['name']) ||
+            !isset($_POST['title']))
+        {
+            // If Name And Title Null
+            if (!isset($_POST['name'])) {
+                $errors[] = "Name Field is Required";
+            }
+            if (!isset($_POST['title'])) {
+                $errors[] = "Title Field is Required";
+            }
+            return die($this->json(["errors" => $errors], 400));
+        }
+
+        $data = [
+            "name" => $_POST['name'],
+            "title" => $_POST['title']
+        ];
+        
+        // Call Test Model
+        $TestModel = $this->load->model('testModel');
+        $result = $TestModel->create($data);
+
+        if($result["status"]) {
+            return die($this->json($result));
+        } else {
+            return die($this->json(["errors" => "Cant Inserted!!"], 500));
+        }
+    }
+
+    /** 
+    * @route   /test/updateCat 
+    * @param   {id} => $id from Route
+    * @desc    Update Category
+    */ 
+    public function updateCat() {
+
+        $data = [
+            "name" => "name",
+            "title" => "title"
+        ];
+        
+        // Call Test Model
+        $TestModel = $this->load->model('testModel');
+
+        $cond = "id=1";
+
+        $result = $TestModel->update($data, $cond);
+
+        if($result) {
+            return die($this->json(["status" => true, "message" => "Successfully Updated"]));
+        } else {
+            return die($this->json(["errors" => "Cant Updated"], 500));
+        }
+    }
+
+    /** 
+    * @route   /test/deleteCat 
+    * @param   {id} => $id from Route
+    * @desc    Delete Category
+    */ 
+    public function deleteCat() {
+        // Call Test Model
+        $TestModel = $this->load->model('testModel');
+        $id = 16;
+        $result = $TestModel->deleteById($id);
+        
+        if($result) {
+            return die($this->json(["status" => true, "message" => "Successfully Deleted"]));
+        } else {
+            return die($this->json(["errors" => "Cant Deleted"], 500));
+        }
+
     }
 
  }

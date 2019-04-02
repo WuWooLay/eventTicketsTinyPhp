@@ -1,13 +1,17 @@
 <?php
 
     // Require Main CLass 
-    require_once "./system/libs/Main.php";
-    require_once "./system/libs/Load.php";
-    require_once "./system/libs/Dcontroller.php";
-    require_once "./system/libs/Dmodel.php";
-    require_once "./system/libs/Database.php";
+    require_once "./config/config.php";
 
-    // Getting Routes Url 
+    // Load All Class In System Libs ...
+    spl_autoload_register(function($class) {
+        require_once "./system/libs/${class}.php";
+    });
+
+    /**
+     * Getting Routes Url
+     * @param url [array] like controller/method/params
+     */ 
     $url = isset($_GET['url']) ? $_GET['url'] : null ;
 
     if($url === null) {
