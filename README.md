@@ -17,9 +17,9 @@ You Only Need To Know Below That . In `index.php`
 
 ### hosts
 
-*127.0.0.1 localhost
-*127.0.0.1 eventticket.com
-*127.0.0.1 127.0.0.1:8000
+* 127.0.0.1 localhost
+* 127.0.0.1 eventticket.com
+* 127.0.0.1 127.0.0.1:8000
 
 ## In Coifg VitualHostOpen
 ###  C:\xampp\apache\conf\extra\httpd-vhosts.conf 

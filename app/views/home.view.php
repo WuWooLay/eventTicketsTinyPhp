@@ -12,11 +12,6 @@
 </div>
 
 
-
-<?php 
-    include "./Inc/footer.php";
-?>
-
 <script>
       $(document).ready( function () {
    
@@ -43,3 +38,6 @@
             });
       });
 </script>
+<?php 
+    include "./Inc/footer.php";
+?>

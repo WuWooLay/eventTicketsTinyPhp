@@ -1,5 +1,3 @@
-
-
 test/getcat/        TestController      @Get_Request     @Desc   Getting All Categories
 test/getcat/{id}    TestController      @Get_Request     @Desc   Getting Category By Id
 test/insertCat      TestController      @POST_Request    @Desc   Insert Category

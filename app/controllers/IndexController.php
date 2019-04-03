@@ -24,7 +24,7 @@
 
     public function home () {
         // echo " Home Content From Index Controller <br> ";
-        $this->load->view('home');
+        return $this->load->view('home');
     }
 
     public function getCat () {
