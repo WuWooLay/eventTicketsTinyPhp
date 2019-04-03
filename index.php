@@ -24,9 +24,9 @@
 
     /**
      * Assign Controller / Method / Params
-     * @param $url[0] = Controller
-     * @param $url[1] = Method
-     * @param $url[2] = Params 
+     * @param url[0] = Controller
+     * @param url[1] = Method
+     * @param url[2] = Params 
      */
     if(isset($url[0])) {
         
@@ -59,3 +59,7 @@
        $controller = new Index();
        $controller->home();
     }
+
+    die("");
+
+    

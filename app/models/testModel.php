@@ -6,7 +6,7 @@
 
     class TestModel extends Dmodel {
 
-        public $table = 'category';
+        public $table = 'testing_table';
 
         /**
          * @desc    Constructor making Call Class new Database() 

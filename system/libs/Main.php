@@ -5,7 +5,7 @@
     class Main {
 
         function __construct() {
-            echo " Main Class";
+            // echo " Main Class";
         }
 
     }

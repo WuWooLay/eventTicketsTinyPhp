@@ -4,6 +4,7 @@
  * @desc D Model Is Get Private db From Database.Php
  * @desc For All Models that 'll be extend this .
  * @desc D for Destiny [ For Meaning ] 
+ * @param DB_NAME,HOST_NAME,DB_USER,DB_PASS mean from config
  */
 
     class Dmodel {
@@ -11,15 +12,10 @@
         protected $db = array();
 
         public function __construct() {
-
-            $db_name = "db_events_mvc";
-            $host_name = "localhost";
-            $user = "root";
-            $pass = "";
     
-            $dsn = "mysql:dbname=". $db_name . "; host=" . $host_name ;
+            $dsn = "mysql:dbname=". DB_NAME . "; host=" . HOST_NAME ;
 
-            $this->db = new Database($dsn, $user, $pass);
+            $this->db = new Database($dsn, DB_USER , DB_PASS);
         }
 
     }

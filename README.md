@@ -12,17 +12,17 @@ You Only Need To Know Below That . In `index.php`
 * @param $url[1] = Method
 * @param $url[2] = Params 
 
-## Open C:\Windows\System32\drivers\etc\hosts
-## And Copy Paste Below (Remove #hash Tag)
+### Open C:\Windows\System32\drivers\etc\hosts
+### And Copy Paste Below (Remove #hash Tag)
 
 ### hosts
 
-127.0.0.1 localhost
-127.0.0.1 eventticket.com
-127.0.0.1 127.0.0.1:8000
+*127.0.0.1 localhost
+*127.0.0.1 eventticket.com
+*127.0.0.1 127.0.0.1:8000
 
-## in Coifg VitualHost
-## Open C:\xampp\apache\conf\extra\httpd-vhosts.conf 
+## In Coifg VitualHostOpen
+###  C:\xampp\apache\conf\extra\httpd-vhosts.conf 
 
 ``` apacheconf
         <VirtualHost *:80>
@@ -62,3 +62,6 @@ You Only Need To Know Below That . In `index.php`
             </Directory>
         </VirtualHost>
 ```
+
+# Database Design
+![Database Design](https://raw.githubusercontent.com/WuWooLay/eventTicketsTinyPhp/master/eventticket_database.png)
