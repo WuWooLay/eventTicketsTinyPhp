@@ -20,7 +20,7 @@
      *          & Default Method is Index();
      */
     public function index() {
-         echo " Testing Controller And View!!! ";
+         $this->get();
          return ;
     }
 
@@ -31,7 +31,7 @@
      * @param   {id} => $id from Route
      * @desc    Test Model Calling
      */ 
-    public function getCat($id = false) {
+    public function get($id = false) {
 
         // Call Test Model
         $TestModel = $this->load->model('testModel');
@@ -67,8 +67,25 @@
              * @desc    show All Datas
              */
 
-            $data["category"] = $TestModel->All();
+            $result = $TestModel->All();
 
+            /** 
+             * URL define in Config File to Current Website Link
+             * @desc    /test/getcat/{id}   toGet More Information Details 
+             */
+            foreach($result as $key => $value) {
+                $result[$key]["src"] = [
+                    "url" =>  URL . "/test/getcat/" . $value["id"],
+                    "method" => "GET",
+                    "description" => "More Information"
+                ];
+                
+                // $value["method"] = "GET";
+                // echo $value["name"] . "<br>";
+            }
+
+            $data["category"] = $result;
+            
             return die($this->json($data));
            
             // $this->load->view('category', $data);
@@ -77,10 +94,10 @@
     }
 
     /** 
-    * @route   /test/insertcat 
+    * @route   /test/insert 
     * @desc    Insert Category
     */ 
-    public function insertCat() {
+    public function insert() {
 
         $errors = array();
 
@@ -115,21 +132,21 @@
     }
 
     /** 
-    * @route   /test/updateCat 
+    * @route   /test/update
     * @param   {id} => $id from Route
     * @desc    Update Category
     */ 
-    public function updateCat() {
+    public function update() {
 
         $data = [
-            "name" => "name",
-            "title" => "title"
+            "name" => $_POST['name'],
+            "title" => $_POST['title']
         ];
         
         // Call Test Model
         $TestModel = $this->load->model('testModel');
 
-        $cond = "id=1";
+        $cond = "id=" . $_POST["id"];
 
         $result = $TestModel->update($data, $cond);
 
@@ -141,14 +158,14 @@
     }
 
     /** 
-    * @route   /test/deleteCat 
+    * @route   /test/delete
     * @param   {id} => $id from Route
     * @desc    Delete Category
     */ 
-    public function deleteCat() {
+    public function delete() {
         // Call Test Model
         $TestModel = $this->load->model('testModel');
-        $id = 16;
+        $id = $_POST["id"];
         $result = $TestModel->deleteById($id);
         
         if($result) {

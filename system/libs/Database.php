@@ -53,18 +53,22 @@ class Database extends PDO {
         // :name :value
         $values = ":". implode(", :", array_keys($data));
         
-        // die($keys . $values);
-        // die(print_r($data));
+        // $stmt->bindParam(":name", $data["name"]);
+        // $stmt->bindParam(":title", $data["title"]);
+       
 
-        $sql = "INSERT INTO ${table}($keys) VALUES(${values})";
-        // die($sql);
+        $sql = "INSERT INTO $table( $keys ) VALUES( $values )";
         $stmt = $this->prepare($sql);
-
+        $arr =[];
         foreach($data as $key => $value) {
-            $stmt->bindParam(":${key}", $value);
+            $arr[":$key"]= $value;
         }
+        // die($sql);
 
-        if($stmt->execute()) {
+        // die(print_r($arr));
+        // die("table ${table}");
+        $result = $stmt->execute($arr);
+        if($result) {
             $data["id"] = $this->lastInsertId();
             return [
                 "status"=> true,
@@ -104,12 +108,13 @@ class Database extends PDO {
 
         $sql = "UPDATE ${table} SET ${updateKeys} WHERE ${cond}";
         $stmt = $this->prepare($sql);
-
+        $arr = [];
         foreach($data as $key => $value) {
-            $stmt->bindParam(":${key}", $value);
+            $arr[":$key"]= $value;
+            // $stmt->bindParam(":${key}", $value);
         }
 
-        return $stmt->execute();
+        return $stmt->execute($arr);
 
     }
 
@@ -126,6 +131,21 @@ class Database extends PDO {
         $stmt->bindParam(":del", $del);
         return $stmt->execute();
 
+        // ForceDelete Below
+        // $sql = "DELETE FROM ${table} WHERE ${cond} LIMIT ${limit}";
+    }
+
+    /**
+     * @param table "TableName"
+     * @param cond Mean Condition 
+     * @example WHERE id = 1 ??
+     * @param exec Example ""
+     * Executive Array 
+     */
+    public function affectedRow($table, $execArr = []) {
+        $stmt = $this->prepare($sql);
+        $stmt->execute($execArr)
+        return $stmt->rowCount();
         // ForceDelete Below
         // $sql = "DELETE FROM ${table} WHERE ${cond} LIMIT ${limit}";
     }

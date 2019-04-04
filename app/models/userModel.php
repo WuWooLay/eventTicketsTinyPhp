@@ -1,12 +1,12 @@
 <?php
 
     /**
-     * Test Model [ Sample ]
+     * UserModel 
      */
 
-    class TestModel extends Dmodel {
+    class UserModel extends Dmodel {
 
-        public $table = 'testing_table';
+        public $table = 'user';
 
         /**
          * @desc    Constructor making Call Class new Database() 
@@ -18,7 +18,7 @@
         }
 
         /**
-         * @desc    Get All Categories ...
+         * @desc    Get All Users ...
          */
         public function All($select = ['*']) {
 
@@ -33,7 +33,7 @@
         }
 
         /**
-         * @desc    Get Categorie By Id
+         * @desc    Get User By Id
          */
         public function findById($id, $select = ['*']) {
             $select = implode(",", $select);
@@ -43,16 +43,10 @@
             ];
 
             return $this->db->select($sql, $data);
-
-            // $stmt = $this->db->prepare($sql);
-            // $stmt->bindParam(":id", $id);
-            // $stmt->execute();
-    
-            // return ($stmt->fetch($this->db::FETCH_ASSOC));
         }
         
         /**
-         * @desc    Insert Categorie By Id
+         * @desc    Insert User By Id
          * @param data
          * @example data ["name" => $_POST['name'],"title" => $_POST['title']]
          */
@@ -61,7 +55,7 @@
         }
 
         /**
-         * @desc    Update Categorie By COnd
+         * @desc    Update User By COnd
          * @param data 
          * @example data [ 'name'=> 'name', 'pass'=> 'pass' ]
          * @param cond = Condition "WHERE id = 1"
@@ -71,7 +65,7 @@
         }
 
         /**
-         * @desc    DELETE Categorie By Id
+         * @desc    DELETE User By Id
          */
         public function deleteById($id) {
             $cond = " id=${id} ";
