@@ -139,15 +139,31 @@ class Database extends PDO {
      * @param table "TableName"
      * @param cond Mean Condition 
      * @example WHERE id = 1 ??
-     * @param exec Example ""
+     * @param exec Example ["id","name"]
      * Executive Array 
      */
-    public function affectedRow($table, $execArr = []) {
+    public function affectedRow($sql, $execArr = []) {
         $stmt = $this->prepare($sql);
         $stmt->execute($execArr);
         return $stmt->rowCount();
         // ForceDelete Below
         // $sql = "DELETE FROM ${table} WHERE ${cond} LIMIT ${limit}";
+    }
+
+    /**
+     * @param table "TableName"
+     * @desc 
+     * @return Count_Of_Pages Numeric
+     */
+    public function pageCount($table, $limitPageOffset = LIMIT_PAGE_OFFSET) {
+
+        $sql = "SELECT COUNT(*) FROM $table WHERE `deleted_at` IS NULL";
+        $stmt = $this->prepare($sql);
+        $stmt->execute();
+        $no_of_row = $stmt->fetchColumn();
+        $total_pages = ceil($no_of_row / $limitPageOffset);
+
+        return $total_pages ;
     }
     
 }

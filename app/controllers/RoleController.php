@@ -1,10 +1,10 @@
 <?php
 
 /**
- *  Test Controller
+ *  Role Controller
  */
 
- class Test extends Dcontroller {
+ class Role extends Dcontroller {
     
     /**
      * @desc    Call Load Model From D Controller Constructor
@@ -34,7 +34,7 @@
     public function get($id = false) {
 
         // Call Test Model
-        $TestModel = $this->load->model('testModel');
+        $roleModel = $this->load->model('roleModel');
 
         /**
          * Token MiddleWare
@@ -49,8 +49,9 @@
          */
         if($id) {
             
-            $data["category"] = $TestModel->findById($id, [
-                "id", "title", "name"
+            $data["category"] = $roleModel->findById($id, [
+                "name",
+                "id"
             ]);
 
             if(!($data["category"])) {
@@ -68,39 +69,14 @@
              * @desc    {id} param doesnt get
              * @desc    show All Datas
              */
-            $page_no = Page::getPage();
-            $total_page = $this->pageCount($TestModel);
-            $select = [
-                "id", "name", "title"
-            ];
-            $result = $TestModel->All($select, $page_no);
-
-            /** 
-             * URL define in Config File to Current Website Link
-             * @desc    /test/getcat/{id}   toGet More Information Details 
-             */
-            foreach($result as $key => $value) {
-                $result[$key]["src"] = [
-                    "url" =>  URL . "/test/get/" . $value["id"],
-                    "method" => "GET",
-                    "description" => "More Information"
-                ];
-                
-                // $value["method"] = "GET";
-                // echo $value["name"] . "<br>";
-            }
+           
+            $result = $roleModel->All([
+                "name",
+                "id"
+            ]);
 
             $data["category"] = $result;
-
-            $data = [
-                "total_page" => $total_page,
-                "current_page" => (int)$page_no,
-                "data" => $result
-            ];
             
-            if(!count($data["data"])) {
-                return die($this->json(["errors"=> "Cant Count!~!"]));
-            }
             return die($this->json($data));
            
             // $this->load->view('category', $data);
@@ -116,28 +92,13 @@
 
         $errors = array();
 
-        if(
-            !isset($_POST['name']) ||
-            !isset($_POST['title']))
-        {
-            // If Name And Title Null
-            if (!isset($_POST['name'])) {
-                $errors[] = "Name Field is Required";
-            }
-            if (!isset($_POST['title'])) {
-                $errors[] = "Title Field is Required";
-            }
-            return die($this->json(["errors" => $errors], 400));
-        }
-
         $data = [
-            "name" => $_POST['name'],
-            "title" => $_POST['title']
+            "name" => $_POST['name']
         ];
         
         // Call Test Model
-        $TestModel = $this->load->model('testModel');
-        $result = $TestModel->create($data);
+        $roleModel = $this->load->model('roleModel');
+        $result = $roleModel->create($data);
 
         if($result["status"]) {
             return die($this->json($result));
@@ -159,11 +120,11 @@
         ];
         
         // Call Test Model
-        $TestModel = $this->load->model('testModel');
+        $roleModel = $this->load->model('roleModel');
 
         $cond = "id=" . $_POST["id"];
 
-        $result = $TestModel->update($data, $cond);
+        $result = $roleModel->update($data, $cond);
 
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Updated"]));
@@ -179,9 +140,9 @@
     */ 
     public function delete() {
         // Call Test Model
-        $TestModel = $this->load->model('testModel');
+        $roleModel = $this->load->model('roleModel');
         $id = $_POST["id"];
-        $result = $TestModel->deleteById($id);
+        $result = $roleModel->deleteById($id);
         
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Deleted"]));
@@ -189,16 +150,6 @@
             return die($this->json(["errors" => "Cant Deleted"], 500));
         }
 
-    }
-
-    /**
-     * @route   /test/pageCount
-     */
-    public  function pageCount($TestModel = '') {
-        if($TestModel === '') {
-            $TestModel = $this->load->model('testModel');
-        }
-        return ($TestModel->pageCount());
     }
 
  }

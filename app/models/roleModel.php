@@ -4,9 +4,9 @@
      * Test Model [ Sample ]
      */
 
-    class TestModel extends Dmodel {
+    class RoleModel extends Dmodel {
 
-        public $table = 'testing_table';
+        public $table = 'role';
 
         /**
          * @desc    Constructor making Call Class new Database() 
@@ -20,17 +20,15 @@
         /**
          * @desc    Get All Categories ...
          */
-        public function All($select = ['*'], $limit = 1 , $offset = LIMIT_PAGE_OFFSET) {
+        public function All($select = ['*']) {
 
             if($select == "" || $select == null || $select == false || $select == [])  {
                 $select = ['*'];
             }
 
-            $limit = ($limit-1) * $offset;
-
             $select = implode(",", $select);
             $sql = $sql = "SELECT $select FROM ". $this->table ;
-            $sql .= " WHERE deleted_at IS NULL ORDER BY id DESC LIMIT $limit," . $offset;
+            $sql .= " WHERE deleted_at IS NULL ORDER BY id DESC LIMIT 0,10";
 
             $result = $this->db->select($sql);
 
@@ -89,35 +87,6 @@
             // die("$cond");
             $table = $this->table;
             return $this->db->delete($table, $cond);
-        }
-
-        /**
-         * @desc    Get PageCount
-         */
-        public function pageCount() {
-            $table = $this->table;
-            return $this->db->pageCount($table);
-        }
-
-         /**
-         * @desc    Get All DELETE Categories ...
-         */
-        public function AllDelete($select = ['*'], $limit = 1 , $offset = LIMIT_PAGE_OFFSET) {
-
-            if($select == "" || $select == null || $select == false || $select == [])  {
-                $select = ['*'];
-            }
-
-            $limit = ($limit-1) * $offset;
-
-            $select = implode(",", $select);
-            $sql = $sql = "SELECT $select FROM ". $this->table ;
-            $sql .= " WHERE deleted_at IS NOT NULL ORDER BY id DESC LIMIT $limit," . $offset;
-
-            $result = $this->db->select($sql);
-
-            // die(print_r($result));
-            return ($result);
         }
         
 

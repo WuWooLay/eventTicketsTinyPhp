@@ -14,5 +14,4 @@
     $main = new Main();
 
     die("");
-
     

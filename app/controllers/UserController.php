@@ -54,6 +54,10 @@
             }
             
         } else {
+
+            $page_no = Page::getPage();
+            $total_page = $this->pageCount($userModel);
+
             /**
              * @desc    {id} param doesnt get
              * @desc    show All Datas
@@ -63,7 +67,11 @@
                 "id", "name", "email", "address", "image", "phone", "role_id"
             ];
 
-            $data["user"] = $userModel->All($select);
+            $data = [
+                "total_page" => $total_page,
+                "current_page" => (int)$page_no,
+                "user" => $userModel->All($select, $page_no)
+            ];
 
             if(!count($data["user"])) {
                 return die($this->json(["errors"=> "Cant Count!~!"]));
@@ -152,4 +160,13 @@
 
     }
 
+    /**
+     * @route   /user/pageCount
+     */
+    public  function pageCount($userModel = '') {
+        if($userModel === '') {
+            $userModel = $this->load->model('userModel');
+        }
+        return ($userModel->pageCount());
+    }
  }
