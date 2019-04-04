@@ -144,7 +144,7 @@ class Database extends PDO {
      */
     public function affectedRow($table, $execArr = []) {
         $stmt = $this->prepare($sql);
-        $stmt->execute($execArr)
+        $stmt->execute($execArr);
         return $stmt->rowCount();
         // ForceDelete Below
         // $sql = "DELETE FROM ${table} WHERE ${cond} LIMIT ${limit}";
