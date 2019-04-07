@@ -49,11 +49,11 @@
          */
         if($id) {
             
-            $data["category"] = $TestModel->findById($id, [
+            $data["data"] = $TestModel->findById($id, [
                 "id", "title", "name"
-            ]);
+            ])[0];
 
-            if(!($data["category"])) {
+            if(!($data["data"])) {
 
                 return die($this->json(['errors'=>'Cant Found'], 400));
 
@@ -69,7 +69,12 @@
              * @desc    show All Datas
              */
             $page_no = Page::getPage();
-            $total_page = $this->pageCount($TestModel);
+            $total_page = $this->pageCount([
+                "table" => "testing_table",
+                "cond" => " WHERE `deleted_at` IS NULL",
+                "limit" => "",
+                "model" => $TestModel
+            ]);
             $select = [
                 "id", "name", "title"
             ];
@@ -193,12 +198,31 @@
 
     /**
      * @route   /test/pageCount
+     * @param   arr = [
+     *          "table" => "test",
+     *          "cond" => " WHERE `deleted_at` IS NULL",
+     *          "limit" => "",
+     *          "model" => $testModel
+     *          ]
      */
-    public  function pageCount($TestModel = '') {
-        if($TestModel === '') {
-            $TestModel = $this->load->model('testModel');
+    public function pageCount($arr = ["table" => "testing_table","cond" => "cond","limit" => "", "model" => "testModel"]) {
+       
+        $table = $arr["table"];
+        $cond = "";
+        $limit = "";
+        
+        if(isset($arr["cond"])) {
+            $cond = $arr["cond"];
         }
-        return ($TestModel->pageCount());
-    }
+        if(isset($arr["limit"])) {
+            $limit = $arr["limit"];
+        }
+        if(isset($arr["model"]) && $arr["model"] != "") {
+            $userModel = $arr["model"];
+        } else {
+            $userModel = $this->load->model("testModel");
+        }
 
+        return ($userModel->pageCount($table, $cond, $limit));
+    }
  }

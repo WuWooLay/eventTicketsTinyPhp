@@ -19,10 +19,14 @@
      *       & Default Method is Index();
      */
     public function index() {
+        Middleware::isAuthForHome();
+        // Asia/Rangoon
+        // die(date_default_timezone_get());
         return $this->load->view('home');
     }
 
     public function home () {
+        Middleware::isAuthForHome();
         // echo " Home Content From Index Controller <br> ";
         return $this->load->view('home');
     }

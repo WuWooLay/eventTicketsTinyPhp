@@ -155,9 +155,11 @@ class Database extends PDO {
      * @desc 
      * @return Count_Of_Pages Numeric
      */
-    public function pageCount($table, $limitPageOffset = LIMIT_PAGE_OFFSET) {
-
-        $sql = "SELECT COUNT(*) FROM $table WHERE `deleted_at` IS NULL";
+    public function pageCount($table, $cond = '', $limitPageOffset = LIMIT_PAGE_OFFSET) {
+        
+        $sql = "SELECT COUNT(*) FROM $table $cond";
+        // $sql = "SELECT COUNT(*) FROM $table WHERE `deleted_at` IS NULL";
+        
         $stmt = $this->prepare($sql);
         $stmt->execute();
         $no_of_row = $stmt->fetchColumn();

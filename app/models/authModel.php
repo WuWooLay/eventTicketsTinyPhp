@@ -1,10 +1,10 @@
 <?php
 
     /**
-     * UserModel 
+     * AuthModel 
      */
 
-    class UserModel extends Dmodel {
+    class AuthModel extends Dmodel {
 
         public $table = 'user';
 

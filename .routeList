@@ -5,4 +5,8 @@ test/updateCat      TestController      @POST_Request    @Desc   Update Category
 test/deleteCat      TestController      @POST_Request    @Desc   Delete Category
 
 
+login/              LoginController     @POST_Request    @Desc   Login Account
+
+logout              LogoutController    @Get_Request     @Desc   Logout Account
+
 

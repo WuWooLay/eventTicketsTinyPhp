@@ -32,16 +32,16 @@ class Session {
     public static function checkSession($key) {
         self::init();
         if(self::get($key) == false) {
-            self::destory();
+            self::destroy();
             header("Location:" , URL);
         }  else {
             return true;
         }
     }
 
-    // Destory Session
-    public function destory() {
-        session_destory();
+    // Destroy Session
+    public function destroy() {
+        session_destroy();
     }
 
 }

@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="http://eventticket.com/assets/css/bootstrap-material-design.css">
+    <link rel="stylesheet" href="http://eventticket.com/assets/css/eventticket.css">
 
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
-    <script src="http://localhost/eventticket/assets/js/arrive.js"></script>
+    <script src="http://eventticket.com/assets/js/arrive.js"></script>
     <script>
     $(document).ready(function() {
                 $('body').bootstrapMaterialDesign();
@@ -19,12 +22,23 @@
                     // 'this' refers to the newly created element
                     var $newElem = $(this);
                 }); 
+
+                setTimeout(function () {
+                    $("#First_Loader").fadeOut();
+                }, 500);
     });
     </script>
 
 
 </head>
 <body>
+
+<!-- Loader -->
+<div class="FirstLoader" id="First_Loader">
+        <div class="imgContainer">
+            <img src="http://eventticket.com/assets/images/loader/loader.svg" alt="">
+            <h3 class="text-center text-primary bounceIn"> Event Ticket </h3>
+        </div>
+</div>
+<!-- Loader End -->
     
-<h1> HEader </h1>
-<!-- <button type="button" class="btn btn-raised btn-primary">Primary</button> -->

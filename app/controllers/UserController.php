@@ -20,8 +20,7 @@
      *          & Default Method is Index();
      */
     public function index() {
-         $this->get();
-         return die("");
+        
     }
 
     /** 
@@ -40,10 +39,20 @@
          *  @desc   If {id} is not Null
          */
         if($id) {
+            $select = [
+                "user.id", 
+                "user.name", 
+                "user.email", 
+                "user.address", 
+                "user.image", 
+                "user.phone", 
+                "role.id as role_id",
+                "role.name as role_name"
+            ];
             
-            $data["user"] = $userModel->findById($id);
+            $data["data"] = $userModel->findById($id, $select)[0];
 
-            if(!($data["user"])) {
+            if(!($data["data"])) {
 
                 return die($this->json(['errors'=>'Cant Found'], 400));
 
@@ -56,7 +65,14 @@
         } else {
 
             $page_no = Page::getPage();
-            $total_page = $this->pageCount($userModel);
+
+            $total_page = $this->pageCount([
+                "table" => "user",
+                "cond" => " WHERE `deleted_at` IS NULL",
+                "limit" => "",
+                "model" => $userModel
+            ]);
+            
 
             /**
              * @desc    {id} param doesnt get
@@ -64,16 +80,23 @@
              * @param select to pick from DB
              */
             $select = [
-                "id", "name", "email", "address", "image", "phone", "role_id"
+                "user.id", 
+                "user.name", 
+                "user.email", 
+                "user.address", 
+                "user.image", 
+                "user.phone", 
+                "role.id as role_id",
+                "role.name as role_name"
             ];
 
             $data = [
                 "total_page" => $total_page,
                 "current_page" => (int)$page_no,
-                "user" => $userModel->All($select, $page_no)
+                "data" => $userModel->All($select, $page_no)
             ];
 
-            if(!count($data["user"])) {
+            if(!count($data["data"])) {
                 return die($this->json(["errors"=> "Cant Count!~!"]));
             }
 
@@ -98,8 +121,10 @@
         $data = [
             "name" => $_POST['name'],
             "email" => $_POST['email'],
-            "password" => $_POST['password'],
-            "phone" => $_POST['phone']
+            "password" => password_hash($_POST['password'], PASSWORD_DEFAULT) ,
+            "phone" => $_POST['phone'],
+            "address" => (isset($_POST["address"])) ? $_POST["address"] : "",
+            "image" => URL . DEFAULT_USER_IMAGE
         ];
         
         // Call User Model
@@ -162,11 +187,31 @@
 
     /**
      * @route   /user/pageCount
+     * @param   arr = [
+     *          "table" => "user",
+     *          "cond" => " WHERE `deleted_at` IS NULL",
+     *          "limit" => "",
+     *          "model" => $userModel
+     *          ]
      */
-    public  function pageCount($userModel = '') {
-        if($userModel === '') {
-            $userModel = $this->load->model('userModel');
+    public function pageCount($arr = ["table" => "testing_table","cond" => "cond","limit" => "", "model" => "useModel"]) {
+       
+        $table = $arr["table"];
+        $cond = "";
+        $limit = "";
+        
+        if(isset($arr["cond"])) {
+            $cond = $arr["cond"];
         }
-        return ($userModel->pageCount());
+        if(isset($arr["limit"])) {
+            $limit = $arr["limit"];
+        }
+        if(isset($arr["model"]) && $arr["model"] != "") {
+            $userModel = $arr["model"];
+        } else {
+            $userModel = $this->load->model("testingModel");
+        }
+
+        return ($userModel->pageCount($table, $cond, $limit));
     }
  }

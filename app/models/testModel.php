@@ -94,11 +94,19 @@
         /**
          * @desc    Get PageCount
          */
-        public function pageCount() {
-            $table = $this->table;
-            return $this->db->pageCount($table);
-        }
+        public function pageCount($table, $cond = '', $limitPageOffset = LIMIT_PAGE_OFFSET) {
+           
+            if(
+                $limitPageOffset == "" || 
+                $limitPageOffset == null || 
+                $limitPageOffset == false || 
+                $limitPageOffset == []
+            ) {
+                $limitPageOffset = LIMIT_PAGE_OFFSET;
+            }
 
+            return $this->db->pageCount($table, $cond, $limitPageOffset);
+        }
          /**
          * @desc    Get All DELETE Categories ...
          */

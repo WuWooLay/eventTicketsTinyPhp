@@ -1,10 +1,10 @@
 <?php
 
 /**
- *  Role Controller
+ *  Admin Controller
  */
 
- class Role extends Dcontroller {
+ class Admin extends Dcontroller {
     
     /**
      * @desc    Call Load Model From D Controller Constructor
@@ -20,38 +20,38 @@
      *          & Default Method is Index();
      */
     public function index() {
-         $this->get();
-         return ;
+        echo "Admin Home";
+        die();
     }
 
     /** 
-     * @route   /test/getcat 
-     * @route   /test/getcat/{id} 
+     * @route   /user/get 
+     * @route   /user/get/{id} 
      * 
      * @param   {id} => $id from Route
-     * @desc    Test Model Calling
+     * @desc    User Model Calling
      */ 
     public function get($id = false) {
 
-        // Call Test Model
-        $RoleModel = $this->load->model('roleModel');
-
-        /**
-         * Token MiddleWare
-         */
-        // $token = isset($_GET['_token']) ? $_GET['_token'] : false;
-        // if($token == false) {
-        //     return die($this->json(['errors'=>$token], 400));
-        // } 
+        // Call User Model
+        $adminModel = $this->load->model('adminModel');
 
         /**
          *  @desc   If {id} is not Null
          */
         if($id) {
+            $select = [
+                "user.id", 
+                "user.name", 
+                "user.email", 
+                "user.address", 
+                "user.image", 
+                "user.phone", 
+                "role.id as role_id",
+                "role.name as role_name"
+            ];
             
-            $data["data"] = $RoleModel->findById($id, [
-                "id", "name"
-            ]);
+            $data["data"] = $adminModel->findById($id, $select)[0];
 
             if(!($data["data"])) {
 
@@ -64,73 +64,76 @@
             }
             
         } else {
+
+            $page_no = Page::getPage();
+
+            $total_page = $this->pageCount([
+                "table" => "user",
+                "cond" => " WHERE `deleted_at` IS NULL",
+                "limit" => "",
+                "model" => $adminModel
+            ]);
+            
+
             /**
              * @desc    {id} param doesnt get
              * @desc    show All Datas
+             * @param select to pick from DB
              */
-            $page_no = Page::getPage();
-            $total_page = $this->pageCount([
-                "table" => "role",
-                "cond" => " WHERE `deleted_at` IS NULL",
-                "limit" => "",
-                "model" => $RoleModel
-            ]);
             $select = [
-                "id", "name"
+                "user.id", 
+                "user.name", 
+                "user.email", 
+                "user.address", 
+                "user.image", 
+                "user.phone", 
+                "role.id as role_id",
+                "role.name as role_name"
             ];
-
-            $result = $RoleModel->All($select, $page_no);
-
-            $data["category"] = $result;
 
             $data = [
                 "total_page" => $total_page,
                 "current_page" => (int)$page_no,
-                "data" => $result
+                "data" => $adminModel->All($select, $page_no)
             ];
-            
+
             if(!count($data["data"])) {
                 return die($this->json(["errors"=> "Cant Count!~!"]));
             }
+
             return die($this->json($data));
            
-            // $this->load->view('category', $data);
         }
         
     }
 
     /** 
-    * @route   /test/insert 
-    * @desc    Insert Category
+    * @route   /user/insert 
+    * @desc    Insert User
     */ 
     public function insert() {
 
-        $errors = array();
-
-        if(
-            !isset($_POST['name']) ||
-            !isset($_POST['title']))
-        {
-            // If Name And Title Null
-            if (!isset($_POST['name'])) {
-                $errors[] = "Name Field is Required";
-            }
-            if (!isset($_POST['title'])) {
-                $errors[] = "Title Field is Required";
-            }
-            return die($this->json(["errors" => $errors], 400));
+        $resultError = Validation::UserInput();
+        
+        if(!$resultError["isValid"]) {
+            return die($this->json($resultError, 400));
         }
 
         $data = [
             "name" => $_POST['name'],
-            "title" => $_POST['title']
+            "email" => $_POST['email'],
+            "password" => password_hash($_POST['password'], PASSWORD_DEFAULT) ,
+            "phone" => $_POST['phone'],
+            "address" => (isset($_POST["address"])) ? $_POST["address"] : "",
+            "image" => URL . DEFAULT_USER_IMAGE
         ];
         
-        // Call Test Model
-        $RoleModel = $this->load->model('roleModel');
-        $result = $RoleModel->create($data);
+        // Call User Model
+        $adminModel = $this->load->model('adminModel');
+        $result = $adminModel->create($data);
 
         if($result["status"]) {
+            unset($result["data"]["passsword"]);
             return die($this->json($result));
         } else {
             return die($this->json(["errors" => "Cant Inserted!!"], 500));
@@ -138,23 +141,24 @@
     }
 
     /** 
-    * @route   /test/update
+    * @route   /user/update
     * @param   {id} => $id from Route
-    * @desc    Update Category
+    * @desc    Update User
     */ 
     public function update() {
 
         $data = [
             "name" => $_POST['name'],
-            "title" => $_POST['title']
+            "email" => $_POST['email'],
+            "phone" => $_POST['phone']
         ];
         
-        // Call Test Model
-        $RoleModel = $this->load->model('roleModel');
+        // Call User Model
+        $adminModel = $this->load->model('adminModel');
 
         $cond = "id=" . $_POST["id"];
 
-        $result = $RoleModel->update($data, $cond);
+        $result = $adminModel->update($data, $cond);
 
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Updated"]));
@@ -164,15 +168,15 @@
     }
 
     /** 
-    * @route   /test/delete
+    * @route   /user/delete
     * @param   {id} => $id from Route
-    * @desc    Delete Category
+    * @desc    Delete User
     */ 
     public function delete() {
-        // Call Test Model
-        $RoleModel = $this->load->model('roleModel');
+        // Call User Model
+        $adminModel = $this->load->model('adminModel');
         $id = $_POST["id"];
-        $result = $RoleModel->deleteById($id);
+        $result = $adminModel->deleteById($id);
         
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Deleted"]));
@@ -183,15 +187,15 @@
     }
 
     /**
-     * @route   /test/pageCount
+     * @route   /user/pageCount
      * @param   arr = [
-     *          "table" => "test",
+     *          "table" => "user",
      *          "cond" => " WHERE `deleted_at` IS NULL",
      *          "limit" => "",
-     *          "model" => $RoleModel
+     *          "model" => $adminModel
      *          ]
      */
-    public function pageCount($arr = ["table" => "testing_table","cond" => "cond","limit" => "", "model" => "roleModel"]) {
+    public function pageCount($arr = ["table" => "testing_table","cond" => "cond","limit" => "", "model" => "useModel"]) {
        
         $table = $arr["table"];
         $cond = "";
@@ -204,11 +208,11 @@
             $limit = $arr["limit"];
         }
         if(isset($arr["model"]) && $arr["model"] != "") {
-            $userModel = $arr["model"];
+            $adminModel = $arr["model"];
         } else {
-            $userModel = $this->load->model("roleModel");
+            $adminModel = $this->load->model("testingModel");
         }
 
-        return ($userModel->pageCount($table, $cond, $limit));
+        return ($adminModel->pageCount($table, $cond, $limit));
     }
  }
