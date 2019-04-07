@@ -20,8 +20,8 @@
      *          & Default Method is Index();
      */
     public function index() {
-        echo "Admin Home";
-        die();
+        Middleware::isAuthForAdmin();
+        return $this->load->view('admin/home');
     }
 
     /** 

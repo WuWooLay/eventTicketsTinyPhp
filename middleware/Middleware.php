@@ -69,27 +69,26 @@
                 return true;
             }  else {
                 $User = SESSION::get('auth');
-                if($User["role_name"] == "user" && $User["role_id"] == 1) {
-                    // die("User");
-                    header("Location:" . URL . "/user");
-                    die();
-                    return true;
-                }
+                header("Location:" . URL . "/" . $User["role_name"]);
+                die();
 
-                if($User["role_name"] == "creator" && $User["role_id"] == 2) {
-                    // die("Creator");
-                    header("Location:" . URL . "/creator");
-                    die();
-                    return true;
-                }
+            }
 
-                if($User["role_name"] == "admin" && $User["role_id"] == 3) {
-                    // die("Admin");
-                    header("Location:" . URL . "/admin");
-                    die();
-                    return true;
-                }
+        }
 
+        public static function isAuthForAdmin() {
+
+            SESSION::init();
+            if(SESSION::get('auth') == false) {
+                SESSION::destroy();
+                header("Location:" . URL . "/" );
+                return true;
+            }  else {
+                $User = SESSION::get('auth');
+                if(!$User['role_id'] == 'admin') {
+                    header("Location:" . URL . "/" );
+                }
+                return true;
             }
 
         }

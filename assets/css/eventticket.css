@@ -106,3 +106,10 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+/* Side Left HOver */
+
+.side_hover:hover {
+    background-color: #ededed;
+    cursor: pointer;
+}

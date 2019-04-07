@@ -269,6 +269,8 @@
                 <p> What Ups .</p>
       
                 <p> Out Ph : <a href="tel:+95945456456"> 0945456456 </a> </p>
+
+                <p> <button class="btn btn-raised btn-danger btn-sm toHome"> Back</button></p>
             </div>
             <!-- Form End -->
           </div>
@@ -316,6 +318,11 @@
               toRegisterPage();
             });
 
+
+            $(".toHome").click( function () {
+              allClose();
+              $("#Home_Container").removeClass('d-none');
+            });
 
             // All Close Container
             function allClose() {
@@ -378,7 +385,7 @@
                     } else {
                       console.log("SUccess =>", data);
                       if(data.isValid) {
-                        document.location.href = "/user";
+                        document.location.href = "/";
                       }
                       
                     }

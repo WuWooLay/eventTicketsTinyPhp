@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2019 at 09:51 PM
+-- Generation Time: Apr 08, 2019 at 01:22 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_events_mvc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `id` tinyint(4) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_status`
+--
+
+INSERT INTO `order_status` (`id`, `name`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(1, 'pending', '2019-04-07 13:46:35', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'success', '2019-04-07 14:50:17', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'reject', '2019-04-07 14:50:44', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'going', '2019-04-07 15:33:11', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -108,23 +132,23 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `address`, `image`, `phone`, `role_id`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(1, 'Fuck', 'iehfai@gmail.com', 'z', NULL, '', 'z', 1, '2019-04-04 09:51:00', '0000-00-00 00:00:00', '2019-03-31 17:30:00'),
-(2, 'Fuck', 'iehfai@gmail.com', '12345', NULL, '', 'z', 1, '2019-04-04 10:37:22', '0000-00-00 00:00:00', NULL),
-(3, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:01', '0000-00-00 00:00:00', NULL),
-(4, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:02', '0000-00-00 00:00:00', NULL),
-(5, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:03', '0000-00-00 00:00:00', NULL),
-(6, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:03', '0000-00-00 00:00:00', NULL),
-(7, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:03', '0000-00-00 00:00:00', NULL),
-(8, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:04', '0000-00-00 00:00:00', NULL),
-(9, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:04', '0000-00-00 00:00:00', NULL),
-(10, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:04', '0000-00-00 00:00:00', NULL),
-(11, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:05', '0000-00-00 00:00:00', NULL),
-(12, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 18:38:05', '0000-00-00 00:00:00', NULL),
-(13, 'Fuck', 'sample@gmail.com', '123456', NULL, '', '1', 1, '2019-04-04 19:31:35', '0000-00-00 00:00:00', NULL);
+(1, 'lwin', 'email@gmail.com', '$2y$10$x/IjNrSBrOi4k5VREhG65uZpiBA4Sce.88F9Aio9crmp9tARnVmy.', 'Address', 'http://eventticket.com/assets/images/logo/default.png', 'phone', 3, '2019-04-05 11:13:48', '0000-00-00 00:00:00', NULL),
+(2, 'Lwin ', 'lwin@lwin.com', '$2y$10$C.0W.BMJ7GaS6YNvSuRuIuymjNvOWYKg28MFw5xoS2Ohil6OCMBxe', '', 'http://eventticket.com/assets/images/logo/default.svg', '09420059241', 1, '2019-04-07 21:25:43', '0000-00-00 00:00:00', NULL),
+(3, 'Lwin ', 'lwin@lwin.com', '$2y$10$HYXVbrGvFjB72XRF83e1EOoXWB6YifW1NwQEan2yYaufpI/7OHtv2', '', 'http://eventticket.com/assets/images/logo/default.svg', '09420059241', 1, '2019-04-07 21:27:16', '0000-00-00 00:00:00', NULL),
+(4, 'admin_readmal', 'user1@gmail.com', '$2y$10$FYzBhDJ14qns/dF5cL1GOOvyAvBxzEfr3QfRXirth1aCHIFgjZB1O', '', 'http://eventticket.com/assets/images/logo/default.svg', '09420025944', 1, '2019-04-07 21:27:28', '0000-00-00 00:00:00', NULL),
+(5, 'admin_readmal', 'user1@gmail.com', '$2y$10$pcd400lYs6Z17dGZ67OtsO2tEnoqVolqgMJORFbsm5J8kpq/pL7I.', '', 'http://eventticket.com/assets/images/logo/default.svg', '123456', 1, '2019-04-07 21:28:57', '0000-00-00 00:00:00', NULL),
+(6, 'admin_readmal', 'user1@gmail.com', '$2y$10$UCJ4VxKhZvzchIF7OjKcfeVgaT2uSqD6wOl.v958MgwciKrchmwGy', '', 'http://eventticket.com/assets/images/logo/default.svg', '123456', 1, '2019-04-07 21:30:36', '0000-00-00 00:00:00', NULL),
+(7, 'asfsfsf', 'user1@gmail.com', '$2y$10$RFLGiehOzF1AP7JRUChwKecZqCdAklw7JtuvChQzhGocS/1ZLU/GG', '', 'http://eventticket.com/assets/images/logo/default.svg', '123456', 1, '2019-04-07 21:31:04', '0000-00-00 00:00:00', NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `role`
@@ -149,6 +173,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
@@ -164,7 +194,7 @@ ALTER TABLE `testing_table`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
