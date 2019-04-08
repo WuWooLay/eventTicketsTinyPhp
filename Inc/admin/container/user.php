@@ -156,23 +156,23 @@
                 <form class="mb-3" method="post" id="Creator_Register_Form" data-action="http://eventticket.com/user/insertcreator">
                 
                     <div class="form-group">
-                        <label for="register_name" class="bmd-label-floating">Name</label>
-                        <input name="name" type="text" class="form-control" id="register_name">
+                        <label for="register_creator_name" class="bmd-label-floating">Name</label>
+                        <input name="name" type="text" class="form-control" id="register_creator_name">
                     </div>
 
                     <div class="form-group">
-                        <label for="register_email" class="bmd-label-floating">Email address</label>
-                        <input name="email" type="email" class="form-control" id="register_email">
+                        <label for="register_creator_email" class="bmd-label-floating">Email address</label>
+                        <input name="email" type="email" class="form-control" id="register_creator_email">
                     </div>
 
                     <div class="form-group">
-                        <label for="register_password" class="bmd-label-floating">Password</label>
-                        <input name="password" type="password" class="form-control" id="register_password">
+                        <label for="register_creator_password" class="bmd-label-floating">Password</label>
+                        <input name="password" type="password" class="form-control" id="register_creator_password">
                     </div>
 
                     <div class="form-group">
-                        <label for="register_phone" class="bmd-label-floating">Phone</label>
-                        <input name="phone" type="text" class="form-control" id="register_phone">
+                        <label for="register_creator_phone" class="bmd-label-floating">Phone</label>
+                        <input name="phone" type="text" class="form-control" id="register_creator_phone">
                     </div>
                     
                     <div>

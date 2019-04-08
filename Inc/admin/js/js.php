@@ -241,7 +241,7 @@
                         var success =  '<div class="alert alert-success" role="alert">' + 'Successfull Added' + '</div>';
                         userGet();
                         ['name', 'email', 'password', 'phone'].map( function (value) {
-                          $('#register_'+value).val('');
+                          $('#register_creator_'+value).val('');
                         });
                         $("#Creator_Register_Form_Error").html(success);
                       }
