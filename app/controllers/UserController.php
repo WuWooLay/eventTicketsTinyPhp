@@ -131,8 +131,8 @@
         $userModel = $this->load->model('userModel');
 
         $existUser = $userModel->findByEmail($_POST['email']);
-        if($existUser[0]) {
-            return die($this->json(['errors' => 'Email already Exist']));
+        if($existUser) {
+            return die($this->json(['errors' => ['Email already Exist']], 400));
         }
 
         $result = $userModel->create($data);
@@ -141,7 +141,7 @@
             unset($result["data"]["passsword"]);
             return die($this->json($result));
         } else {
-            return die($this->json(["errors" => "Cant Inserted!!"], 500));
+            return die($this->json(["errors" => "Cant Inserted!!"], 400));
         }
     }
 
@@ -171,8 +171,8 @@
         $userModel = $this->load->model('userModel');
 
         $existUser = $userModel->findByEmail($_POST['email']);
-        if($existUser[0]) {
-            return die($this->json(['errors' => 'Email already Exist']));
+        if($existUser) {
+            return die($this->json(['errors' => ['Email already Exist']], 400));
         }
 
         $result = $userModel->create($data);
@@ -181,7 +181,47 @@
             unset($result["data"]["passsword"]);
             return die($this->json($result));
         } else {
-            return die($this->json(["errors" => "Cant Inserted!!"], 500));
+            return die($this->json(["errors" => "Cant Inserted!!"], 400));
+        }
+    }
+
+     /** 
+    * @route   /user/insertAdmin 
+    * @desc    Insert Admin
+    */ 
+    public function insertadmin() {
+
+        $resultError = Validation::UserInput();
+        
+        if(!$resultError["isValid"]) {
+            return die($this->json($resultError, 400));
+        }
+
+        $data = [
+            "name" => $_POST['name'],
+            "email" => $_POST['email'],
+            "password" => password_hash($_POST['password'], PASSWORD_DEFAULT) ,
+            "phone" => $_POST['phone'],
+            "address" => (isset($_POST["address"])) ? $_POST["address"] : "",
+            "image" => URL . DEFAULT_USER_IMAGE,
+            "role_id" => 3
+        ];
+        
+        // Call User Model
+        $userModel = $this->load->model('userModel');
+
+        $existUser = $userModel->findByEmail($_POST['email']);
+        if($existUser) {
+            return die($this->json(['errors' => ['Email already Exist']], 400));
+        }
+
+        $result = $userModel->create($data);
+
+        if($result["status"]) {
+            unset($result["data"]["passsword"]);
+            return die($this->json($result));
+        } else {
+            return die($this->json(["errors" => "Cant Inserted!!"], 400));
         }
     }
 
@@ -208,7 +248,7 @@
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Updated"]));
         } else {
-            return die($this->json(["errors" => "Cant Updated"], 500));
+            return die($this->json(["errors" => "Cant Updated"], 400));
         }
     }
 
@@ -226,10 +266,79 @@
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Deleted"]));
         } else {
-            return die($this->json(["errors" => "Cant Deleted"], 500));
+            return die($this->json(["errors" => "Cant Deleted"], 400));
         }
 
     }
+
+    /** 
+    * @route   /user/updateProfile
+    * @param   {id} => $id from Route
+    * @desc    Delete User
+    */ 
+    public function updateprofile() {
+        // Call User Model
+
+        $data = [
+            "name" => $_POST['name'],
+            "email" => $_POST['email'],
+            "phone" => $_POST['phone']
+        ];
+        
+        // Call User Model
+        $userModel = $this->load->model('userModel');
+
+        $cond = "id=" . $_POST["id"];
+
+        $result = $userModel->update($data, $cond);
+
+        if($result) {
+            return die($this->json(["status" => true, "message" => "Successfully Updated"]));
+        } else {
+            return die($this->json(["errors" => "Cant Updated"], 400));
+        }
+
+    }
+
+    /** 
+    * @route   /user/updateImage
+    * @param   {id} => $id from Route
+    * @desc    Delete User
+    */ 
+    public function updateImage() {
+        // Call User Model
+
+        $resultError = Validation::UserInput();
+        
+        if(!$resultError["isValid"]) {
+            return die($this->json($resultError, 400));
+        }
+
+        // $data = [
+        //     "name" => $_POST['name'],
+        //     "email" => $_POST['email'],
+        //     "phone" => $_POST['phone']
+        // ];
+        
+        // Call User Model
+        $userModel = $this->load->model('userModel');
+
+        $cond = "id=" . $_POST["id"];
+
+        die("");
+
+        // $result = $userModel->update($data, $cond);
+
+        // if($result) {
+        //     return die($this->json(["status" => true, "message" => "Successfully Updated"]));
+        // } else {
+        //     return die($this->json(["errors" => "Cant Updated"], 400));
+        // }
+
+    }
+
+
+    
 
     /**
      * @route   /user/pageCount

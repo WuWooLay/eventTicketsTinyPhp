@@ -48,6 +48,7 @@
 
                 SESSION::init();
                 SESSION::set('auth', [
+                    "id" => $result["data"]["id"],
                     "name" => $result["data"]["name"],
                     "email" => $result["data"]["email"],
                     "image" => $result["data"]["image"],

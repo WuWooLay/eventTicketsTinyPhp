@@ -1,5 +1,3 @@
-<h5 class="mb-4"> User </h5>
-
 <div class="row">
 
     <!-- User Functions -->
@@ -28,8 +26,16 @@
                             data-container="User_Creator_Add_Container"
                             class="list-group-item side_hover user_container_change_click"
                         >
-                            <i class="material-icons text-primary">person_add</i>
+                            <i class="material-icons text-primary">supervised_user_circle</i>
                             CreatorAdd
+                        </a>
+
+                        <a
+                            data-container="User_Admin_Add_Container"
+                            class="list-group-item side_hover user_container_change_click"
+                        >
+                            <i class="material-icons text-primary">verified_user</i>
+                            AdminAdd
                         </a>
 
                     </ul>
@@ -192,9 +198,95 @@
         </div>
         <!-- User Add Container End -->
 
+        <!-- User_Admin Add Container -->
+        <div class="fadeIn d-none" id="User_Admin_Add_Container">
+            <div class="card">
+                
+                <div class="card-header ">
+                <h4> Add Admin </h4>
+                </div>
+
+                <!-- Form Start -->
+                <div class="card-body">
+                
+                <!-- Form -->
+                <form class="mb-3" method="post" id="Admin_Register_Form" data-action="http://eventticket.com/user/insertadmin">
+                
+                    <div class="form-group">
+                        <label for="register_admin_name" class="bmd-label-floating">Name</label>
+                        <input name="name" type="text" class="form-control" id="register_admin_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register_admin_email" class="bmd-label-floating">Email address</label>
+                        <input name="email" type="email" class="form-control" id="register_admin_email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register_admin_password" class="bmd-label-floating">Password</label>
+                        <input name="password" type="password" class="form-control" id="register_admin_password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register_admin_phone" class="bmd-label-floating">Phone</label>
+                        <input name="phone" type="text" class="form-control" id="register_admin_phone">
+                    </div>
+                    
+                    <div>
+                    <button type="submit" class="btn btn-primary btn-raised">Submit</button>
+                    <div id="Admin_Register_Form_Loading" class="lds-dual-ring d-none"></div>
+                    <div id="Admin_Register_Form_Error" class="mt-2">
+                    </div>
+
+                    </div>
+
+                </form>
+                <!-- Form End -->
+
+                </div>
+                <!-- Form End -->
+            </div>
+        </div>
+        <!-- User Add Container End -->
+
         <!-- User Edit Container -->
         <div class="fadeIn d-none" id="User_Edit_Container">
-            <h3> User Edit </h3>
+            <div class="card">
+                    
+                    <div class="card-header ">
+                    <h4> Edit Form </h4>
+                    </div>
+                    
+                    <div class="card-body">
+                        <form class="mb-3" method="post" id="User_Edit_Form" data-action="http://eventticket.com/user/update">
+                    
+                            <input name="id" type="hidden" class="form-control" id="user_edit_id">
+
+                            <div class="form-group">
+                                <input name="name" type="text" class="form-control" id="user_edit_name" placeholder="Name">
+                            </div>
+
+                            <div class="form-group">
+                                <input name="email" type="email" class="form-control" id="user_edit_email"  placeholder="Email">
+                            </div>
+
+                            <div class="form-group">
+                                <input name="phone" type="text" class="form-control" id="user_edit_phone"  placeholder="Phone">
+                            </div>
+                            
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-raised">Submit</button>
+                                <button type="button" class="btn btn-danger btn-raised" id="user_edit_back">Back</button>
+                                <div id="User_Edit_Form_Loading" class="lds-dual-ring d-none"></div>
+                                <div id="User_Edit_Form_Error" class="mt-2">
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+            </div>
+            
         </div>
         <!-- User Edit Container End-->
 

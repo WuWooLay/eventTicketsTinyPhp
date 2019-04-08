@@ -29,6 +29,13 @@
                             Ticket
                         </a>
 
+                        <a
+                            data-container="Profile_Container"
+                            class="list-group-item side_hover container_change_click"
+                        >
+                            <i class="material-icons text-primary">person_pin</i>
+                            Profile
+                        </a>
 
                     </ul>
                 </div>
