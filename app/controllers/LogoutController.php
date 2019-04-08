@@ -18,7 +18,7 @@
         SESSION::init();
         SESSION::destroy();
         
-        header("Location: /");
+        header("Location: " . URL . "/");
         die();
         return die("");
     }

@@ -40,6 +40,6 @@
                     </ul>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="/logout" class="btn btn-danger toLogout"> Logout </a>
+                    <a href="<?= URL ?>/logout" class="btn btn-danger toLogout"> Logout </a>
                 </div>
 </div>

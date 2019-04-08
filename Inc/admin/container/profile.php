@@ -3,17 +3,18 @@
     <!-- User Functions -->
     <div class="col-sm-6 col-md-3 mb-3">
         <div class="card">
-              <div class="image-container" id="profile_image" style="background-image:url(http://eventticket.com/assets/images/logo/homewallpaper.jpg)">
+              <div class="image-container" id="profile_image" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
 
               </div>
               <div class="card-body">
                 <h5 class="card-title" id="profile_card_name">Name</h5>
                 
                 <div>
-                    <form action="" id="Profile_Image_Form" data-action="http://eventticket.com/user/update">
+                    <form enctype="multipart/form-data" id="Profile_Image_Form" data-action="<?= URL ?>/user/updateimage">
+                                <input type="hidden" name="id" value="" id="profile_image_input_id">
                                 <div class="mb-2">
                                     <label for="profile_input" class="profile_image_upload_label"> Image Upload </label>
-                                    <input type="file" class="d-none" id="profile_input">
+                                    <input name="file" type="file" class="d-none" id="profile_input">
                                 </div>
 
                                 <button type="submit" class="btn btn-info bmd-btn-icon active">
@@ -47,7 +48,7 @@
                 <div class="card-body">
                 
                 <!-- Form -->
-                <form class="mb-3" method="post" id="Profile_Form" data-action="http://eventticket.com/user/update">
+                <form class="mb-3" method="post" id="Profile_Form" data-action="<?= URL ?>/user/updateprofile">
                     
                     <input name="id" type="hidden" class="form-control" id="profile_id">
 

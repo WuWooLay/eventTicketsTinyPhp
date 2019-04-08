@@ -26,7 +26,7 @@
 
           <div class="col-sm-6 col-md-3 mb-3">
             <div class="card" style="">
-              <div class="image-container" style="background-image:url(http://eventticket.com/assets/images/logo/homewallpaper.jpg)">
+              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
 
               </div>
               <div class="card-body">
@@ -39,7 +39,7 @@
 
           <div class="col-sm-6 col-md-3 mb-3">
             <div class="card" style="">
-              <div class="image-container" style="background-image:url(http://eventticket.com/assets/images/logo/homewallpaper.jpg)">
+              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
 
               </div>
               <div class="card-body">
@@ -52,7 +52,7 @@
 
           <div class="col-sm-6 col-md-3 mb-3">
             <div class="card" style="">
-              <div class="image-container" style="background-image:url(http://eventticket.com/assets/images/logo/homewallpaper.jpg)">
+              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
 
               </div>
               <div class="card-body">
@@ -65,7 +65,7 @@
 
           <div class="col-sm-6 col-md-3 mb-3">
             <div class="card" style="">
-              <div class="image-container" style="background-image:url(http://eventticket.com/assets/images/logo/homewallpaper.jpg)">
+              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
 
               </div>
               <div class="card-body">
@@ -87,18 +87,18 @@
         <div class="row">
 
           <div class="col-md-4 mb-4 text-center">
-            <img class="Service_Icon" src="http://eventticket.com/assets/images/logo/twentyfourhour.svg" alt="">
+            <img class="Service_Icon" src="<?= URL ?>/assets/images/logo/twentyfourhour.svg" alt="">
             <h4 class="mt-4"> 24/7 </h4>
           </div>
 
           <div class="col-md-4 mb-4 text-center">
-            <img class="Service_Icon" src="http://eventticket.com/assets/images/logo/firstdelivery.svg" alt="">
+            <img class="Service_Icon" src="<?= URL ?>/assets/images/logo/firstdelivery.svg" alt="">
             <h4 class="mt-4"> Fastest </h4>
           </div>
 
 
           <div class="col-md-4 mb-4 text-center">
-            <img class="Service_Icon" src="http://eventticket.com/assets/images/logo/oneclick.svg" alt="">
+            <img class="Service_Icon" src="<?= URL ?>/assets/images/logo/oneclick.svg" alt="">
             <h4 class="mt-4"> OneClick </h4>
           </div>
 
@@ -125,7 +125,7 @@
             <div class="card-body">
             
               <!-- Form -->
-              <form class="mb-4" method="post" id="Login_Form" data-action="/login">
+              <form class="mb-4" method="post" id="Login_Form" data-action="<?= URL ?>/login">
 
                 <div class="form-group">
                   <label for="login_email" class="bmd-label-floating">Email address</label>
@@ -182,7 +182,7 @@
             <div class="card-body">
             
               <!-- Form -->
-              <form class="mb-4" method="post" id="Register_Form" data-action="http://eventticket.com/user/insert">
+              <form class="mb-4" method="post" id="Register_Form" data-action="<?= URL ?>/user/insert">
                
                 <div class="form-group">
                   <label for="register_name" class="bmd-label-floating">Name</label>
@@ -385,7 +385,7 @@
                     } else {
                       console.log("SUccess =>", data);
                       if(data.isValid) {
-                        document.location.href = "/";
+                        document.location.href = "<?= URL ?>" + "/";
                       }
                       
                     }

@@ -35,14 +35,14 @@
         };
         // To Sugger Login Page
         function toLogout() {
-            document.location.href= "/logout";
+            document.location.href= "<?= URL ?>/logout";
         }
 
         // Check Profile 
         function checkProfile() {
-          $.get('http://eventticket.com/login/check', function (data) {
+          $.get('<?=URL?>/login/check', function (data) {
                   console.log(data);
-                  var url = "http://eventticket.com/user/get/" + data.data.id ;
+                  var url = "<?=URL?>/user/get/" + data.data.id ;
                   $.get(url, function (getData) {
                             console.log('Get Editi Profile Data=>', getData);
                             profileFormSet(getData.data);
@@ -53,6 +53,7 @@
         // Set Profile Form Set
         function profileFormSet(obj) {
 
+          $("#profile_image_input_id").val(obj.id);
           $('#profile_id').val(obj.id);
           $('#profile_card_name').html(obj.name);
           $('#profile_name').val(obj.name);
@@ -110,7 +111,7 @@
         function userGet(page = 1) {
             console.log('userGet');
             $.ajax({
-                url: 'http://eventticket.com/user/get?page=' + page,
+                url: '<?=URL?>/user/get?page=' + page,
                 type: 'GET',
                 data:'',
                 contentType: false,
@@ -160,7 +161,7 @@
                                 // Admin
                                 // $.get('/user/check').done();
                                 $.ajax({
-                                    url: '/login/check',
+                                    url: '<?= URL ?>/login/check',
                                     type: 'GET',
                                     contentType: false,
                                     cache: false,
@@ -173,7 +174,7 @@
 
                                         if(data2.data.id == data.id ) {
                                           // Get User Edit Profile
-                                          var url = "http://eventticket.com/user/get/" + data.id ;
+                                          var url = "<?=URL?>/user/get/" + data.id ;
                                           $.get(url, function (getData) {
                                                     console.log('Get Editi Profile Data=>', getData);
                                                     userEditFormSet(getData.data);
@@ -189,7 +190,7 @@
                                 });
                             } else {
                                  // Get User Edit Profile
-                                  var url = "http://eventticket.com/user/get/" + data.id ;
+                                  var url = "<?=URL?>/user/get/" + data.id ;
                                   $.get(url, function (getData) {
                                             console.log('Get Editi Profile Data=>', getData);
                                             userEditFormSet(getData.data);
@@ -450,8 +451,8 @@
                 });
         });
 
-         // All Login_Form Submit 
-         $('#Profile_Form').on('submit', function(e) {
+        // All Login_Form Submit 
+        $('#Profile_Form').on('submit', function(e) {
                 e.preventDefault();
 
                 console.log($(this).data('action'));
@@ -484,10 +485,10 @@
                       console.log("SUccess =>", data);
                       if(data.status) {
                         var success =  '<div class="alert alert-success" role="alert">' + 'Successfull Updated' + '</div>';
-                        userGet();
                         [ 'name', 'email', 'phone'].map( function (value) {
                           $('#profile'+value).val('');
                         });
+                        checkProfile();
                         $("#Profile_Form_Error").html(success);
                       }
                     }
@@ -502,6 +503,63 @@
                         err += '<div class="alert alert-danger" role="alert">' + error + '</div>';
                       });
                       $("#Profile_Form_Error").html(err);
+                    }
+                  }
+                });
+        });
+
+        // All Login_Form Submit 
+        $('#Profile_Image_Form').on('submit', function(e) {
+                e.preventDefault();
+
+                console.log($(this).data('action'));
+
+                var url = $(this).data('action');
+
+                $.ajax({
+                  url: url,
+                  type: 'POST',
+                  data: new FormData(this),
+                  contentType: false,
+                  cache: false,
+                  processData: false,
+                  beforeSend: function() {
+                    $("#Profile_Image_Form_Loading").removeClass('d-none');
+                  },
+                  success: function(data) {
+
+                    if(data.errors) {
+                      console.log("Errors", data.errors);
+                      
+                      var err = "";
+                      data.errors.map(function ( error ) {
+                        err += '<div class="alert alert-danger" role="alert">' + error + '</div>';
+                      });
+                      
+                      $("#Profile_Image_Form_Error").html(err);
+
+                    } else {
+                      console.log("SUccess =>", data);
+                      if(data.status) {
+                        var success =  '<div class="alert alert-success" role="alert">' + 'Successfull Updated' + '</div>';
+                        // [ 'name', 'email', 'phone'].map( function (value) {
+                        //   $('#profile'+value).val('');
+                        // });
+                        checkProfile();
+                        $("#Profile_Image_Form_Error").html(success);
+                      }
+                    }
+                    $("#Profile_Image_Form_Loading").addClass('d-none');
+                  },
+                  error: function(e) {
+                    $("#Profile_Image_Form_Loading").addClass('d-none');
+                    if(e) {
+                      console.log(e.responseJSON);
+                      var err = "";
+                      e.responseJSON.errors.map(function (error) {
+                        err += '<div class="alert alert-danger" role="alert">' + error + '</div>';
+                      });
+                      $("#Profile_Image_Form_Error").html(err);
                     }
                   }
                 });

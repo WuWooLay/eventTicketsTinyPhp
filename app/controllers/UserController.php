@@ -54,7 +54,7 @@
 
             if(!($data["data"])) {
 
-                return die($this->json(['errors'=>'Cant Found'], 400));
+                return die($this->json(['errors'=>['Cant Found']], 400));
 
             } else{
 
@@ -97,7 +97,7 @@
             ];
 
             if(!count($data["data"])) {
-                return die($this->json(["errors"=> "Cant Count!~!"]));
+                return die($this->json(["errors"=> ["Cant Count!~!"]]));
             }
 
             return die($this->json($data));
@@ -248,7 +248,7 @@
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Updated"]));
         } else {
-            return die($this->json(["errors" => "Cant Updated"], 400));
+            return die($this->json(["errors" => ["Cant Updated Email is Already"]], 400));
         }
     }
 
@@ -295,7 +295,7 @@
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Updated"]));
         } else {
-            return die($this->json(["errors" => "Cant Updated"], 400));
+            return die($this->json(["errors" => ["Cant Updated Email is Already"]], 400));
         }
 
     }
@@ -307,12 +307,60 @@
     */ 
     public function updateImage() {
         // Call User Model
-
-        $resultError = Validation::UserInput();
+        
+        $resultError = Validation::ProfileImageInput();
         
         if(!$resultError["isValid"]) {
             return die($this->json($resultError, 400));
         }
+
+            $file = $_FILES["file"]["tmp_name"];
+            // Declare Patch
+            $path = __DIR__ . "/../.././assets/images/profile/";
+            // Get Origininal File's Extension
+            $ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+            // New Name
+            $newName =  "profile" . "_" . date("H_i_s") . "_" . uniqid() . "." . $ext;
+           
+            // die($file . "\n" . $path. "\n" . $newName);
+            // Same Width Height
+            if(move_uploaded_file($file, $path . $newName)) {
+
+                    $data = [
+                        "image" => URL . "/assets/images/profile/" . $newName
+                    ];
+                    
+                    // Call User Model
+                    $userModel = $this->load->model('userModel');
+            
+                    $cond = "id=" . $_POST["id"];
+            
+                    $result = $userModel->update($data, $cond);
+            
+                    if($result) {
+                        return die($this->json(["status" => true, "message" => "Successfully Updated"]));
+                    } else {
+                        return die($this->json(["errors" => ["Cant Updated"]], 400));
+                    }
+                    // $sql = "INSERT INTO `plants` (`id`, `image`, `name`, `price`, `category_id`, `admin_id`, `deleted_at`, `created_at`, `modified_at`) ";
+                    // $sql .= " VALUES (NULL, '/assets/images/plants/" . $newName . "', ";
+                    // $sql .= " '" . $req['name'] . "', '" . $req['price'] . "', ";
+                    // $sql .= " '" . $req['category_id'] ."', '" . $req['admin_id'] . "', NULL, NOW(), NOW())";
+                    
+                    // // die($sql);
+                    // if(mysqli_query($conn, $sql))  {
+                    //     $req["name"] = "";
+                    //     $req["price"] = "";
+                    //     $req['success'][] = "Successfully Uploaded With MoveUploaded";
+                    // } else {
+                    //     $req['errors'][] = "Errors: DB WRONG !";
+                    // } 
+                    die(json_encode("UPLOADED"));
+
+            } else {
+                $err = "Can't Upload Something Wrong";
+                return die($this->json(['errors' => [$err] ], 400));
+            }
 
         // $data = [
         //     "name" => $_POST['name'],

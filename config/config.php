@@ -6,7 +6,7 @@
     //  die(date('Y-m-d H:i:s', time()));
 
     $constant = [
-        "URL" => "http://eventticket.com", // BASE_URL
+        "URL" => "http://localhost/eventticket", // BASE_URL
         "DB_NAME" => "db_events_mvc",
         "HOST_NAME" => "localhost",
         "DB_USER" => "root",

@@ -108,7 +108,7 @@
                 <div class="card-body">
                 
                 <!-- Form -->
-                <form class="mb-3" method="post" id="Register_Form" data-action="http://eventticket.com/user/insert">
+                <form class="mb-3" method="post" id="Register_Form" data-action="<?= URL ?>/user/insert">
                 
                     <div class="form-group">
                         <label for="register_name" class="bmd-label-floating">Name</label>
@@ -159,7 +159,7 @@
                 <div class="card-body">
                 
                 <!-- Form -->
-                <form class="mb-3" method="post" id="Creator_Register_Form" data-action="http://eventticket.com/user/insertcreator">
+                <form class="mb-3" method="post" id="Creator_Register_Form" data-action="<?= URL ?>/user/insertcreator">
                 
                     <div class="form-group">
                         <label for="register_creator_name" class="bmd-label-floating">Name</label>
@@ -210,7 +210,7 @@
                 <div class="card-body">
                 
                 <!-- Form -->
-                <form class="mb-3" method="post" id="Admin_Register_Form" data-action="http://eventticket.com/user/insertadmin">
+                <form class="mb-3" method="post" id="Admin_Register_Form" data-action="<?= URL ?>/user/insertadmin">
                 
                     <div class="form-group">
                         <label for="register_admin_name" class="bmd-label-floating">Name</label>
@@ -258,7 +258,7 @@
                     </div>
                     
                     <div class="card-body">
-                        <form class="mb-3" method="post" id="User_Edit_Form" data-action="http://eventticket.com/user/update">
+                        <form class="mb-3" method="post" id="User_Edit_Form" data-action="<?= URL ?>/user/update">
                     
                             <input name="id" type="hidden" class="form-control" id="user_edit_id">
 
