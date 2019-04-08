@@ -5,7 +5,7 @@
 ?>
    
 <!-- Wrap Container -->
-<div class="mt-4">
+<div class="mt-4 container-fluid">
     <div class="row justify-content-center">
         <div class="col-11 ">
             

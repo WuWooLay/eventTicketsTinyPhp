@@ -140,6 +140,40 @@
     }
 
     /** 
+    * @route   /user/insertcreator 
+    * @desc    Insert Creator
+    */ 
+    public function insertcreator() {
+
+        $resultError = Validation::UserInput();
+        
+        if(!$resultError["isValid"]) {
+            return die($this->json($resultError, 400));
+        }
+
+        $data = [
+            "name" => $_POST['name'],
+            "email" => $_POST['email'],
+            "password" => password_hash($_POST['password'], PASSWORD_DEFAULT) ,
+            "phone" => $_POST['phone'],
+            "address" => (isset($_POST["address"])) ? $_POST["address"] : "",
+            "image" => URL . DEFAULT_USER_IMAGE,
+            "role_id" => 2
+        ];
+        
+        // Call User Model
+        $userModel = $this->load->model('userModel');
+        $result = $userModel->create($data);
+
+        if($result["status"]) {
+            unset($result["data"]["passsword"]);
+            return die($this->json($result));
+        } else {
+            return die($this->json(["errors" => "Cant Inserted!!"], 500));
+        }
+    }
+
+    /** 
     * @route   /user/update
     * @param   {id} => $id from Route
     * @desc    Update User

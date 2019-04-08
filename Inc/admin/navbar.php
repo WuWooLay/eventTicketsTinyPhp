@@ -25,7 +25,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="ex1">
             <button class="dropdown-item container_change_click" data-container="Contact_Container" type="button">Profile</button>
-                <button class="dropdown-item toLogout " data-container="Contact_Container" type="button">Logout</button>
+                <button class="dropdown-item toLogout" data-container="Contact_Container" type="button">Logout</button>
             </div>
         </div>
         </form>
