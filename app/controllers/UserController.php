@@ -129,6 +129,12 @@
         
         // Call User Model
         $userModel = $this->load->model('userModel');
+
+        $existUser = $userModel->findByEmail($_POST['email']);
+        if($existUser[0]) {
+            return die($this->json(['errors' => 'Email already Exist']));
+        }
+
         $result = $userModel->create($data);
 
         if($result["status"]) {
@@ -163,6 +169,12 @@
         
         // Call User Model
         $userModel = $this->load->model('userModel');
+
+        $existUser = $userModel->findByEmail($_POST['email']);
+        if($existUser[0]) {
+            return die($this->json(['errors' => 'Email already Exist']));
+        }
+
         $result = $userModel->create($data);
 
         if($result["status"]) {

@@ -130,7 +130,7 @@
         /**
          * @desc    FindByEmail And Password
          */
-        public function findByEmail($email, $select) {
+        public function findByEmail($email, $select = ['*']) {
             
             if($select == "" || $select == null || $select == false || $select == [])  {
                 $select = ['*'];

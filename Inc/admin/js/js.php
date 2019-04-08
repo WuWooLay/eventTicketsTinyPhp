@@ -121,6 +121,14 @@
                         .data('data', data)
                         .click( function () {
                             console.log('edit');
+                            var data = $(this).data('data');
+                            console.log(data);
+
+                            if(data.id == 1) {
+                                // Admin
+                            } else {
+                                
+                            }
                         })
                     )
             )
