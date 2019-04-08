@@ -181,6 +181,40 @@
         });
 
 
+        // Get And Set Location
+        function setLocation () {
+          var url = "<?=URL?>/location";
+          $.get(url, function (data) {
+            console.log(data.data);
+            data.data.map( function (getData) {
+              $("#ticket_location").append(
+                $('<option>', {value: getData.id}).html(getData.name)
+              );
+            });
+            // return data.data.map( function (data2) {return  data2});
+          });
+        }
+
+        setLocation();
+
+        // Get And Set Category
+        function setCategory () {
+          var url = "<?=URL?>/eventcategory";
+          $.get(url, function (data) {
+            console.log(data.data);
+            data.data.map( function (getData) {
+              $("#ticket_category").append(
+                $('<option>', {value: getData.id}).html(getData.name)
+              );
+            });
+            // return data.data.map( function (data2) {return  data2});
+          });
+        }
+
+        setCategory();
+
+
+
         /**
          *
          * Ticket Start

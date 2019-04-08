@@ -33,13 +33,13 @@
     <div class="col-9">
     
         <!-- Ticket_List_Container Container -->
-        <div class="fadeIn" id="Ticket_List_Container">
+        <div class="fadeIn d-none" id="Ticket_List_Container">
             <h1> Ticket List Container</h1>
         </div>
         <!-- Ticket_List_Container Container End -->
 
         <!-- Ticket_Add_Container Container   -->
-        <div class="fadeIn d-none" id="Ticket_Add_Container">
+        <div class="fadeIn" id="Ticket_Add_Container">
             <div class="card">
                     
                     <div class="card-header ">
@@ -58,28 +58,40 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="ticket_description" class="bmd-label-floating">description</label>
+                                    <label for="ticket_description" class="bmd-label-floating">Description</label>
                                     <input name="description" type="text" class="form-control" id="ticket_description">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="ticket_address" class="bmd-label-floating">address</label>
+                                    <label for="ticket_address" class="bmd-label-floating">Address</label>
                                     <input name="address" type="text" class="form-control" id="ticket_address">
                                 </div>
 
 
                                 <div class="form-group">
-                                    <label for="register_password" class="bmd-label-floating">Password</label>
-                                    <input name="password" type="password" class="form-control" id="register_password">
+                                    <label for="ticket_location" class="bmd-label-floating"> Location </label>
+                                    <select class="form-control" id="ticket_location">
+
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="register_phone" class="bmd-label-floating">Phone</label>
-                                    <input name="phone" type="text" class="form-control" id="register_phone">
+                                    <label for="ticket_category" class="bmd-label-floating"> Category </label>
+                                    <select class="form-control" id="ticket_category">
+
+                                    </select>
                                 </div>
-                                
+
+                                <div class="switch">
+                                    <label>
+                                    <input name="freely_ticket" type="checkbox" checked>
+                                        Free Ticket
+                                    </label>
+                                </div>
+
                                 <div>
                                     <button type="submit" class="btn btn-primary btn-raised">Submit</button>
+                                    <button type="reset" class="btn btn-danger btn-raised">Reset</button>
 
                                     <div id="Ticket_Add_Form_Loading" class="lds-dual-ring d-none"></div>
                                     <div id="Ticket_Add_Form_Error" class="mt-2">
