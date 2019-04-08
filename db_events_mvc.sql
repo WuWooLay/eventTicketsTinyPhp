@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2019 at 01:22 AM
+-- Generation Time: Apr 08, 2019 at 09:43 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -21,6 +21,57 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_events_mvc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_category`
+--
+
+CREATE TABLE `event_category` (
+  `id` tinyint(4) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `event_category`
+--
+
+INSERT INTO `event_category` (`id`, `name`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(1, 'Art', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(2, 'Busniess', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(3, 'Concerts', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(4, 'Exhibition', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(5, 'Festivals', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(6, 'Meetups', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(7, 'Parties', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(8, 'Performance', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL),
+(9, 'Sports', '2019-04-08 19:33:46', '0000-00-00 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location`
+--
+
+CREATE TABLE `location` (
+  `id` tinyint(4) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` int(11) DEFAULT NULL,
+  `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `location`
+--
+
+INSERT INTO `location` (`id`, `name`, `created_at`, `deleted_at`, `modified_at`) VALUES
+(1, 'Yangon', '2019-04-08 19:02:13', NULL, '0000-00-00 00:00:00'),
+(2, 'Mandalay', '2019-04-08 19:02:13', NULL, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -132,17 +183,24 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `address`, `image`, `phone`, `role_id`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(1, 'lwin', 'email@gmail.com', '$2y$10$x/IjNrSBrOi4k5VREhG65uZpiBA4Sce.88F9Aio9crmp9tARnVmy.', 'Address', 'http://eventticket.com/assets/images/logo/default.png', 'phone', 3, '2019-04-05 11:13:48', '0000-00-00 00:00:00', NULL),
-(2, 'Lwin ', 'lwin@lwin.com', '$2y$10$C.0W.BMJ7GaS6YNvSuRuIuymjNvOWYKg28MFw5xoS2Ohil6OCMBxe', '', 'http://eventticket.com/assets/images/logo/default.svg', '09420059241', 1, '2019-04-07 21:25:43', '0000-00-00 00:00:00', NULL),
-(3, 'Lwin ', 'lwin@lwin.com', '$2y$10$HYXVbrGvFjB72XRF83e1EOoXWB6YifW1NwQEan2yYaufpI/7OHtv2', '', 'http://eventticket.com/assets/images/logo/default.svg', '09420059241', 1, '2019-04-07 21:27:16', '0000-00-00 00:00:00', NULL),
-(4, 'admin_readmal', 'user1@gmail.com', '$2y$10$FYzBhDJ14qns/dF5cL1GOOvyAvBxzEfr3QfRXirth1aCHIFgjZB1O', '', 'http://eventticket.com/assets/images/logo/default.svg', '09420025944', 1, '2019-04-07 21:27:28', '0000-00-00 00:00:00', NULL),
-(5, 'admin_readmal', 'user1@gmail.com', '$2y$10$pcd400lYs6Z17dGZ67OtsO2tEnoqVolqgMJORFbsm5J8kpq/pL7I.', '', 'http://eventticket.com/assets/images/logo/default.svg', '123456', 1, '2019-04-07 21:28:57', '0000-00-00 00:00:00', NULL),
-(6, 'admin_readmal', 'user1@gmail.com', '$2y$10$UCJ4VxKhZvzchIF7OjKcfeVgaT2uSqD6wOl.v958MgwciKrchmwGy', '', 'http://eventticket.com/assets/images/logo/default.svg', '123456', 1, '2019-04-07 21:30:36', '0000-00-00 00:00:00', NULL),
-(7, 'asfsfsf', 'user1@gmail.com', '$2y$10$RFLGiehOzF1AP7JRUChwKecZqCdAklw7JtuvChQzhGocS/1ZLU/GG', '', 'http://eventticket.com/assets/images/logo/default.svg', '123456', 1, '2019-04-07 21:31:04', '0000-00-00 00:00:00', NULL);
+(1, 'Not Lwin', 'email@gmail.com', '$2y$10$x/IjNrSBrOi4k5VREhG65uZpiBA4Sce.88F9Aio9crmp9tARnVmy.', NULL, 'http://localhost/eventticket/assets/images/logo/default.svg', '09420059241', 3, '2019-04-08 16:22:05', '0000-00-00 00:00:00', NULL),
+(2, 'Dawi', 'creator@gmail.com', '$2y$10$1BsdiGuFxiiUdd8WZJusLeamU/qWNJHdx4X8kbXLN88sPHl82DL62', '', 'http://localhost/eventticket/assets/images/profile/profile_00_26_43_5cab8b5bc4cff.jpg', '09420059241', 2, '2019-04-08 16:37:04', '0000-00-00 00:00:00', NULL);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `event_category`
+--
+ALTER TABLE `event_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `location`
+--
+ALTER TABLE `location`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `order_status`
@@ -166,11 +224,24 @@ ALTER TABLE `testing_table`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `event_category`
+--
+ALTER TABLE `event_category`
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `location`
+--
+ALTER TABLE `location`
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -194,7 +265,7 @@ ALTER TABLE `testing_table`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

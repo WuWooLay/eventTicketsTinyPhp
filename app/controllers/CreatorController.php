@@ -15,13 +15,14 @@
     }
 
     /**
-     * @desc    If User Call Only Controller
+     * @desc    If Crator Index Call Only Controller
      *          & We Don't Get Method And Params
      *          & Default Method is Index();
      */
+   
     public function index() {
-        echo "Creator Home";
-        die();
+        Middleware::isAuthForCreator();
+        return $this->load->view('creator/home');
     }
 
     /** 

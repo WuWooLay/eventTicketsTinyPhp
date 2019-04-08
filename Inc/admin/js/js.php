@@ -216,6 +216,24 @@
                             if(user.id == 1 ) {
                                 alert(' This is Super Admin Cant Delete ');
                                 return false;
+                            } else if( user.id == <?= $_SESSION['auth']['id']?> ) {
+                                alert("is YOu");
+                                return false;
+                            } else {
+                                console.log();
+                                var containerRow = $($(this).parent()).parent();
+                                var url = "<?= URL ?>/user/delete";
+                                $.post(url, { id: user.id })
+                                .done(function(data){ 
+                                  console.log(data);
+                                  if(data.status) {
+                                    $(containerRow).remove();
+                                  }
+                                })
+                                .fail(function(xhr, status, error) {
+                                    console.log(error);
+                                });
+
                             }
                         })
                     )

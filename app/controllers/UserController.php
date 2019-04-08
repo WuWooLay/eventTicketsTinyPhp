@@ -141,7 +141,7 @@
             unset($result["data"]["passsword"]);
             return die($this->json($result));
         } else {
-            return die($this->json(["errors" => "Cant Inserted!!"], 400));
+            return die($this->json(["errors" => ["Cant Inserted!!"]], 400));
         }
     }
 
@@ -181,7 +181,7 @@
             unset($result["data"]["passsword"]);
             return die($this->json($result));
         } else {
-            return die($this->json(["errors" => "Cant Inserted!!"], 400));
+            return die($this->json(["errors" => ["Cant Inserted!!"]], 400));
         }
     }
 
@@ -221,7 +221,7 @@
             unset($result["data"]["passsword"]);
             return die($this->json($result));
         } else {
-            return die($this->json(["errors" => "Cant Inserted!!"], 400));
+            return die($this->json(["errors" => ["Cant Inserted!!"]], 400));
         }
     }
 
@@ -266,7 +266,7 @@
         if($result) {
             return die($this->json(["status" => true, "message" => "Successfully Deleted"]));
         } else {
-            return die($this->json(["errors" => "Cant Deleted"], 400));
+            return die($this->json(["errors" => ["Cant Deleted"]], 400));
         }
 
     }
@@ -384,9 +384,6 @@
         // }
 
     }
-
-
-    
 
     /**
      * @route   /user/pageCount

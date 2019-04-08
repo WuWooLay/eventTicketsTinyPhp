@@ -86,9 +86,32 @@
                 return true;
             }  else {
                 $User = SESSION::get('auth');
-                if(!$User['role_id'] == 'admin') {
+                
+                if( $User['role_name'] != 'admin') {
                     header("Location:" . URL . "/" );
+                    return die("");
                 }
+
+                return true;
+            }
+
+        }
+
+        public static function isAuthForCreator() {
+
+             SESSION::init();
+            if(SESSION::get('auth') == false) {
+                SESSION::destroy();
+                header("Location:" . URL . "/" );
+                return true;
+            }  else {
+                $User = SESSION::get('auth');
+                
+                if( $User['role_name'] != 'creator') {
+                    header("Location:" . URL . "/" );
+                    return die("");
+                }
+                
                 return true;
             }
 
