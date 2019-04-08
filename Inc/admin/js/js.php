@@ -58,6 +58,67 @@
               $('#'+container).removeClass('d-none');
         });
 
+        userGet();
+
+
+        function userGet() {
+            console.log('userGet');
+            $.ajax({
+                url: 'http://eventticket.com/user/get',
+                type: 'GET',
+                data:'',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                   if(data) {
+                       console.log(data);
+                       $('#user_table_body > tr').remove();
+                       data.data.map( function (user)  {
+                        userListTable(user).appendTo("#user_table_body");
+                       } );
+                   }
+                },
+                error: function(e) {
+                   console.log(e);
+                }
+            });
+        }
+
+        function userListTable(data) {
+            return $('<tr>')
+            .append(
+                $('<th>').html(data.id)
+            )
+            .append(
+                $('<td>').html(data.name)
+            )
+            .append(
+                $('<td>').html(data.role_name)
+            )
+            .append(
+                $('<td>')
+                    .append(
+                        $('<button>', {class: 'btn btn-success'})
+                        .html('<i class="material-icons medium">edit</i>')
+                        .click( function () {
+                            console.log('edit');
+                        })
+                    )
+            )
+            .append(
+                $('<td>')
+                    .append(
+                        $('<button>', {class: 'btn btn-danger'})
+                        .html('<i class="material-icons medium">delete</i>')
+                        .click( function () {
+                            console.log('delete');
+                        })
+                    )
+            );
+                             
+        }
+
 
     });
 

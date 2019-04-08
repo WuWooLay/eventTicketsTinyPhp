@@ -36,14 +36,15 @@
         <!-- User List Container -->
         <div class="fadeIn" id="User_List_Container">
             
-            <div class="row">
+            <div class="row justify-content-end">
                 <div class="col-md-3 col-lg-2">
-                    <form action="">
-                        <div class="form-group">
-                            <label for="user_page">PageNumber</label>
-                            <input type="number" class="form-control" id="user_page">
-                        </div>
-                    </form>
+                    <div class="input-group mb-3">
+                    
+                        <input type="text" class="form-control" value=1 aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-sm btn-outline-primary" type="button">/<span>2</span></button>
+                        </div>  
+                    </div>
                 </div>
             </div>
 
@@ -54,30 +55,30 @@
                         <thead>
                             <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nmae</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Ban</th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="user_table_body">
                             <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>
+                                    <button type="button" class="btn btn-success">
+                                        <i class="material-icons medium">edit</i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="material-icons medium">delete</i>
+                                    </button>
+                                </td>
                             </tr>
-                            <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            </tr>
+                           
                         </tbody>
 
                     </table>
