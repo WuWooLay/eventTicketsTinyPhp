@@ -474,20 +474,20 @@
           console.log('ticketCheck =>', obj);
           $("#ticket_check_image").css('background-image', 'url('+obj.image+')');
           $("#ticket_check_title").html(obj.title);
-          $("#ticket_check_description").html('Description : ' + obj.description);
-          $("#ticket_check_address").html("Address : "+obj.address);
-          $("#ticket_check_place").html('Location : ' + obj.event_category_name + ' in ' + obj.location_name);
-          $("#ticket_check_start_date").html('Start Date : '+obj.start_date);
-          $("#ticket_check_end_date").html('End Date : '+obj.end_date);
-          $("#ticket_check_status").html('Status : '+ (obj.status_name));
-          $("#ticket_check_free_ticket").html('Free : '+ JSON.stringify(obj.free_ticket == "1").toUpperCase());
+          $("#ticket_check_description").html( obj.description);
+          $("#ticket_check_address").html(obj.address);
+          $("#ticket_check_place").html(obj.event_category_name + ' in ' + obj.location_name);
+          $("#ticket_check_start_date").html(obj.start_date);
+          $("#ticket_check_end_date").html(obj.end_date);
+          $("#ticket_check_status").html((obj.status_name));
+          $("#ticket_check_free_ticket").html(JSON.stringify(obj.free_ticket == "1").toUpperCase());
           
-          $("#ticket_check_ga_price").html('Ga Price : '+ (obj.ticket_list.ga_price) + " Kyats");
-          $("#ticket_check_ga_quantity").html('Ga Quantity : '+ (obj.ticket_list.ga_quantity) );
-          $("#ticket_check_vip_price").html('Vip Price : '+ (obj.ticket_list.vip_price) + " Kyats");
-          $("#ticket_check_vip_quantity").html('Vip Quantity : '+ (obj.ticket_list.vip_quantity) );
-          $("#ticket_check_vvip_price").html('Vvip Price : '+ (obj.ticket_list.vvip_price) + " Kyats");
-          $("#ticket_check_vvip_quantity").html('Vvip Quantity : '+ (obj.ticket_list.vvip_quantity) );
+          $("#ticket_check_ga_price").html( (obj.ticket_list.ga_price) + " Kyats");
+          $("#ticket_check_ga_quantity").html((obj.ticket_list.ga_quantity) );
+          $("#ticket_check_vip_price").html((obj.ticket_list.vip_price) + " Kyats");
+          $("#ticket_check_vip_quantity").html( (obj.ticket_list.vip_quantity) );
+          $("#ticket_check_vvip_price").html((obj.ticket_list.vvip_price) + " Kyats");
+          $("#ticket_check_vvip_quantity").html( (obj.ticket_list.vvip_quantity) );
 
           allTicketContainerClose();
           $("#Ticket_Check_Container").removeClass('d-none');

@@ -314,7 +314,7 @@
             <div class="card">
                     
                     <div class="card-header ">
-                        <h4> Detail Ticket </h4>
+                        <h4>  Ticket Detail </h4>
                     </div>
 
                     <div 
@@ -326,32 +326,91 @@
 
                     <!--  Start -->
                     <div class="card-body">
-                        <h5 class="card-title" id="ticket_check_title">Card title</h5>
-                        <p class="card-text" id="ticket_check_description"></p>
-                        <p class="card-text" id="ticket_check_place"></p>
-                        <p class="card-text" id="ticket_check_address"></p>
-                        <p class="card-text" id="ticket_check_start_date"></p>
-                        <p class="card-text" id="ticket_check_end_date"></p>
-                        <p class="card-text" id="ticket_check_status"></p>
-                        <p class="card-text" id="ticket_check_free_ticket"></p>
+                         <!-- All List -->
+                         <div class="container-fluid table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Title</td> <td id="ticket_check_title"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Description</td> <td id="ticket_check_description"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Location</td> <td id="ticket_check_place"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address</td> <td id="ticket_check_address"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Start Date</td> <td id="ticket_check_start_date"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>End Date</td> <td id="ticket_check_end_date"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status</td> <td id="ticket_check_status"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Free</td> <td id="ticket_check_free_ticket"> </td>
+                                        </tr>
+                                    </table>
+                        </div>
+                        <!-- All List End -->
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item" id=""> Ga Ticket</li>
-                            <li class="list-group-item" id="ticket_check_ga_price"></li>
-                            <li class="list-group-item" id="ticket_check_ga_quantity"></li>
-                        </ul>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- Ga -->
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td colspan="2"> Ga Ticket</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ga Price</td> <td id="ticket_check_ga_price"> 100 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ga Quantity </td> <td id="ticket_check_ga_quantity"> 200 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- Ga End -->
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item" id=""> VIP Ticket</li>
-                            <li class="list-group-item" id="ticket_check_vip_price"></li>
-                            <li class="list-group-item" id="ticket_check_vip_quantity"></li>
-                        </ul>
+                                <!-- vip -->
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td colspan="2"> Vip Ticket</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vip Price</td> <td id="ticket_check_vip_price"> 100 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vip Quantity </td> <td id="ticket_check_vip_quantity"> 200 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- vip End -->
 
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item" id=""> VVIP Ticket</li>
-                            <li class="list-group-item" id="ticket_check_vvip_price"></li>
-                            <li class="list-group-item" id="ticket_check_vvip_quantity"></li>
-                        </ul>
+                                <!-- vvip -->
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td colspan="2"> Vvip Ticket</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vvip Price</td> <td id="ticket_check_vvip_price"> 100 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vvip Quantity </td> <td id="ticket_check_vvip_quantity"> 200 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- vvip End -->
+
+                                
+                            </div>
+                        </div>
+                        
                       
                         <!-- <p class="card-text" id="ticket_check_end_date"></p> -->
                     </div>
