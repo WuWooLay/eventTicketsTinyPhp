@@ -117,6 +117,26 @@
 
         }
 
+        public static function isAuthForUser() {
+
+            SESSION::init();
+           if(SESSION::get('auth') == false) {
+               SESSION::destroy();
+               header("Location:" . URL . "/" );
+               return true;
+           }  else {
+               $User = SESSION::get('auth');
+               
+               if( $User['role_name'] != 'user') {
+                   header("Location:" . URL . "/" );
+                   return die("");
+               }
+               
+               return true;
+           }
+
+       }
+
         
 
     }

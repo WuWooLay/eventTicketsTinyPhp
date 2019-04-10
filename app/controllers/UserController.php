@@ -20,7 +20,9 @@
      *          & Default Method is Index();
      */
     public function index() {
-        
+        Middleware::isAuthForUser();
+
+        return $this->load->view('user/home');
     }
 
     /** 
