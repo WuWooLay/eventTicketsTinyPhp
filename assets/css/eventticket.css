@@ -107,6 +107,14 @@
     background-repeat: no-repeat;
 }
 
+.card > .image-container-check {
+    height: 200px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
 /* Side Left HOver */
 
 .side_hover:hover {
@@ -122,5 +130,16 @@
     border-style: dashed;
     padding: 0.5em;
     margin: 0;
+    width: 100%;
     cursor: pointer;
+}
+
+.table_image_icon {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50px;
 }

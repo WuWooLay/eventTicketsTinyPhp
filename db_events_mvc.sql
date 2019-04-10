@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2019 at 09:43 PM
+-- Generation Time: Apr 10, 2019 at 11:56 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -161,6 +161,70 @@ INSERT INTO `testing_table` (`id`, `name`, `title`, `created_at`, `deleted_at`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ticket`
+--
+
+CREATE TABLE `ticket` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` text NOT NULL,
+  `address` text NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `event_category_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `start_date` varchar(50) NOT NULL,
+  `end_date` varchar(50) NOT NULL,
+  `free_ticket` tinyint(4) NOT NULL,
+  `image` varchar(150) NOT NULL,
+  `status` int(11) NOT NULL,
+  `ga` tinyint(4) NOT NULL,
+  `ga_price` double NOT NULL,
+  `ga_quantity` int(5) NOT NULL,
+  `vip` tinyint(4) NOT NULL,
+  `vip_price` double NOT NULL,
+  `vip_quantity` int(5) NOT NULL,
+  `vvip` int(11) NOT NULL,
+  `vvip_price` double NOT NULL,
+  `vvip_quantity` int(5) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`id`, `title`, `description`, `address`, `location_id`, `event_category_id`, `user_id`, `start_date`, `end_date`, `free_ticket`, `image`, `status`, `ga`, `ga_price`, `ga_quantity`, `vip`, `vip_price`, `vip_quantity`, `vvip`, `vvip_price`, `vvip_quantity`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(1, 'á€„á€«á€Ÿá€¬ á€˜á€¬á€œá€²?', '(á€»á€•á€­á€³á€„á€¹á€•á€¼á€²á€á€„á€¹á€á€á³á€³á€±á€œá€¸á€»á€–á€…á€¹á€•á€«á€žá€Šá€¹á‹) á€…á€¬á€±á€›á€¸á€žá€° á€žá€„á€¹á€‡á€¬á€™á€¯á€­á€¸á€¥á€®á€¸  - á€žá€›á€²á€±á€»á€á€¬á€€á€¹á€žá€Šá€¹á€·á€Š', 'eee', 1, 3, 2, '2019-04-11  2:00:00 pm', '2019-04-12  2:00:00 pm', 0, 'http://localhost/eventticket/assets/images/ticket/ticket_14_41_50_5cada546c8ea9.png', 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-10 08:11:50', '0000-00-00 00:00:00', NULL),
+(2, 'á€žá¾á€€á¤á€”á€¹á€á€±á€…á¦á¦( April Ghost)(á€žá¾á€€á¤á€”á€¹á€á€á³á€³á€á€¯á€­)', '(á€»á€•á€­á€³á€„á€¹á€•á€¼á€²á€á€„á€¹á€á€á³á€³á€±á€œá€¸á€»á€–á€…á€¹á€•á€«á€žá€Šá€¹á‹) á€…á€¬á€±á€›á€¸á€žá€° á€¡á€®á€±á€€á€¼á€á€¬  - á€žá¾á€€á¤á€”á€¹á€á€±á€…á¦', 'eee', 1, 1, 2, '2019-04-10  3:00:00 pm', '2019-04-12  3:00:00 pm', 1, 'http://localhost/eventticket/assets/images/ticket/ticket_15_13_10_5cadac9e6c951.jpg', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-10 08:43:10', '0000-00-00 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticket_status`
+--
+
+CREATE TABLE `ticket_status` (
+  `id` tinyint(4) NOT NULL,
+  `name` varchar(80) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ticket_status`
+--
+
+INSERT INTO `ticket_status` (`id`, `name`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(1, 'pending', '2019-04-09 17:08:21', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'success', '2019-04-09 17:08:21', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'reject', '2019-04-09 17:08:30', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -183,8 +247,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `address`, `image`, `phone`, `role_id`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(1, 'Not Lwin', 'email@gmail.com', '$2y$10$x/IjNrSBrOi4k5VREhG65uZpiBA4Sce.88F9Aio9crmp9tARnVmy.', NULL, 'http://localhost/eventticket/assets/images/logo/default.svg', '09420059241', 3, '2019-04-08 16:22:05', '0000-00-00 00:00:00', NULL),
-(2, 'Dawi', 'creator@gmail.com', '$2y$10$1BsdiGuFxiiUdd8WZJusLeamU/qWNJHdx4X8kbXLN88sPHl82DL62', '', 'http://localhost/eventticket/assets/images/profile/profile_00_26_43_5cab8b5bc4cff.jpg', '09420059241', 2, '2019-04-08 16:37:04', '0000-00-00 00:00:00', NULL);
+(1, 'Superman', 'email@gmail.com', '$2y$10$x/IjNrSBrOi4k5VREhG65uZpiBA4Sce.88F9Aio9crmp9tARnVmy.', NULL, 'http://localhost/eventticket/assets/images/profile/profile_12_04_16_5cac2ed85819d.jpg', '09420059241', 3, '2019-04-08 16:22:05', '0000-00-00 00:00:00', NULL),
+(2, 'CreatorLay', 'creator@gmail.com', '$2y$10$1BsdiGuFxiiUdd8WZJusLeamU/qWNJHdx4X8kbXLN88sPHl82DL62', '', 'http://localhost/eventticket/assets/images/profile/profile_21_34_30_5cacb47e8b23d.jpg', '09420059241', 2, '2019-04-08 16:37:04', '0000-00-00 00:00:00', NULL);
 
 --
 -- Indexes for dumped tables
@@ -218,6 +282,18 @@ ALTER TABLE `role`
 -- Indexes for table `testing_table`
 --
 ALTER TABLE `testing_table`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ticket`
+--
+ALTER TABLE `ticket`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ticket_status`
+--
+ALTER TABLE `ticket_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -260,6 +336,18 @@ ALTER TABLE `role`
 --
 ALTER TABLE `testing_table`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `ticket`
+--
+ALTER TABLE `ticket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `ticket_status`
+--
+ALTER TABLE `ticket_status`
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`

@@ -1,7 +1,7 @@
 <div class="row">
 
     <!-- User Functions -->
-    <div class="col-3">
+    <div class="col-sm-6 mb-3 col-md-3">
         <div class="card">
                 <div class="card-body">
                     <ul class="list-group">
@@ -21,6 +21,7 @@
                             <i class="material-icons text-primary">person_add</i>
                             TicketAdd
                         </a>
+                        
 
                     </ul>
                 </div>
@@ -30,16 +31,59 @@
     <!-- User Functions End -->
 
     
-    <div class="col-9">
+    <div class="col-sm-6 mb-3 col-md-9">
     
         <!-- Ticket_List_Container Container -->
-        <div class="fadeIn d-none" id="Ticket_List_Container">
-            <h1> Ticket List Container</h1>
+        <div class="fadeIn" id="Ticket_List_Container">
+            
+            <div class="row justify-content-end">
+                <div class="col-md-3 col-lg-2">
+                    <div class="input-group mb-3">
+                    
+                        <input
+                            type="text"
+                            class="form-control" 
+                            value="1" 
+                            aria-label="Default" 
+                            aria-describedby="inputGroup-sizing-default"
+                            id="ticket_list_get_input"
+                         >
+                        <div class="input-group-prepend">
+                            <button class="btn btn-sm btn-outline-primary" type="button" id="ticket_list_get">
+                                /<span id="ticket_list_get_total_page"> 0 </span>
+                            </button>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table COntainer -->
+            <div class="table-responsive">
+                    <table class="table table-hover " id="Ticket_List_Table">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Detail</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="ticket_table_body">
+                           
+                        </tbody>
+
+                    </table>
+            </div>
+            <!-- Table COntainer End-->
+
         </div>
         <!-- Ticket_List_Container Container End -->
 
         <!-- Ticket_Add_Container Container   -->
-        <div class="fadeIn" id="Ticket_Add_Container">
+        <div class="fadeIn d-none" id="Ticket_Add_Container">
             <div class="card">
                     
                     <div class="card-header ">
@@ -50,7 +94,15 @@
                     <div class="card-body">
                     
                         <!-- Form -->
-                            <form class="mb-3" method="post" id="Ticket_Add_Form" data-action="<?= URL ?>/user/insert">
+                            <form 
+                                class="mb-3" 
+                                method="post" 
+                                id="Ticket_Add_Form" 
+                                data-action="<?= URL ?>/ticket/insert"
+                                enctype="multipart/form-data"
+                            >   
+
+                                <input type="hidden" name="user_id" value="<?= $_SESSION["auth"]["id"] ?>">
                             
                                 <div class="form-group">
                                     <label for="ticket_title" class="bmd-label-floating">Title</label>
@@ -70,28 +122,176 @@
 
                                 <div class="form-group">
                                     <label for="ticket_location" class="bmd-label-floating"> Location </label>
-                                    <select class="form-control" id="ticket_location">
+                                    <select class="form-control" id="ticket_location" name="location_id">
 
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="ticket_category" class="bmd-label-floating"> Category </label>
-                                    <select class="form-control" id="ticket_category">
+                                    <select class="form-control" id="ticket_category" name="event_category_id">
 
                                     </select>
                                 </div>
 
+                                <!-- Date -->
+                                <div class="container-fluid mb-3">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>Start Date</h5>
+                                            <input 
+                                                name="start_date"
+                                             placeholder="Choose Date"
+                                             id="ticket_start_date"
+                                             class="c-datepicker-input profile_image_upload_label"
+                                            />
+                                        </div>
+
+                                        <div class="col-6">
+                                            <h5>End Date</h5>
+                                            <input 
+                                             name="end_date"
+                                             placeholder="Choose Date"
+                                             id="ticket_end_date"  
+                                             class="c-datepicker-input profile_image_upload_label"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Date End -->
+
+                                <!-- Free Ticket Handler -->
                                 <div class="switch">
                                     <label>
-                                    <input name="freely_ticket" type="checkbox" checked>
+                                    <input
+                                        id="Free_Ticket" 
+                                        name="freely_ticket_handler"
+                                        type="checkbox" 
+                                        checked
+                                    >
                                         Free Ticket
                                     </label>
-                                </div>
 
+                                    <input type="text" class="d-none" id="free_ticket_value" name="free_ticket" value="true">
+                                </div>
+                                <!-- Free Ticket Handler -->
+                                
+
+                                <!-- Not Free Ticket -->
+                                <div class="container-fluid fadeIn d-none" id="Ga_Container">
+                                    <div class="row">
+
+                                        <!-- Ga -->
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card">
+
+                                                    <div class="card-header">
+                                                        <h6> Ga </h6>
+                                                    </div>
+
+                                                    <div class="card-body pt-1">
+
+                                                        <div class="switch">
+                                                                <label>
+                                                                <input name="ga_handler" type="checkbox" id="ga_handler">
+                                                                    Ga
+                                                                </label>
+                                                                <input type="text" class="d-none" name="ga" value="false" id="ga_value">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ticket_ga" class="bmd-label-floating">Price</label>
+                                                            <input name="ga_price" type="number" class="form-control" id="ticket_ga" value="0" readonly="readonly">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ticket_ga_quantity" class="bmd-label-floating">Count</label>
+                                                            <input name="ga_quantity" type="number" class="form-control" id="ticket_ga_quantity" value="0" readonly="readonly">
+                                                        </div>
+
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!-- Ga End -->
+
+                                         <!-- Vip -->
+                                         <div class="col-md-6 mb-3">
+                                            <div class="card">
+
+                                                    <div class="card-header">
+                                                        <h6> VIP </h6>
+                                                    </div>
+
+                                                    <div class="card-body pt-1">
+
+                                                        <div class="switch">
+                                                                <label>
+                                                                <input name="vip_handler" type="checkbox" id="vip_handler">
+                                                                    VIP
+                                                                </label>
+                                                                <input type="text" class="d-none" name="vip" value="false" id="vip_value">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ticket_vip" class="bmd-label-floating">Price</label>
+                                                            <input name="vip_price" type="number" class="form-control" id="ticket_vip" value="0" readonly="readonly">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ticket_vip_quantity" class="bmd-label-floating">Count</label>
+                                                            <input name="vip_quantity" type="number" class="form-control" id="ticket_vip_quantity" value="0" readonly="readonly">
+                                                        </div>
+
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!-- Vip End -->
+
+                                         <!-- VVIP -->
+                                         <div class="col-md-6 mb-3">
+                                            <div class="card">
+
+                                                    <div class="card-header">
+                                                        <h6> VVIP </h6>
+                                                    </div>
+
+                                                    <div class="card-body pt-1">
+
+                                                        <div class="switch">
+                                                                <label>
+                                                                <input name="vvip_handler" type="checkbox" id="vvip_handler">
+                                                                    VVIP
+                                                                </label>
+                                                                <input type="text" class="d-none" name="vvip" value="false" id="vvip_value">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ticket_vvip" class="bmd-label-floating">Price</label>
+                                                            <input name="vvip_price" type="number" class="form-control" id="ticket_vvip" value="0" readonly="readonly">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ticket_vvip_quantity" class="bmd-label-floating">Count</label>
+                                                            <input name="vvip_quantity" type="number" class="form-control" id="ticket_vvip_quantity" value="0" readonly="readonly">
+                                                        </div>
+
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!-- VVIP End -->
+
+                                    </div>
+                                </div>
+                                <!-- Not Free Ticket End -->
+
+                                <div class="mb-5 mt-5">
+                                    <label for="ticket_image" class="profile_image_upload_label"> Image Upload </label>
+                                    <input name="file" type="file" class="d-none" id="ticket_image">
+                                </div>
+                               
                                 <div>
                                     <button type="submit" class="btn btn-primary btn-raised">Submit</button>
-                                    <button type="reset" class="btn btn-danger btn-raised">Reset</button>
+                                    <button type="reset" class="btn btn-danger btn-raised"> Clear </button>
 
                                     <div id="Ticket_Add_Form_Loading" class="lds-dual-ring d-none"></div>
                                     <div id="Ticket_Add_Form_Error" class="mt-2">
@@ -108,7 +308,59 @@
                 </div>
         </div>
         <!-- Ticket_Add_Container Container End  -->
-    </div>
+
+        <!-- Ticket Check Container -->
+        <div class="fadeIn d-none" id="Ticket_Check_Container">
+            <div class="card">
+                    
+                    <div class="card-header ">
+                        <h4> Detail Ticket </h4>
+                    </div>
+
+                    <div 
+                        id="ticket_check_image"
+                        class="image-container-check" 
+                        style="background-image:url(http://localhost/eventticket/assets/images/logo/homewallpaper.jpg)"
+                    >
+                    </div>
+
+                    <!--  Start -->
+                    <div class="card-body">
+                        <h5 class="card-title" id="ticket_check_title">Card title</h5>
+                        <p class="card-text" id="ticket_check_description"></p>
+                        <p class="card-text" id="ticket_check_place"></p>
+                        <p class="card-text" id="ticket_check_address"></p>
+                        <p class="card-text" id="ticket_check_start_date"></p>
+                        <p class="card-text" id="ticket_check_end_date"></p>
+                        <p class="card-text" id="ticket_check_status"></p>
+                        <p class="card-text" id="ticket_check_free_ticket"></p>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" id=""> Ga Ticket</li>
+                            <li class="list-group-item" id="ticket_check_ga_price"></li>
+                            <li class="list-group-item" id="ticket_check_ga_quantity"></li>
+                        </ul>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" id=""> VIP Ticket</li>
+                            <li class="list-group-item" id="ticket_check_vip_price"></li>
+                            <li class="list-group-item" id="ticket_check_vip_quantity"></li>
+                        </ul>
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" id=""> VVIP Ticket</li>
+                            <li class="list-group-item" id="ticket_check_vvip_price"></li>
+                            <li class="list-group-item" id="ticket_check_vvip_quantity"></li>
+                        </ul>
+                      
+                        <!-- <p class="card-text" id="ticket_check_end_date"></p> -->
+                    </div>
+                    <!--  End -->
+
+                </div>
+        </div>
+        <!-- Ticket Check Container End-->
+        </div>
 
 
 </div>

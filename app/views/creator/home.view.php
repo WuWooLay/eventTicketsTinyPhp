@@ -27,7 +27,6 @@
                             <?php include "./Inc/creator/container/dashboard.php" ?>
                     </div>
                     <!-- Dashboard Container End -->
-                
 
                     <!-- Ticket Container  -->
                     <div id="Ticket_Container" class="fadeIn d-none">

@@ -27,12 +27,8 @@ class Database extends PDO {
     public function select ($sql, $data = array(), $fetchStyle = parent::FETCH_ASSOC) {
         
         $stmt = $this->prepare($sql);
-        
-        foreach($data as $key => $value ){
-            $stmt->bindParam($key, $value);
-        }
 
-        $stmt->execute();
+        $stmt->execute($data);
         return $stmt->fetchAll($fetchStyle);
     }
 
@@ -159,7 +155,8 @@ class Database extends PDO {
         
         $sql = "SELECT COUNT(*) FROM $table $cond";
         // $sql = "SELECT COUNT(*) FROM $table WHERE `deleted_at` IS NULL";
-        
+        // die($sql);
+
         $stmt = $this->prepare($sql);
         $stmt->execute();
         $no_of_row = $stmt->fetchColumn();
