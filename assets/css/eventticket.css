@@ -143,3 +143,22 @@
     background-repeat: no-repeat;
     border-radius: 50px;
 }
+
+.table_tr_pos_for_icon {
+    position: relative;
+}
+
+.table_image_icon_sm {
+    width: 26px;
+    height: 26px;
+    background-color: #ddd;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+    border-radius: 26px;
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translate(0%,-50%);
+}

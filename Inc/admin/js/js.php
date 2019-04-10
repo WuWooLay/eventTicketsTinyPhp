@@ -6,6 +6,7 @@
             'Dashboard_Container',
             'User_Container',
             'Ticket_Container',
+            'Order_Container',
             'Profile_Container'
         ];
 
@@ -600,6 +601,291 @@
           allUserContainerClose();
           $("#User_Edit_Container").removeClass('d-none');
         }
+
+
+        /**
+         * 
+         * Ticket 
+         * 
+         */
+        var All_Ticket_Container = [
+            'Ticket_List_Container',
+            'Ticket_Check_Container',
+            'Ticket_Pending_List_Container',
+            'Ticket_Reject_List_Container',
+            'Ticket_Success_List_Container'
+        ];
+
+        function allTicketContainerClose() {
+            All_Ticket_Container.map( function (value) {
+                $('#' + value).addClass('d-none');
+            });
+        }
+
+        // Ticket Container Link 
+        $(".ticket_container_change_click").click( function () {
+              // get Container
+              var container = $(this).data('container');
+              allTicketContainerClose();
+              console.log(container);
+              $('#'+container).removeClass('d-none');
+        });
+        
+        // Ticket Check Detail
+        function ticketCheckDetail(obj) {
+          console.log('ticketCheck =>', obj);
+
+          // Check Confrim or not
+          if(obj.status == 1) {
+            $("#ticket_check_confirm_or_not_container").removeClass('d-none');
+            $("#ticket_check_confirm_button").data('id', obj.id);
+            $("#ticket_check_reject_button").data('id', obj.id);
+          } else {
+            $("#ticket_check_confirm_or_not_container").addClass('d-none');            
+          }
+         
+          $("#ticket_check_user_name").html('');
+          $("#ticket_check_user_name")
+          .append('<span class="table_image_icon_sm" style="background-image:url('+obj.user_image+')"></span>')
+          .append('<span style="margin-left:40px">'+obj.user_name+'</span>');
+          $("#ticket_check_user_phone").html(obj.user_phone);
+
+          $("#ticket_check_image").css('background-image', 'url('+obj.image+')');
+          $("#ticket_check_title").html(obj.title);
+          $("#ticket_check_description").html( obj.description);
+          $("#ticket_check_address").html(obj.address);
+          $("#ticket_check_place").html(obj.event_category_name + ' in ' + obj.location_name);
+          $("#ticket_check_start_date").html(obj.start_date);
+          $("#ticket_check_end_date").html(obj.end_date);
+          $("#ticket_check_status").html((obj.status_name));
+          $("#ticket_check_free_ticket").html(JSON.stringify(obj.free_ticket == "1").toUpperCase());
+          
+          $("#ticket_check_ga_price").html( (obj.ticket_list.ga_price) + " Kyats");
+          $("#ticket_check_ga_quantity").html((obj.ticket_list.ga_quantity) );
+          $("#ticket_check_vip_price").html((obj.ticket_list.vip_price) + " Kyats");
+          $("#ticket_check_vip_quantity").html( (obj.ticket_list.vip_quantity) );
+          $("#ticket_check_vvip_price").html((obj.ticket_list.vvip_price) + " Kyats");
+          $("#ticket_check_vvip_quantity").html( (obj.ticket_list.vvip_quantity) );
+
+          allTicketContainerClose();
+          $("#Ticket_Check_Container").removeClass('d-none');
+        }
+
+        // Ticket Confirm Button
+        $("#ticket_check_confirm_button").click(function () {
+
+          $("#ticket_check_confirm_or_not_loading").removeClass("d-none");
+
+          var id = $(this).data("id");
+
+          $.get("<?= URL ?>/ticket/updateConfirm/"+ id , function (data) {
+            if(data.status) {
+              $("#ticket_check_confirm_or_not_loading").addClass("d-none");
+              $("#ticket_check_confirm_or_not_container").addClass("d-none");
+              AllInOneTicket();
+            }
+          });
+
+        });
+        $("#ticket_check_reject_button").click(function () {
+
+          $("#ticket_check_confirm_or_not_loading").removeClass("d-none");
+
+          var id = $(this).data("id");
+
+          $.get("<?= URL ?>/ticket/updateReject/"+ id , function (data) {
+            if(data.status) {
+              $("#ticket_check_confirm_or_not_loading").addClass("d-none");
+              $("#ticket_check_confirm_or_not_container").addClass("d-none");
+              AllInOneTicket();
+            }
+          });
+        });
+        
+        // Get Initial Cretor Ticket List
+        $("#ticket_list_get").click( function () {
+                var page = $('#ticket_list_get_input').val();
+                if(page > $('#ticket_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getAllTicketByAdmin(page);
+        });
+
+        function getAllTicketByAdmin(page = 1) {
+              console.log('Ticket Get By User Id ');
+              $.get( '<?=URL?>/ticket/get?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#ticket_list_get_total_page').html(data.total_page);
+                        $('#ticket_table_body > tr').remove();
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              ticketListTable(user).appendTo("#ticket_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+        // Get Pening Cretor Ticket List
+        $("#ticket_pending_list_get").click( function () {
+                var page = $('#ticket_pending_list_get_input').val();
+                if(page > $('#ticket_pending_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getPendingTicketByAdmin(page);
+        });
+        function getPendingTicketByAdmin(page = 1) {
+              $('#ticket_pending_table_body > tr').remove();
+              $.get( '<?=URL?>/ticket/getByPending?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#ticket_pending_list_get_total_page').html(data.total_page);
+                        
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              ticketListTable(user).appendTo("#ticket_pending_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+        // Get Success Creator Ticket List
+        $("#ticket_success_list_get").click( function () {
+                var page = $('#ticket_success_list_get_input').val();
+                if(page > $('#ticket_success_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getSuccessTicketByAdmin(page);
+        });
+        function getSuccessTicketByAdmin(page = 1) {
+              $('#ticket_success_table_body > tr').remove();
+              $.get( '<?=URL?>/ticket/getBySuccess?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#ticket_success_list_get_total_page').html(data.total_page);
+                        
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              ticketListTable(user).appendTo("#ticket_success_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+        // Get Reject Creator Ticket List
+        $("#ticket_reject_list_get").click( function () {
+                var page = $('#ticket_reject_list_get_input').val();
+                if(page > $('#ticket_reject_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getRejectTicketByAdmin(page);
+        });
+        function getRejectTicketByAdmin(page = 1) {
+              $('#ticket_reject_table_body > tr').remove();
+              $.get( '<?=URL?>/ticket/getByReject?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#ticket_reject_list_get_total_page').html(data.total_page);
+                        
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              ticketListTable(user).appendTo("#ticket_reject_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+
+        function ticketListTable (data) {
+                var color = data.status == 1 ? 'primary' : 
+                data.status == 2 ? 'success' : 'danger';
+                var icon = data.status == 1 ? 'slow_motion_video' : 
+                data.status == 2 ? 'mobile_friendly' : 'backspace';;
+
+                return $('<tr>')
+                .append(
+                    $('<th>').html(data.id)
+                )
+                .append(
+                    $('<td>').append(
+                      $('<div>', {
+                          class: "table_image_icon",
+                          style: "background-image:url("+data.image+")"
+                        }
+                      )
+                    )
+                )
+                .append(
+                    $('<td>').html(data.title)
+                )
+                .append(
+                    $('<td>')
+                    .append(
+                          $('<button>', {type: 'button', class: 'btn btn-'+color+' bmd-btn-icon ', disabled: "disabled"})
+                          .html('<i class="material-icons medium text-'+color+'">'+icon+'</i>')
+                    )
+                    .append(data.status_name)
+                )
+                .append(
+                    $('<td>')
+                        .append(
+                            $('<button>', {type: 'button', class: 'btn btn-success  bmd-btn-icon'})
+                            .html('<i class="material-icons medium text-success">remove_red_eye</i>')
+                            .data('data', data)
+                            .click( function () {
+                                console.log('check');
+                                var data = $(this).data('data');
+                                // console.log(data);
+                                ticketCheckDetail(data);
+                            })
+                        )
+                );
+        }
+
+        function AllInOneTicket() {
+          getAllTicketByAdmin();
+          getPendingTicketByAdmin();
+          getSuccessTicketByAdmin();
+          getRejectTicketByAdmin();
+        }
+        AllInOneTicket();
+
 
     });
 

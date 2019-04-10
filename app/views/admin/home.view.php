@@ -36,9 +36,15 @@
 
                     <!-- Ticket Container  -->
                     <div id="Ticket_Container" class="fadeIn d-none">
-                            <h4> Ticket Container</h4>
+                            <?php include "./Inc/admin/container/ticket.php" ?>
                     </div>
                     <!-- Ticket Container End -->
+
+                    <!-- Order Container  -->
+                    <div id="Order_Container" class="fadeIn d-none">
+                            <?php include "./Inc/admin/container/order.php" ?>
+                    </div>
+                    <!-- Order Container End -->
 
                     <!-- Profile Container  -->
                     <div id="Profile_Container" class="fadeIn d-none">

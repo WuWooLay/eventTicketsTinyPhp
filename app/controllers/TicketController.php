@@ -53,6 +53,7 @@
                 "ticket.start_date","ticket.end_date",
                 "ticket.user_id",
                 "user.name as user_name",
+                "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket_status.name as status_name",
                 "location.name as location_name",
@@ -117,6 +118,7 @@
                 "ticket.start_date","ticket.end_date",
                 "ticket.user_id",
                 "user.name as user_name",
+                "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket_status.name as status_name",
                 "location.name as location_name",
@@ -203,6 +205,7 @@
                 "ticket.start_date","ticket.end_date",
                 "ticket.user_id",
                 "user.name as user_name",
+                "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket_status.name as status_name",
                 "location.name as location_name",
@@ -283,6 +286,7 @@
                 "ticket.user_id",
                 "ticket_status.name as status_name",
                 "user.name as user_name",
+                "user.phone as user_phone",
                 "user.image as user_image",
                 "location.name as location_name",
                 "event_category.name as event_category_name"
@@ -361,6 +365,7 @@
                 "ticket.user_id",
                 "ticket_status.name as status_name",
                 "user.name as user_name",
+                "user.phone as user_phone",
                 "user.image as user_image",
                 "location.name as location_name",
                 "event_category.name as event_category_name"
@@ -439,6 +444,7 @@
                 "ticket.user_id",
                 "ticket_status.name as status_name",
                 "user.name as user_name",
+                "user.phone as user_phone",
                 "user.image as user_image",
                 "location.name as location_name",
                 "event_category.name as event_category_name"
@@ -482,6 +488,59 @@
     }
 
 
+    /**
+     * 
+     * Update To Confirm status
+     * 
+     */
+    public function updateConfirm($id = null) {
+        if($id == null || $id == '' || $id == 0 ) {
+            return die($this->json(["errors"=>["Cant Confirm"]] ,400));
+        }
+        $data = [
+            "status" => 2
+        ];
+        
+        // Call User Model
+        $ticketModel = $this->load->model('ticketModel');
+
+        $cond = "id=" . $id ;
+
+        $result = $ticketModel->update($data, $cond);
+
+        if($result) {
+            return die($this->json(["status" => true, "message" => "Successfully Updated"]));
+        } else {
+            return die($this->json(["errors" => ["Cant Updated Email is Already"]], 400));
+        }
+    }
+
+    /**
+     * 
+     * Update Reject Status
+     * 
+     *  */ 
+    public function updateReject($id = null) {
+        if($id == null || $id == '' || $id == 0 ) {
+            return die($this->json(["errors"=>["Cant Confirm"]] ,400));
+        }
+        $data = [
+            "status" => 3
+        ];
+        
+        // Call User Model
+        $ticketModel = $this->load->model('ticketModel');
+
+        $cond = "id=" . $id ;
+
+        $result = $ticketModel->update($data, $cond);
+
+        if($result) {
+            return die($this->json(["status" => true, "message" => "Successfully Updated"]));
+        } else {
+            return die($this->json(["errors" => ["Cant Updated Email is Already"]], 400));
+        }
+    }
 
     /** 
     * @route   /user/insert 
