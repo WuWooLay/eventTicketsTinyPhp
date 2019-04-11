@@ -46,11 +46,11 @@
                             value="1" 
                             aria-label="Default" 
                             aria-describedby="inputGroup-sizing-default"
-                            id="ticket_list_get_input"
+                            id="order_list_get_input"
                          >
                         <div class="input-group-prepend">
-                            <button class="btn btn-sm btn-outline-primary" type="button" id="ticket_list_get">
-                                /<span id="ticket_list_get_total_page"> 0 </span>
+                            <button class="btn btn-sm btn-outline-primary" type="button" id="order_list_get">
+                                /<span id="order_list_get_total_page"> 0 </span>
                             </button>
                         </div>  
                     </div>
@@ -59,7 +59,7 @@
 
             <!-- Table COntainer -->
             <div class="table-responsive">
-                    <table class="table table-hover " id="Ticket_List_Table">
+                    <table class="table table-hover " id="Order_list_Table">
 
                         <thead>
                             <tr>
@@ -71,7 +71,7 @@
                             </tr>
                         </thead>
 
-                        <tbody id="ticket_table_body">
+                        <tbody id="order_list_table_body">
                            
                         </tbody>
 
@@ -81,6 +81,110 @@
 
         </div>
         <!-- Order_List_Container Container End -->
+
+        <!-- Order Detail -->
+        <div class="fadeIn d-none" id="Order_Check_Container">
+        <div class="card">
+                    
+                    <div class="card-header ">
+                        <h4>  
+                            Order Detail   
+                        </h4>
+                    </div>
+
+                    <div 
+                        id="order_check_image"
+                        class="image-container-check" 
+                        style="background-image:url(http://localhost/eventticket/assets/images/logo/homewallpaper.jpg)"
+                    >
+                    </div>
+
+                    <!--  Start -->
+                    <div class="card-body">
+                         <!-- All List -->
+                         <div class="container-fluid table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Post By </td> 
+                                            <td class="table_tr_pos_for_icon" id="order_check_user_name">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td> Phone </td> 
+                                            <td class="" id="order_check_user_phone">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Title</td> <td id="order_check_title"> </td>
+                                        </tr>
+                                    </table>
+                        </div>
+                        <!-- All List End -->
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- Ga -->
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td colspan="2"> Ga Ticket</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ga Price</td> <td id="order_check_ga_price"> 100 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ga Quantity </td> <td id="order_check_ga_quantity"> 200 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- Ga End -->
+
+                                <!-- vip -->
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td colspan="2"> Vip Ticket</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vip Price</td> <td id="order_check_vip_price"> 100 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vip Quantity </td> <td id="order_check_vip_quantity"> 200 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- vip End -->
+
+                                <!-- vvip -->
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td colspan="2"> Vvip Ticket</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vvip Price</td> <td id="order_check_vvip_price"> 100 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vvip Quantity </td> <td id="order_check_vvip_quantity"> 200 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- vvip End -->
+
+                                
+                            </div>
+                        </div>
+                        
+                      
+                        <!-- <p class="card-text" id="ticket_check_end_date"></p> -->
+                    </div>
+                    <!--  End -->
+
+                </div>
+        </div>
+        <!-- Order Detail -->
 
     </div>
 

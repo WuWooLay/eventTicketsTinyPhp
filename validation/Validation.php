@@ -410,7 +410,7 @@
         )
         {
             // If Name Null
-            if (!isset($_POST['Ticket_Id'])) {
+            if (!isset($_POST['ticket_id'])) {
                 $errors[] = "Ticket_Id Field is Required";
             }
             if (!isset($_POST['user_id'])) {
@@ -511,6 +511,19 @@
         return [
             "errors" => $errors,
             "isValid" => count($errors)==0
+        ];
+    }
+
+    // Check Id 
+    public static function CheckId($id) {
+        $errors = [];
+        if($id == '' || $id == false || $id == null || !isset($id)){
+            $errors[] = "id is required";
+        }
+
+        return[
+            "errors" => $errors,
+            "isValid" => count($errors)==0 ? true: false
         ];
     }
 

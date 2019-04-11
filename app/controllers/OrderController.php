@@ -129,8 +129,9 @@
      * 
      */
     public function getByUserId($id = false) {
-        $resultError = Validation::ordersUserId();
+        $resultError = Validation::checkId($id);
         
+
         if(!$resultError["isValid"]) {
             return die($this->json($resultError, 400));
         }
@@ -141,7 +142,7 @@
 
             $total_page = $this->pageCount([
                 "table" => "orders",
-                "cond" => " WHERE user_id = " . $_POST["id"],
+                "cond" => " WHERE user_id = " . $id,
                 "limit" => "",
                 "model" => $orderModel
             ]);
@@ -170,7 +171,7 @@
                 "order_status.name as status_name",
             ];
 
-            $result =  $orderModel->getByUserId($select, $_POST["id"], $page_no);
+            $result =  $orderModel->getByUserId($select, $id, $page_no);
 
             if(!count($result)) {
                 return die($this->json(["errors"=> ["Cant Count!~!"]]));
@@ -416,7 +417,7 @@
     */ 
     public function insert() {
 
-        $resultError = Validation::ordersInput();
+        $resultError = Validation::OrderInput();
         
         if(!$resultError["isValid"]) {
             return die($this->json($resultError, 400));
@@ -493,58 +494,6 @@
         } else {
             return die($this->json(["errors" => ["Cant Deleted"]], 400));
         }
-
-    }
-
-    /** 
-    * @route   /user/updateImage
-    * @param   {id} => $id from Route
-    * @desc    Delete User
-    */ 
-    public function updateImage() {
-        // Call User Model
-        
-        $resultError = Validation::ProfileImageInput();
-        
-        if(!$resultError["isValid"]) {
-            return die($this->json($resultError, 400));
-        }
-
-            $file = $_FILES["file"]["tmp_name"];
-            // Declare Patch
-            $path = __DIR__ . "/../.././assets/images/profile/";
-            // Get Origininal File's Extension
-            $ext = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-            // New Name
-            $newName =  "profile" . "_" . date("H_i_s") . "_" . uniqid() . "." . $ext;
-           
-            // die($file . "\n" . $path. "\n" . $newName);
-            // Same Width Height
-            if(move_uploaded_file($file, $path . $newName)) {
-
-                    $data = [
-                        "image" => URL . "/assets/images/profile/" . $newName
-                    ];
-                    
-                    // Call User Model
-                    $orderModel = $this->load->model('orderModel');
-            
-                    $cond = "id=" . $_POST["id"];
-            
-                    $result = $orderModel->update($data, $cond);
-            
-                    if($result) {
-                        return die($this->json(["status" => true, "message" => "Successfully Updated"]));
-                    } else {
-                        return die($this->json(["errors" => ["Cant Updated"]], 400));
-                    }
-               
-                    die(json_encode("UPLOADED"));
-
-            } else {
-                $err = "Can't Upload Something Wrong";
-                return die($this->json(['errors' => [$err] ], 400));
-            }
 
     }
 

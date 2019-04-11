@@ -22,7 +22,7 @@
           <h3> Latest Show </h4>
         </div>
 
-        <div class="row">
+        <div class="row" id="user_show_ticket_container">
 
           <div class="col-sm-6 col-md-3 mb-3">
             <div class="card" style="">
@@ -452,6 +452,58 @@
                   }
                 });
             });
+
+
+            // 
+
+            function makeTicketCard(obj) {
+            return $('<div>', {class: 'col-sm-6 col-md-3 mb-3'})
+                    .append(
+                      $('<div>', {class: 'card'})
+                      .append(
+                        $('<div>', {class: 'image-container', style: 'background-image:url('+obj.image+')'})
+                      )
+                      .append(
+                        $('<div>', {class: 'card-body'})
+                        .append("<h5 class='card-title card-fade-title'>"+obj.title+"</h5>")
+                        .append("<p>"+obj.event_category_name+" in "+obj.location_name+"</p>")
+                        .append("<p class='card-text card-description'>"+obj.description+"</p>")
+                        .append(
+                          $("<button>", {type: "button", href: "#!", class: "btn btn-raised btn-"+(obj.free_ticket == 1 ? "success" : "info")+" buyticket" })
+                          .append(
+                            obj.free_ticket == 1 ? "FreeTicket" : "Buy Now"
+                          )
+                          .data("id", obj.id)
+                          .click( function () {
+                            toLoginPage();
+                          })
+                        )
+                      )
+                    )
+            }
+
+            function getByUserTicket(page = 1) {
+             $.get('<?= URL ?>/ticket/getByUserTicket?page='+page, function (data) {
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#ticket_list_get_total_page').html(data.total_page);
+                        $('#ticket_table_body > tr').remove();
+                        if(data.data.length > 0 ) {
+                            $("#user_show_ticket_container> div").remove();
+                            data.data.map( function (user, index)  {
+                              console.log(index);
+                              if(index > 3 ) return;
+                              // console.log(user);
+                              makeTicketCard(user).appendTo("#user_show_ticket_container");
+                            } );
+                        }  
+                  // console.log('Get Data');
+                }
+             } );
+          }
+
+          getByUserTicket();
 
             
       });

@@ -30,7 +30,7 @@
                                             <!-- Type End -->
 
                                             <!-- Hidden Id -->
-                                            <input type="number" id ="ticket_id" class="d-none">
+                                            <input type="number" id="ticket_id" data-id="1" class="d-none">
 
                                             <!-- Ga  -->
                                             <tr id="ga" data-ga="1">
@@ -89,7 +89,7 @@
                         <!-- Form End-->
 
                         <!--  Start -->
-                        <div class="card-body pt-1">
+                        <div class="card-body pt-2">
                             <!-- All List -->
                             <div class="container-fluid table-responsive">
                                         <table class="table table-bordered">

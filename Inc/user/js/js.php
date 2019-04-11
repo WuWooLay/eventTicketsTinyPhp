@@ -192,8 +192,7 @@
          */
 
          $("#submit").click( function () {
-          $("#"+"ga"+"_quantity").data("quantity", 50).html(50);
-           var user_id = <?= $_SESSION['auth']['id'] ?>;
+           
           //  Check All is Zero ?
           if(
             $("#ga_user_input_quantity").val() <= 0 &&
@@ -205,11 +204,20 @@
             return;
           }
           var total = 0;
+          var image = $("#ticket_check_image").data("image");
+
+          var ga_qty = 0;
+          var ga_price = $("#ga_price").data("price");
+          var vip_qty = 0;
+          var vip_price = $("#vip_price").data("price");
+          var vvip_qty = 0;
+          var vvip_price = $("#vvip_price").data("price");
+
           // Check User Input Quantity
           if($("#ga").data("ga") == 1 ) {
             console.log("Ga Exist");
-            var ga_qty = $("#ga_user_input_quantity").val();
-            var ga_price = $("#ga_price").data("price");
+             ga_qty = $("#ga_user_input_quantity").val();
+            
             if(ga_qty > 0 ) {
               console.log("Total Ga Price => "+ga_qty+" Qty x "+ga_price+" Kyats = "+ (ga_qty * ga_price)+" Kyats ");
               total += (ga_qty * ga_price);
@@ -219,8 +227,8 @@
 
           if($("#vip").data("vip") == 1 ) {
             console.log("vip Exist");
-            var vip_qty = $("#vip_user_input_quantity").val();
-            var vip_price = $("#vip_price").data("price");
+            vip_qty = $("#vip_user_input_quantity").val();
+            vip_price = $("#vip_price").data("price");
             if(vip_qty > 0 ) {
               console.log("Total vip Price => "+vip_qty+" Qty x "+vip_price+" Kyats = "+ (vip_qty * vip_price)+" Kyats ");
               total += (vip_qty * vip_price);
@@ -230,8 +238,8 @@
 
           if($("#vvip").data("vvip") == 1 ) {
             console.log("vvip Exist");
-            var vvip_qty = $("#vvip_user_input_quantity").val();
-            var vvip_price = $("#vvip_price").data("price");
+            vvip_qty = $("#vvip_user_input_quantity").val();
+            vvip_price = $("#vvip_price").data("price");
             if(vvip_qty > 0 ) {
               console.log("Total vvip Price => "+vvip_qty+" Qty x "+vvip_price+" Kyats = "+ (vvip_qty * vvip_price)+" Kyats ");
               total += (vvip_qty * vvip_price);
@@ -241,7 +249,51 @@
 
           console.log("All Total => ", total);
 
-          console.log("Submit");
+          var ticket_id = $("#ticket_id").data("id");
+          var user_id = <?= $_SESSION['auth']['id'] ?>;
+          var ga = $("#ga").data("ga");
+          var vip = $("#vip").data("vip");
+          var vvip = $("#vvip").data("vvip");
+          var data = {
+            ticket_id: ticket_id,
+            user_id: user_id,
+            image: image,
+            ga: ga,
+            ga_price: ga_price,
+            ga_quantity: ga_qty,
+            vip: vip,
+            vip_price: vip_price,
+            vip_quantity: vip_qty,
+            vvip: vvip,
+            vvip_price: vvip_price,
+            vvip_quantity: vvip_qty,
+            total_price: total
+          };
+
+          // console.log(data);
+          // return;
+
+         var url = "<?= URL ?>/order/insert";
+         $.post(url, data, function (res) {
+            console.log(res);
+            if(res.status) {
+
+             allInOne();
+             var thi = $("<div>", {class: "alert alert-success", role: "alert"})
+             .append("Successfully Ordered Pending")
+             .prependTo("#right_side")
+              setTimeout(function () {
+                  $(thi).fadeOut("slow");
+              }, 500);
+                
+              setTimeout(function () {
+                  $(thi).remove();
+              }, 1300);
+
+            } else if(res.errors) {
+              console.log(res);
+            }
+         });
 
          });
 
@@ -296,17 +348,15 @@
                         if(data.data.length > 0 ) {
                             $("#user_show_ticket_container> div").remove();
                             data.data.map( function (user)  {
-                              console.log(user);
+                              // console.log(user);
                               makeTicketCard(user).appendTo("#user_show_ticket_container");
                             } );
                         }  
-                  console.log('Get Data');
+                  // console.log('Get Data');
                 }
              } );
           }
-          getByUserTicket();
 
-          
         /**
          * Make Card Container
          */
@@ -331,11 +381,20 @@
                         .data("id", obj.id)
                         .click( function () {
                           console.log("CLICK DIVVVV");
+                          // First Check Form Hide
+                          $("#ticket_check_form").addClass("d-none");
                           var id = $(this).data("id");
-                          console.log("TicketId => ", id);
-                          console.log($("#Ticket_Detail_Container"));
-                          allClose();
-                          $("#Ticket_Detail_Container").removeClass("d-none");
+                          var url = "<?= URL ?>/ticket/get/" + id;
+                          $.get(url, function (data) {
+                            if(data.data) {
+                              ticketDataSet(data.data);
+                              allClose();
+                              $("#Ticket_Detail_Container").removeClass("d-none");
+                            } else {
+                              alert("SomeThing Went Wrong Plz Try Again Refresh");
+                            }
+                          });
+                         
                         })
                       )
                     )
@@ -343,13 +402,75 @@
 
          }
 
+         function ticketDataSet(obj) {
+            // Set Id 
+            $("#ticket_id").data("id", obj.id);
+            // Set Image
+            $("#ticket_check_image")
+            .css('background-image', 'url('+obj.image+')')
+            .data("image", obj.image);
+            
+            // Hiddien
+            ['ga', 'vip', 'vvip'].map( function (val) {
+              $("#"+val).addClass("d-none");
+            });
+
+            // Set Ga
+            if(obj.ticket_list.ga == 1 ) $("#ga").removeClass("d-none");
+            $("#ga").data("ga", obj.ticket_list.ga);
+            $("#ga_quantity")
+             .data("quantity", obj.ticket_list.ga_quantity)
+             .html(obj.ticket_list.ga_quantity);
+            $("#ga_price")
+             .data("price", obj.ticket_list.ga_price)
+             .html(obj.ticket_list.ga_price);
+            
+            // Set vip
+            if(obj.ticket_list.vip == 1 ) $("#vip").removeClass("d-none");
+            $("#vip").data("vip", obj.ticket_list.vip);
+            $("#vip_quantity")
+             .data("quantity", obj.ticket_list.vip_quantity)
+             .html(obj.ticket_list.vip_quantity);
+            $("#vip_price")
+             .data("price", obj.ticket_list.vip_price)
+             .html(obj.ticket_list.vip_price);
+            
+            // Set vvip
+            if(obj.ticket_list.vvip == 1 ) $("#vvip").removeClass("d-none");
+            $("#vvip").data("vvip", obj.ticket_list.vvip);
+            $("#vvip_quantity")
+             .data("quantity", obj.ticket_list.vvip_quantity)
+             .html(obj.ticket_list.vvip_quantity);
+            $("#vvip_price")
+             .data("price", obj.ticket_list.vvip_price)
+             .html(obj.ticket_list.vvip_price);
+            
+             
+
+            if(obj.free_ticket != 1) {
+              $("#ticket_check_form").removeClass("d-none");
+            }
+
+            // All Below Description
+            $("#ticket_check_title").html(obj.title);
+            $("#ticket_check_description").html(obj.description);
+            $("#ticket_check_place").html(obj.event_category_name + ' in ' + obj.location_name);
+            $("#ticket_check_address").html(obj.address);
+            $("#ticket_check_start_date").html(obj.start_date);
+            $("#ticket_check_end_date").html(obj.end_date);
+            $("#ticket_check_status").html((obj.status_name));
+            $("#ticket_check_free_ticket").html(JSON.stringify(obj.free_ticket == "1").toUpperCase());
+
+         };
+
         /**
          *
          * Order Start
          *
          */
         var All_Order_Container = [
-            'Order_List_Container'
+            'Order_List_Container',
+            'Order_Check_Container'
         ];
 
         function allOrderContainerClose() {
@@ -366,6 +487,119 @@
               console.log(container);
               $('#'+container).removeClass('d-none');
         });
+
+         // Get Pening Cretor Ticket List
+         $("#order_list_get").click( function () {
+                var page = $('#order_list_get_input').val();
+                if(page > $('#order_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getOrderByUserId(page);
+        });
+       
+
+        function getOrderByUserId(page=1) {
+          var id = <?= $_SESSION['auth']['id'] ?>;
+          var url = '<?= URL ?>/order/getByUserId/'+ id;
+
+          $('#order_list_table_body > tr').remove();
+
+          $.get(url, function (data) {
+            console.log(data);
+            if(data.data) {
+              $('#order_list_get_total_page').html(data.total_page);
+                        
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              orderListTable(user).appendTo("#order_list_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+            }
+          } );
+        }
+
+        function orderListTable(data) {
+                var color = data.status == 1 ? 'primary' : 
+                data.status == 2 ? 'success' : 'danger';
+                var icon = data.status == 1 ? 'slow_motion_video' : 
+                data.status == 2 ? 'mobile_friendly' : 'backspace';;
+
+                return $('<tr>')
+                .append(
+                    $('<th>').html(data.id)
+                )
+                .append(
+                    $('<td>').append(
+                      $('<div>', {
+                          class: "table_image_icon",
+                          style: "background-image:url("+data.image+")"
+                        }
+                      )
+                    )
+                )
+                .append(
+                    $('<td>').html(data.ticket_title)
+                )
+                .append(
+                    $('<td>')
+                    .append(
+                          $('<button>', {type: 'button', class: 'btn btn-'+color+' bmd-btn-icon ', disabled: "disabled"})
+                          .html('<i class="material-icons medium text-'+color+'">'+icon+'</i>')
+                    )
+                    .append(data.status_name)
+                )
+                .append(
+                    $('<td>')
+                        .append(
+                            $('<button>', {type: 'button', class: 'btn btn-success  bmd-btn-icon'})
+                            .html('<i class="material-icons medium text-success">remove_red_eye</i>')
+                            .data('data', data)
+                            .click( function () {
+                                console.log('check');
+                                var data = $(this).data('data');
+                                console.log(data);
+                                ticketCheckDetail(data);
+                            })
+                        )
+                );
+        }
+
+        allInOne();
+
+          // Ticket Check Detail
+          function ticketCheckDetail(obj) {
+          console.log('ticketCheck =>', obj);
+
+         
+          $("#order_check_user_name").html('');
+          $("#order_check_user_name")
+          .append('<span class="table_image_icon_sm" style="background-image:url('+obj.user_image+')"></span>')
+          .append('<span style="margin-left:40px">'+obj.user_name+'</span>');
+          $("#order_check_user_phone").html(obj.user_phone);
+
+          $("#order_check_image").css('background-image', 'url('+obj.image+')');
+          $("#order_check_title").html(obj.ticket_title);
+          console.log(obj.ticket_title);
+          
+          $("#order_check_ga_price").html( (obj.ga_price) + " Kyats");
+          $("#order_check_ga_quantity").html((obj.ga_quantity) );
+          $("#order_check_vip_price").html((obj.vip_price) + " Kyats");
+          $("#order_check_vip_quantity").html( (obj.vip_quantity) );
+          $("#order_check_vvip_price").html((obj.vvip_price) + " Kyats");
+          $("#order_check_vvip_quantity").html( (obj.vvip_quantity) );
+
+          allOrderContainerClose();
+          $("#Order_Check_Container").removeClass('d-none');
+        }
+
+        // All In One Package
+
+        function allInOne() {
+          getByUserTicket();
+          getOrderByUserId();
+        }
         
     });
 
