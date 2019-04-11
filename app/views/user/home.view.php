@@ -28,9 +28,21 @@
                     </div>
                     <!-- Ticket Container End -->
 
+                    <!-- Ticket_Detail Container  -->
+                    <div id="Ticket_Detail_Container" class="fadeIn d-none">
+                            <?php include "./Inc/user/container/ticket_detail.php" ?>
+                    </div>
+                    <!-- Ticket_Detail Container End -->
+
                     <!-- Ticket Container  -->
                     <div id="Order_Container" class="fadeIn d-none">
                             <?php include "./Inc/user/container/order.php" ?>
+                    </div>
+                    <!-- Ticket Container End -->
+
+                    <!-- Ticket Container  -->
+                    <div id="Coming_Soon_Container" class="fadeIn d-none">
+                            <?php include "./Inc/user/container/coming_soon.php" ?>
                     </div>
                     <!-- Ticket Container End -->
 

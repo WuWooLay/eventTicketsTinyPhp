@@ -390,6 +390,130 @@
         ];
     }
 
+    // Ticket Inupt Validation 
+    public static function OrderInput() {
+        $errors = [];
+        if(
+            !isset($_POST['ticket_id']) ||
+            !isset($_POST['user_id']) ||
+            !isset($_POST['image']) ||
+            !isset($_POST['ga']) ||
+            !isset($_POST['ga_price']) ||
+            !isset($_POST['ga_quantity']) ||
+            !isset($_POST['vip']) ||
+            !isset($_POST['vip_price']) ||
+            !isset($_POST['vip_quantity']) ||
+            !isset($_POST['vvip']) ||
+            !isset($_POST['vvip_price']) ||
+            !isset($_POST['vvip_quantity']) ||
+            !isset($_POST['total_price'])
+        )
+        {
+            // If Name Null
+            if (!isset($_POST['Ticket_Id'])) {
+                $errors[] = "Ticket_Id Field is Required";
+            }
+            if (!isset($_POST['user_id'])) {
+                $errors[] = "user_id Field is Required";
+            }
+            if (!isset($_POST['image'])) {
+                $errors[] = "image Field is Required";
+            }
+            if (!isset($_POST['ga'])) {
+                $errors[] = "ga Field is Required";
+            }
+            if (!isset($_POST['ga_price'])) {
+                $errors[] = "ga_price Field is Required";
+            }
+            if (!isset($_POST['ga_quantity'])) {
+                $errors[] = "ga_quantity Field is Required";
+            }
+            if (!isset($_POST['vip'])) {
+                $errors[] = "vip Field is Required";
+            }
+            if (!isset($_POST['vip_price'])) {
+                $errors[] = "vip_price Field is Required";
+            }
+            if (!isset($_POST['vip_quantity'])) {
+                $errors[] = "vip_quantity Field is Required";
+            }
+            if (!isset($_POST['vvip'])) {
+                $errors[] = "vvip Field is Required";
+            }
+            if (!isset($_POST['vvip_price'])) {
+                $errors[] = "vvip_price Field is Required";
+            }
+            if (!isset($_POST['vvip_quantity'])) {
+                $errors[] = "vvip_quantity Field is Required";
+            }
+            if (!isset($_POST['total_price'])) {
+                $errors[] = "total_price Field is Required";
+            }
+         
+            
+        } else {
+
+            if (trim($_POST['ticket_id']) == '') {
+                $errors[] = "Ticket Id is Required";
+            }
+
+            if (trim($_POST['user_id']) == '') {
+                $errors[] = "User is Required";
+            }
+
+            if (trim($_POST['image']) == '') {
+                $errors[] = "Image Url  is Required";
+            }
+
+            if (trim($_POST['ga']) == '') {
+                $errors[] = "Ga is Required";
+            }
+
+            if (trim($_POST['ga_price']) == '') {
+                $errors[] = "Ga Price is Required";
+            }
+
+            if (trim($_POST['ga_quantity']) == '') {
+                $errors[] = "Ga Quantity is Required";
+            }
+
+            if (trim($_POST['vip']) == '') {
+                $errors[] = "Vip is Required";
+            }
+
+            if (trim($_POST['vip_price']) == '') {
+                $errors[] = "Vip Price is Required";
+            }
+
+            if (trim($_POST['vip_quantity']) == '') {
+                $errors[] = "Vip Quantity is Required";
+            }
+
+            if (trim($_POST['vvip']) == '') {
+                $errors[] = "Vvip is Required";
+            }
+
+            if (trim($_POST['vvip_price']) == '') {
+                $errors[] = "Vvip Price is Required";
+            }
+
+            if (trim($_POST['vvip_quantity']) == '') {
+                $errors[] = "Vvip Quantity is Required";
+            }
+
+            if (trim($_POST['total_price']) == '') {
+                $errors[] = "total_price is Required";
+            }
+
+        }
+
+        
+        return [
+            "errors" => $errors,
+            "isValid" => count($errors)==0
+        ];
+    }
+
     // Ticket Get By User Id
     public static function TicketUserId() {
         $errors = [];

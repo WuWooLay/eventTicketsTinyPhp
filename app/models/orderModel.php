@@ -1,12 +1,12 @@
 <?php
 
     /**
-     * Ticket Model [ Sample ]
+     * Order Model [ Sample ]
      */
 
-    class TicketModel extends Dmodel {
+    class OrderModel extends Dmodel {
 
-        public $table = 'ticket';
+        public $table = 'orders';
 
         /**
          * @desc    Constructor making Call Class new Database() 
@@ -30,12 +30,12 @@
 
             $select = implode(",", $select);
             $sql = "SELECT $select FROM ". $this->table ;
-            $sql .= " INNER JOIN event_category ON $this->table.event_category_id = event_category.id   " ;
-            $sql .= " INNER JOIN location ON $this->table.location_id = location.id  " ;
-            $sql .= " INNER JOIN ticket_status ON $this->table.status = ticket_status.id  " ;
+            $sql .= " INNER JOIN order_status ON $this->table.status = order_status.id  " ;
             $sql .= " INNER JOIN user ON $this->table.user_id = user.id  " ;
-            $sql .= " ORDER BY ticket.id DESC LIMIT $limit," . $offset;
+            $sql .= " INNER JOIN ticket ON $this->table.ticket_id = ticket.id  " ;
+            $sql .= " ORDER BY orders.id DESC LIMIT $limit," . $offset;
 
+            // die($sql);
             $result = $this->db->select($sql);
 
             // die(print_r($result));
@@ -55,12 +55,11 @@
 
             $select = implode(",", $select);
             $sql = "SELECT $select FROM ". $this->table ;
-            $sql .= " INNER JOIN event_category ON $this->table.event_category_id = event_category.id   " ;
-            $sql .= " INNER JOIN location ON $this->table.location_id = location.id  " ;
-            $sql .= " INNER JOIN ticket_status ON $this->table.status = ticket_status.id  " ;
+            $sql .= " INNER JOIN order_status ON $this->table.status = order_status.id  " ;
             $sql .= " INNER JOIN user ON $this->table.user_id = user.id  " ;
-            $sql .= " WHERE ticket.user_id=:id ";
-            $sql .= " ORDER BY ticket.id DESC LIMIT $limit," . $offset;
+            $sql .= " INNER JOIN ticket ON $this->table.ticket_id = ticket.id  " ;
+            $sql .= " WHERE orders.user_id=:id ";
+            $sql .= " ORDER BY orders.id DESC LIMIT $limit," . $offset;
 
             $data = [
                 ":id" => $id
@@ -85,12 +84,11 @@
 
             $select = implode(",", $select);
             $sql = "SELECT $select FROM ". $this->table ;
-            $sql .= " INNER JOIN event_category ON $this->table.event_category_id = event_category.id   " ;
-            $sql .= " INNER JOIN location ON $this->table.location_id = location.id  " ;
-            $sql .= " INNER JOIN ticket_status ON $this->table.status = ticket_status.id  " ;
+            $sql .= " INNER JOIN order_status ON $this->table.status = order_status.id  " ;
             $sql .= " INNER JOIN user ON $this->table.user_id = user.id  " ;
-            $sql .= " WHERE ticket.status=:status ";
-            $sql .= " ORDER BY ticket.id DESC LIMIT $limit," . $offset;
+            $sql .= " INNER JOIN ticket ON $this->table.ticket_id = ticket.id  " ;
+            $sql .= " WHERE orders.status=:status ";
+            $sql .= " ORDER BY orders.id DESC LIMIT $limit," . $offset;
 
             $data = [
                 ":status" => $status
@@ -115,11 +113,10 @@
 
             $select = implode(",", $select);
             $sql = "SELECT ${select} FROM ".$this->table;
-            $sql .= " INNER JOIN event_category ON $this->table.event_category_id = event_category.id   " ;
-            $sql .= " INNER JOIN location ON $this->table.location_id = location.id  " ;
-            $sql .= " INNER JOIN ticket_status ON $this->table.status = ticket_status.id  " ;
+            $sql .= " INNER JOIN order_status ON $this->table.status = order_status.id  " ;
             $sql .= " INNER JOIN user ON $this->table.user_id = user.id  " ;
-            $sql .= " WHERE ticket.id=:id ";
+            $sql .= " INNER JOIN ticket ON $this->table.ticket_id = ticket.id  " ;
+            $sql .= " WHERE orders.id=:id ";
             $data = [
                 ":id" => $id
             ];

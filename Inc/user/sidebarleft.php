@@ -21,6 +21,15 @@
                             Order
                         </a>
 
+                        <!-- <a
+                            data-container="Coming_Soon_Container"
+                            class="list-group-item side_hover container_change_click"
+                        >
+                            <i class="material-icons text-primary">youtube_searched_for</i>
+                            By City
+                            <span class="coming_soon"> New! </span>
+                        </a> -->
+
                         <a
                             data-container="Profile_Container"
                             class="list-group-item side_hover container_change_click"

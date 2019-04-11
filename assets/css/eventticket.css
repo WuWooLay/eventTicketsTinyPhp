@@ -162,3 +162,89 @@
     left: 8px;
     transform: translate(0%,-50%);
 }
+
+/* Coming SOon */
+.coming_soon {
+    /* background-color: red; */
+    display: inline-block;
+    line-height: 2em;
+    height: 2em;
+    padding: 0 1em;
+    color: white;
+    border-radius: 1rem;
+    margin-left: 0.2em;
+    /* position: absolute; */
+    /* right: -10px; */
+    font-size: 0.8em;
+    animation: colorchange 3s infinite;; /* animation-name followed by duration in seconds*/
+    -webkit-animation: colorchange 3s infinite; /* Chrome and Safari */
+}
+
+  @keyframes colorchange
+  {
+    0%   {background: #eb4d4b;}
+    25%  {background: #f0932b;}
+    50%  {background: #686de0;}
+    75%  {background: #22a6b3;}
+    100% {background: #eb4d4b;}
+  }
+
+  @-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+  {
+    0%   {background: #eb4d4b;}
+    25%  {background: #f0932b;}
+    50%  {background: #686de0;}
+    75%  {background: #22a6b3;}
+    100% {background: #eb4d4b;}
+  }
+
+  /* Form Css */
+
+  .self_input {
+    width: 100%;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+    text-align: right;
+  }
+
+  .card-description {
+      height: 130px;
+      overflow-y: hidden;
+      position: relative;
+      border-bottom: 1px solid rgb(248, 248, 248);
+  }
+  .card-description:after {
+    content: "";
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+1,1+79,1+79 */
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 1%, rgba(255,255,255,1) 79%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 1%,rgba(255,255,255,1) 79%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 1%,rgba(255,255,255,1) 79%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+   }
+   .card-fade-title{
+    height: 60px;
+    overflow-y: hidden;
+    position: relative;
+    border-bottom: 1px solid rgb(248, 248, 248);
+   }
+
+   .card-fade-title:after {
+    content: "";
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: red;
+    position: absolute;
+    bottom: 0;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+1,1+79,1+79 */
+    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 1%, rgba(255,255,255,1) 79%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 1%,rgba(255,255,255,1) 79%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 1%,rgba(255,255,255,1) 79%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+   }

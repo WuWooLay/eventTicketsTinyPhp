@@ -487,6 +487,86 @@
             return die($this->json($data));
     }
 
+    /**
+     * Get By UserTicket
+     * 
+     *  */ 
+    public function getByUserTicket() {
+
+        $ticketModel = $this->load->model('ticketModel');
+
+        $page_no = Page::getPage();
+        $status = 2;
+        $total_page = $this->pageCount([
+            "table" => "ticket",
+            "cond" => " WHERE status = $status",
+            "limit" => "6",
+            "model" => $ticketModel
+        ]);
+        
+
+        /**
+         * @desc    {id} param doesnt get
+         * @desc    show All Datas
+         * @param select to pick from DB
+         */
+        $select = [
+            "ticket.id","ticket.title","ticket.description",
+            "ticket.address","ticket.location_id",
+            "ticket.event_category_id",
+            "ticket.free_ticket","ticket.image",
+            "ticket.status","ticket.ga",
+            "ticket.ga_price","ticket.ga_quantity",
+            "ticket.vip","ticket.vip_price",
+            "ticket.vip_quantity","ticket.vvip",
+            "ticket.vvip_price","ticket.vvip_quantity",
+            "ticket.start_date","ticket.end_date",
+            "ticket.user_id",
+            "ticket_status.name as status_name",
+            "user.name as user_name",
+            "user.phone as user_phone",
+            "user.image as user_image",
+            "location.name as location_name",
+            "event_category.name as event_category_name"
+        ];
+
+        $result =  $ticketModel->getByPendingStatus($select, $status, $page_no, 6);
+
+        if(!count($result)) {
+            return die($this->json(["errors"=> ["Cant Count!~!"]]));
+        }
+
+        foreach($result as $key => $value) {
+            $result[$key]["ticket_list"] = [
+                "ga" => $result[$key]["ga"],
+                "ga_price" => $result[$key]["ga_price"],
+                "ga_quantity" => $result[$key]["ga_quantity"],
+                "vip" => $result[$key]["vip"],
+                "vip_price" => $result[$key]["vip_price"],
+                "vip_quantity" => $result[$key]["vip_quantity"],
+                "vvip" => $result[$key]["vvip"],
+                "vvip_price" => $result[$key]["vvip_price"],
+                "vvip_quantity" => $result[$key]["vvip_quantity"],
+            ];
+
+            foreach(["ga", "vip", "vvip"] as $k => $v) {
+                unset($result[$key][$v]);
+                unset($result[$key][$v."_price"]);
+                unset($result[$key][$v."_quantity"]);
+            }
+        };
+
+
+        $data = [
+            "total_page" => $total_page,
+            "current_page" => (int)$page_no,
+            "data" => $result
+        ];
+
+    
+        return die($this->json($data));
+}
+
 
     /**
      * 

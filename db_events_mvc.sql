@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2019 at 11:56 AM
+-- Generation Time: Apr 11, 2019 at 11:24 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -72,6 +72,40 @@ CREATE TABLE `location` (
 INSERT INTO `location` (`id`, `name`, `created_at`, `deleted_at`, `modified_at`) VALUES
 (1, 'Yangon', '2019-04-08 19:02:13', NULL, '0000-00-00 00:00:00'),
 (2, 'Mandalay', '2019-04-08 19:02:13', NULL, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `ticket_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `image` varchar(150) NOT NULL,
+  `status` int(11) NOT NULL,
+  `ga` tinyint(4) NOT NULL,
+  `ga_price` double NOT NULL,
+  `ga_quantity` int(5) NOT NULL,
+  `vip` tinyint(4) NOT NULL,
+  `vip_price` double NOT NULL,
+  `vip_quantity` int(5) NOT NULL,
+  `vvip` int(11) NOT NULL,
+  `vvip_price` double NOT NULL,
+  `vvip_quantity` int(5) NOT NULL,
+  `total_price` double NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `ticket_id`, `user_id`, `image`, `status`, `ga`, `ga_price`, `ga_quantity`, `vip`, `vip_price`, `vip_quantity`, `vvip`, `vvip_price`, `vvip_quantity`, `total_price`, `created_at`, `modified_at`, `deleted_at`) VALUES
+(1, 3, 3, '\'afeafeff\'', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, '2019-04-11 20:18:56', '0000-00-00 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -196,8 +230,14 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`id`, `title`, `description`, `address`, `location_id`, `event_category_id`, `user_id`, `start_date`, `end_date`, `free_ticket`, `image`, `status`, `ga`, `ga_price`, `ga_quantity`, `vip`, `vip_price`, `vip_quantity`, `vvip`, `vvip_price`, `vvip_quantity`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(1, 'á€„á€«á€Ÿá€¬ á€˜á€¬á€œá€²?', '(á€»á€•á€­á€³á€„á€¹á€•á€¼á€²á€á€„á€¹á€á€á³á€³á€±á€œá€¸á€»á€–á€…á€¹á€•á€«á€žá€Šá€¹á‹) á€…á€¬á€±á€›á€¸á€žá€° á€žá€„á€¹á€‡á€¬á€™á€¯á€­á€¸á€¥á€®á€¸  - á€žá€›á€²á€±á€»á€á€¬á€€á€¹á€žá€Šá€¹á€·á€Š', 'eee', 1, 3, 2, '2019-04-11  2:00:00 pm', '2019-04-12  2:00:00 pm', 0, 'http://localhost/eventticket/assets/images/ticket/ticket_14_41_50_5cada546c8ea9.png', 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-10 08:11:50', '0000-00-00 00:00:00', NULL),
-(2, 'á€žá¾á€€á¤á€”á€¹á€á€±á€…á¦á¦( April Ghost)(á€žá¾á€€á¤á€”á€¹á€á€á³á€³á€á€¯á€­)', '(á€»á€•á€­á€³á€„á€¹á€•á€¼á€²á€á€„á€¹á€á€á³á€³á€±á€œá€¸á€»á€–á€…á€¹á€•á€«á€žá€Šá€¹á‹) á€…á€¬á€±á€›á€¸á€žá€° á€¡á€®á€±á€€á€¼á€á€¬  - á€žá¾á€€á¤á€”á€¹á€á€±á€…á¦', 'eee', 1, 1, 2, '2019-04-10  3:00:00 pm', '2019-04-12  3:00:00 pm', 1, 'http://localhost/eventticket/assets/images/ticket/ticket_15_13_10_5cadac9e6c951.jpg', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-10 08:43:10', '0000-00-00 00:00:00', NULL);
+(1, 'á€„á€«á€Ÿá€¬ á€˜á€¬á€œá€²?', '(á€»á€•á€­á€³á€„á€¹á€•á€¼á€²á€á€„á€¹á€á€á³á€³á€±á€œá€¸á€»á€–á€…á€¹á€•á€«á€žá€Šá€¹á‹) á€…á€¬á€±á€›á€¸á€žá€° á€žá€„á€¹á€‡á€¬á€™á€¯á€­á€¸á€¥á€®á€¸  - á€žá€›á€²á€±á€»á€á€¬á€€á€¹á€žá€Šá€¹á€·á€Š', 'eee', 1, 3, 2, '2019-04-11  2:00:00 pm', '2019-04-12  2:00:00 pm', 0, 'http://localhost/eventticket/assets/images/ticket/ticket_14_41_50_5cada546c8ea9.png', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-10 08:11:50', '0000-00-00 00:00:00', NULL),
+(2, 'á€žá¾á€€á¤á€”á€¹á€á€±á€…á¦á¦( April Ghost)(á€žá¾á€€á¤á€”á€¹á€á€á³á€³á€á€¯á€­)', '(á€»á€•á€­á€³á€„á€¹á€•á€¼á€²á€á€„á€¹á€á€á³á€³á€±á€œá€¸á€»á€–á€…á€¹á€•á€«á€žá€Šá€¹á‹) á€…á€¬á€±á€›á€¸á€žá€° á€¡á€®á€±á€€á€¼á€á€¬  - á€žá¾á€€á¤á€”á€¹á€á€±á€…á¦', 'eee', 1, 1, 2, '2019-04-10  3:00:00 pm', '2019-04-12  3:00:00 pm', 1, 'http://localhost/eventticket/assets/images/ticket/ticket_15_13_10_5cadac9e6c951.jpg', 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-10 08:43:10', '0000-00-00 00:00:00', NULL),
+(3, 'Barracks 5th Festival', 'á€”á€¾á€…á€ºá€…á€‰á€º á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€á€­á€¯á€„á€ºá€¸á€™á€¾á€¬ á€¡á€•á€¼á€á€ºá€œá€”á€ºá€¸á€”á€±á€á€²á€· Barrack á€€á€­á€¯ á€€á€¼á€±á€„á€¼á€¬á€•á€«á€›á€…á€± Barracks á€›á€²á€· 5 years anniversary ðŸŽ‰á€á€½á€„á€º  á€šá€á€„á€ºá€”á€¾á€…á€ºá€™á€»á€¬á€¸á€‘á€€á€º á€á€¼á€¶á€á€„á€ºá€¸á€€á€»á€šá€ºá€™á€Šá€º ðŸ¤© á€šá€á€„á€ºá€”á€¾á€…á€ºá€™á€»á€¬á€¸á€‘á€€á€º international Dj ðŸ‘ðŸ‘ðŸ‘ á€šá€á€„á€ºá€”á€¾á€…á€ºá€™á€»á€¬á€¸á€‘á€€á€º local Dj ðŸ‘ðŸ‘ðŸ‘ á€šá€á€„á€ºá€”á€¾á€…á€ºá€™á€»á€¬á€¸á€‘á€€á€º productionðŸ‘ðŸ‘ðŸ‘', 'San Chaung , Pyay Road ...', 1, 5, 2, '2019-04-13  9:00:00 am', '2019-04-16  7:00:00 pm', 0, 'http://localhost/eventticket/assets/images/ticket/ticket_22_22_17_5caf62b18204d.jpg', 2, 1, 55000, 50, 1, 85000, 50, 1, 100000, 50, '2019-04-11 15:52:17', '0000-00-00 00:00:00', NULL),
+(4, 'Culture Show', 'á€žá€¬á€šá€¬á€œá€¾á€•á€á€²á€· á€Šá€”á€±á€á€„á€ºá€¸á€œá€±á€¸á€á€…á€ºá€á€¯á€™á€¾á€¬ á€™á€­á€žá€¬á€¸á€…á€¯ áŠ á€žá€°á€„á€šá€ºá€á€»á€„á€ºá€¸áŠ á€™á€­á€á€ºá€†á€½á€±á€¡á€•á€±á€«á€„á€ºá€¸á€¡á€žá€„á€ºá€¸á€™á€»á€¬á€¸á€”á€¾á€„á€·á€º á€¡á€á€° á€™á€¼á€”á€ºá€™á€¬á€·á€›á€­á€¯á€¸á€›á€¬ á€¡á€€á€¡á€œá€¾á€™á€»á€¬á€¸á€€á€­á€¯ á€€á€¼á€Šá€·á€ºá€›á€°á€á€¶á€…á€¬á€¸á€•á€¼á€®á€¸ ................ á€¡á€›á€žá€¬á€›á€¾á€­á€žá€±á€¬ á€¡á€…á€¬á€¸á€¡á€žá€±á€¬á€€á€ºá€™á€»á€¬á€¸á€•á€«á€á€„á€ºá€žá€Šá€·á€º Buffet á€€á€­á€¯ á€žá€¯á€¶á€¸á€†á€±á€¬á€„á€ºá€–á€­á€¯á€·á€¡á€á€½á€€á€º Vintage Luxury Yacht Hotel á€€á€»á€„á€ºá€¸á€•á€•á€¼á€¯á€œá€¯á€•á€ºá€™á€šá€·á€º Culture Show á€•á€½á€²á€€á€­á€¯ á€œá€Šá€ºá€¸á€¡á€›á€„á€ºá€œá€á€½á€±á€œá€­á€¯ á€¡á€¬á€¸á€•á€±á€€á€¼á€–á€­á€¯á€· á€‘á€•á€ºá€™á€¶á€–á€­á€á€ºá€á€±á€«á€ºá€¡á€•á€ºá€•á€«á€á€šá€º........  á€œá€€á€ºá€™á€¾á€á€ºá€á€…á€±á€¬á€„á€ºá€€á€­á€¯ 15000 á€€á€»á€•á€º.ðŸ˜¯ðŸ˜¯ðŸ˜¯ðŸ˜¯.........', 'Vintage Luxury Yacht Hotel~ á€¡á€™á€¾á€á€º (á†)áŠ á€—á€­á€¯á€œá€ºá€á€‘á€±á€¬á€„á€ºá€†á€­á€•á€ºá€€á€™á€ºá€¸áŠ á€—á€­á€¯á€œá€ºá€á€‘á€±á€¬á€„á€ºá€˜á€¯á€›á€¬á€¸á€¡á€”á€®á€¸áŠ á€†á€­á€•á€ºá€€á€™á€ºá€¸á€™á€¼á€­á€¯á€·á€”á€šá€ºá‹', 1, 1, 2, '2019-04-20  9:00:00 am', '2019-04-30  6:00:00 pm', 1, 'http://localhost/eventticket/assets/images/ticket/ticket_22_37_59_5caf665f55c91.jpg', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-11 16:07:59', '0000-00-00 00:00:00', NULL),
+(5, 'BlackJack Water Festival', '2019 Blackjack water festival á€€ á€›á€­á€¯á€¸á€›á€¬á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€”á€²á€· á€¡á€™á€­á€¯á€€á€ºá€…á€¬á€¸ EDM Rave area á€á€­á€¯á€· á€•á€±á€«á€„á€ºá€¸á€…á€•á€ºá€–á€½á€²á€·á€…á€Šá€ºá€¸á€‘á€¬á€¸á€œá€­á€¯á€· á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€™á€á€¹á€á€•á€º á€‘á€­á€¯á€„á€ºá€•á€¼á€®á€¸ International top 100 headliners á€™á€»á€¬á€¸á€”á€²á€·á€¡á€á€° á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€™á€¾á€¬á€á€°á€á€°á€€á€²á€€á€¼á€›á€¡á€±á€¬á€„á€º !!!', 'San Chaung , Pyay Road ...', 1, 5, 2, '2019-04-13  9:00:00 am', '2019-04-16  6:00:00 pm', 0, 'http://localhost/eventticket/assets/images/ticket/ticket_22_47_02_5caf687ed95ed.jpg', 2, 1, 70000, 50, 1, 100000, 50, 0, 0, 0, '2019-04-11 16:17:02', '0000-00-00 00:00:00', NULL),
+(6, 'EXODUS', 'Exodus Entertainment á€€ á€…á€®á€…á€‰á€ºá€€á€»á€„á€ºá€¸ á€•á€™á€šá€·á€º 2019 Exodus Republic á€€á€¼á€®á€¸á€™á€¾á€¬ á€•á€»á€±á€¬á€€á€ºá€†á€¯á€¶á€¸á€”á€±á€á€²á€· á€›á€”á€ºá€€á€¯á€”á€ºá€™á€¼á€­á€¯á€·á€›á€²á€· á€¡á€á€¬á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€€á€­á€¯ á€•á€¼á€”á€ºá€œá€Šá€ºá€›á€¾á€¬á€–á€½á€±á€–á€­á€¯á€· á€¡á€†á€„á€ºá€žá€„á€·á€ºá€–á€¼á€…á€ºá€•á€¼á€®á€œá€¬á€¸!!!! ðŸ’ªðŸ¼ðŸ˜Ž', 'San Chaung , Pyay Road ...', 1, 5, 2, '2019-04-13  8:00:00 am', '2019-04-16  6:00:00 pm', 0, 'http://localhost/eventticket/assets/images/ticket/ticket_22_48_56_5caf68f03b78f.jpg', 2, 1, 42000, 50, 1, 60000, 50, 0, 0, 0, '2019-04-11 16:18:56', '0000-00-00 00:00:00', NULL),
+(7, 'TGY Water Festival', 'á€˜á€±á€¬á€ºá€’á€«á€á€­á€¯á€·á€›á€± á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€¡á€á€½á€€á€º á€’á€®á€”á€±á€›á€¬á€†á€­á€¯á€¡á€†á€„á€ºá€•á€¼á€±á€á€šá€ºá€Ÿá€¯á€á€º ðŸ˜Ž .... ðŸ‘ðŸ‘ TGY WATER FESTIVAL (THE GOD OF WATER)', 'San Chaung , Pyay Road ...', 1, 5, 2, '2019-04-13  8:00:00 am', '2019-04-16  6:00:00 pm', 0, 'http://localhost/eventticket/assets/images/ticket/ticket_22_51_42_5caf6996703b1.jpg', 2, 1, 45000, 50, 1, 60000, 30, 0, 0, 0, '2019-04-11 16:21:42', '0000-00-00 00:00:00', NULL),
+(8, 'Mya Kyun Thar Festival', 'á€’á€®á€”á€¾á€…á€ºá€žá€„á€ºá€¹á€€á€¼á€”á€ºá€™á€¾á€¬á€á€±á€¬á€· á€•á€»á€±á€¬á€ºá€›á€½á€¾á€„á€ºá€…á€›á€¬á€á€½á€± á€¡á€†á€€á€ºá€™á€•á€¼á€á€ºá€™á€šá€·á€º á€™á€¼á€€á€»á€½á€”á€ºá€¸á€žá€¬á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€•á€½á€² á€€á€­á€¯á€œá€¬á€–á€­á€¯á€·á€¡á€á€½á€€á€º á€–á€­á€á€ºá€á€±á€«á€ºá€á€»á€„á€ºá€•á€«á€á€šá€ºá‹ á€á€„á€ºá€€á€¼á€±á€¸ á€€á€œá€Šá€ºá€¸á€¡á€á€™á€²á€·á€•á€²á€†á€­á€¯á€á€±á€¬á€·  á€á€…á€ºá€™á€­á€žá€¬á€¸á€…á€¯á€œá€¯á€¶á€¸ á€•á€»á€±á€¬á€ºá€™á€†á€¯á€¶á€¸á€™á€²á€· á€›á€”á€ºá€€á€¯á€”á€ºá€€ á€¡á€€á€¼á€®á€¸á€†á€¯á€¶á€¸ á€žá€„á€ºá€¹á€€á€¼á€”á€ºáŠ á€™á€¼á€€á€»á€½á€”á€ºá€¸á€žá€¬á€žá€„á€ºá€¹á€€á€¼á€”á€ºá€€á€­á€¯ á€¡á€›á€±á€¬á€€á€ºá€œá€¬á€á€²á€·á€á€±á€¬á€·á€”á€±á€¬á€ºá‹', 'Yankin , Insein Road .', 1, 5, 2, '2019-04-13  9:00:00 am', '2019-04-16  7:00:00 pm', 1, 'http://localhost/eventticket/assets/images/ticket/ticket_22_55_20_5caf6a702b08b.jpg', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, '2019-04-11 16:25:20', '0000-00-00 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -247,8 +287,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `address`, `image`, `phone`, `role_id`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(1, 'Superman', 'email@gmail.com', '$2y$10$x/IjNrSBrOi4k5VREhG65uZpiBA4Sce.88F9Aio9crmp9tARnVmy.', NULL, 'http://localhost/eventticket/assets/images/profile/profile_12_04_16_5cac2ed85819d.jpg', '09420059241', 3, '2019-04-08 16:22:05', '0000-00-00 00:00:00', NULL),
-(2, 'CreatorLay', 'creator@gmail.com', '$2y$10$1BsdiGuFxiiUdd8WZJusLeamU/qWNJHdx4X8kbXLN88sPHl82DL62', '', 'http://localhost/eventticket/assets/images/profile/profile_21_34_30_5cacb47e8b23d.jpg', '09420059241', 2, '2019-04-08 16:37:04', '0000-00-00 00:00:00', NULL);
+(1, 'Admin', 'email@gmail.com', '$2y$10$x/IjNrSBrOi4k5VREhG65uZpiBA4Sce.88F9Aio9crmp9tARnVmy.', NULL, 'http://localhost/eventticket/assets/images/profile/profile_21_01_03_5cadfe277e3f2.jpg', '09420059241', 3, '2019-04-08 16:22:05', '0000-00-00 00:00:00', NULL),
+(2, 'Creator', 'creator@gmail.com', '$2y$10$1BsdiGuFxiiUdd8WZJusLeamU/qWNJHdx4X8kbXLN88sPHl82DL62', '', 'http://localhost/eventticket/assets/images/profile/profile_21_34_30_5cacb47e8b23d.jpg', '09420059241', 2, '2019-04-08 16:37:04', '0000-00-00 00:00:00', NULL),
+(3, 'Htet Naing', 'user@gmail.com', '$2y$10$/m3V5GOOdntfErsvdX3gwOKIMhS.1Kwu.W3RgfAF1a7ORsjyFhGdy', '', 'http://localhost/eventticket/assets/images/logo/default.svg', '09456654114', 1, '2019-04-10 10:41:10', '0000-00-00 00:00:00', NULL);
 
 --
 -- Indexes for dumped tables
@@ -264,6 +305,12 @@ ALTER TABLE `event_category`
 -- Indexes for table `location`
 --
 ALTER TABLE `location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -320,6 +367,12 @@ ALTER TABLE `location`
   MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `order_status`
 --
 ALTER TABLE `order_status`
@@ -341,7 +394,7 @@ ALTER TABLE `testing_table`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ticket_status`
@@ -353,7 +406,7 @@ ALTER TABLE `ticket_status`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
