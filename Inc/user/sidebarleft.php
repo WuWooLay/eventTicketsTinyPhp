@@ -6,11 +6,11 @@
                     <ul class="list-group">
 
                         <a
-                            data-container="Dashboard_Container"
+                            data-container="Ticket_Container"
                             class="list-group-item side_hover container_change_click"
                         >
                             <i class="material-icons text-primary">dashboard</i>
-                            Dashboard
+                            Ticket
                         </a>
                        
                         <a

@@ -22,11 +22,11 @@
             <!-- Left Side Container -->
             <div class="col-md-9 mb-3">
                     
-                    <!-- Dashboard Container  -->
-                    <div id="Dashboard_Container" class="fadeIn ">
-                            <?php include "./Inc/user/container/dashboard.php" ?>
+                    <!-- Ticket Container  -->
+                    <div id="Ticket_Container" class="fadeIn ">
+                            <?php include "./Inc/user/container/ticket.php" ?>
                     </div>
-                    <!-- Dashboard Container End -->
+                    <!-- Ticket Container End -->
 
                     <!-- Ticket Container  -->
                     <div id="Order_Container" class="fadeIn d-none">

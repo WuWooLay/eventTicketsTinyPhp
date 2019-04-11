@@ -44,7 +44,17 @@
                 unset($result["data"]); 
                 return $result;
             } else {
+
+                // If Banned
+                if($result["data"]["deleted_at"] == true) {
+                    $result["isValid"] = false;
+                    $result["errors"][] = "Your Acc was Banned";
+                    unset($result["data"]); 
+                    return $result;
+                }
+
                 unset($result["errors"]);
+
 
                 SESSION::init();
                 SESSION::set('auth', [
