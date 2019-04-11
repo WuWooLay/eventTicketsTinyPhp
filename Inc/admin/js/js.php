@@ -887,6 +887,286 @@
         AllInOneTicket();
 
 
+
+         /**
+         * 
+         * Order 
+         * 
+         */
+        var All_Order_Container = [
+            'Order_List_Container',
+            'Order_Check_Container',
+            'Order_Pending_List_Container',
+            'Order_Reject_List_Container',
+            'Order_Success_List_Container'
+        ];
+
+        function allOrderContainerClose() {
+            All_Order_Container.map( function (value) {
+                $('#' + value).addClass('d-none');
+            });
+        }
+
+        // Order Container Link 
+        $(".order_container_change_click").click( function () {
+              // get Container
+              var container = $(this).data('container');
+              allOrderContainerClose();
+              console.log(container);
+              $('#'+container).removeClass('d-none');
+        });
+        
+        // Order Check Detail
+        function orderCheckDetail(obj) {
+          console.log('order_Check =>', obj);
+
+          // Check Confrim or not
+          if(obj.status == 1) {
+            $("#order_check_confirm_or_not_container").removeClass('d-none');
+            $("#order_check_confirm_button").data('id', obj.id);
+            $("#order_check_reject_button").data('id', obj.id);
+          } else {
+            $("#order_check_confirm_or_not_container").addClass('d-none');            
+          }
+
+          $("#order_check_user_name").html('');
+          $("#order_check_user_name")
+          .append('<span class="table_image_icon_sm" style="background-image:url('+obj.user_image+')"></span>')
+          .append('<span style="margin-left:40px">'+obj.user_name+'</span>');
+          $("#order_check_user_phone").html(obj.user_phone);
+
+          $("#order_check_image").css('background-image', 'url('+obj.image+')');
+          $("#order_check_title").html(obj.ticket_title);
+          console.log(obj.ticket_title);
+          
+          $("#order_check_ga_price").html( (obj.ga_price) + " Kyats");
+          $("#order_check_ga_quantity").html((obj.ga_quantity) );
+          $("#order_check_vip_price").html((obj.vip_price) + " Kyats");
+          $("#order_check_vip_quantity").html( (obj.vip_quantity) );
+          $("#order_check_vvip_price").html((obj.vvip_price) + " Kyats");
+          $("#order_check_vvip_quantity").html( (obj.vvip_quantity) );
+
+          allOrderContainerClose();
+          $("#Order_Check_Container").removeClass('d-none');
+
+        }
+
+        // Ticket Confirm Button
+        $("#order_check_confirm_button").click(function () {
+
+          $("#order_check_confirm_or_not_loading").removeClass("d-none");
+
+          var id = $(this).data("id");
+
+          $.get("<?= URL ?>/order/updateConfirm/"+ id , function (data) {
+            if(data.status) {
+              $("#order_check_confirm_or_not_loading").addClass("d-none");
+              $("#order_check_confirm_or_not_container").addClass("d-none");
+              AllInOneOrder();
+            }
+          });
+
+        });
+
+        $("#order_check_reject_button").click(function () {
+
+          $("#order_check_confirm_or_not_loading").removeClass("d-none");
+
+          var id = $(this).data("id");
+
+          $.get("<?= URL ?>/order/updateReject/"+ id , function (data) {
+            if(data.status) {
+              $("#order_check_confirm_or_not_loading").addClass("d-none");
+              $("#order_check_confirm_or_not_container").addClass("d-none");
+              AllInOneOrder();
+            }
+          });
+        });
+
+        // Get Initial Cretor Order List
+        $("#order_list_get").click( function () {
+                var page = $('#order_list_get_input').val();
+                if(page > $('#order_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getAllOrderByAdmin(page);
+        });
+
+        function getAllOrderByAdmin(page = 1) {
+              $.get( '<?=URL?>/order/get?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#order_list_get_total_page').html(data.total_page);
+                        $('#order_table_body > tr').remove();
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              orderListTable(user).appendTo("#order_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+        function orderListTable (data) {
+                var color = data.status == 1 ? 'primary' : 
+                data.status == 2 ? 'success' : 'danger';
+                var icon = data.status == 1 ? 'slow_motion_video' : 
+                data.status == 2 ? 'mobile_friendly' : 'backspace';;
+
+                return $('<tr>')
+                .append(
+                    $('<th>').html(data.id)
+                )
+                .append(
+                    $('<td>').append(
+                      $('<div>', {
+                          class: "table_image_icon",
+                          style: "background-image:url("+data.image+")"
+                        }
+                      )
+                    )
+                )
+                .append(
+                    $('<td>').html(data.ticket_title)
+                )
+                .append(
+                    $('<td>')
+                    .append(
+                          $('<button>', {type: 'button', class: 'btn btn-'+color+' bmd-btn-icon ', disabled: "disabled"})
+                          .html('<i class="material-icons medium text-'+color+'">'+icon+'</i>')
+                    )
+                    .append(data.status_name)
+                )
+                .append(
+                    $('<td>')
+                        .append(
+                            $('<button>', {type: 'button', class: 'btn btn-success  bmd-btn-icon'})
+                            .html('<i class="material-icons medium text-success">remove_red_eye</i>')
+                            .data('data', data)
+                            .click( function () {
+                                console.log('check');
+                                var data = $(this).data('data');
+                                // console.log(data);
+                                orderCheckDetail(data);
+                            })
+                        )
+                );
+        }
+
+        // Get Pening Cretor Order List
+        $("#order_pending_list_get").click( function () {
+                var page = $('#order_pending_list_get_input').val();
+                if(page > $('#order_pending_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getPendingOrderByAdmin(page);
+        });
+        function getPendingOrderByAdmin(page = 1) {
+              $('#order_pending_table_body > tr').remove();
+              $.get( '<?=URL?>/order/getByPending?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#order_pending_list_get_total_page').html(data.total_page);
+                        
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              orderListTable(user).appendTo("#order_pending_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+        // Get Success Creator Order List
+        $("#order_success_list_get").click( function () {
+                var page = $('#order_success_list_get_input').val();
+                if(page > $('#order_success_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getSuccessOrderByAdmin(page);
+        });
+        function getSuccessOrderByAdmin(page = 1) {
+              $('#order_success_table_body > tr').remove();
+              $.get( '<?=URL?>/order/getBySuccess?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#order_success_list_get_total_page').html(data.total_page);
+                        
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              orderListTable(user).appendTo("#order_success_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+        // Get Reject Creator Order List
+        $("#order_reject_list_get").click( function () {
+                var page = $('#order_reject_list_get_input').val();
+                if(page > $('#order_reject_list_get_total_page').html()) {
+                    alert(' More than Count');
+                    return false;
+                }
+                getRejectOrderByAdmin(page);
+        });
+        function getRejectOrderByAdmin(page = 1) {
+              $('#order_reject_table_body > tr').remove();
+              $.get( '<?=URL?>/order/getByReject?page=' + page,
+              function(data) {
+                console.log(data);
+                if(data.errors) {
+                  console.log(data.errors);
+                } else if (data.data) {
+                        $('#order_reject_list_get_total_page').html(data.total_page);
+                        
+                        if(data.data.length > 0 ) {
+                            data.data.map( function (user)  {
+                              orderListTable(user).appendTo("#order_reject_table_body");
+                            } );
+                        }  
+                  console.log('Get Data');
+                }
+              })
+              .fail(function(e) {
+                console.log(e);
+              });
+        }
+
+
+        function AllInOneOrder() {
+          getAllOrderByAdmin();
+          getPendingOrderByAdmin();
+          getSuccessOrderByAdmin();
+          getRejectOrderByAdmin();
+        }
+
+        AllInOneOrder();
+
     });
 
 </script>

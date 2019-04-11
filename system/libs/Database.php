@@ -164,5 +164,11 @@ class Database extends PDO {
 
         return $total_pages ;
     }
+
+    /**
+     *  
+     * All Get 
+     * 
+     */
     
 }
