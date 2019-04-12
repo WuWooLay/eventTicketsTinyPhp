@@ -589,6 +589,8 @@
           $("#order_check_vip_quantity").html( (obj.vip_quantity) );
           $("#order_check_vvip_price").html((obj.vvip_price) + " Kyats");
           $("#order_check_vvip_quantity").html( (obj.vvip_quantity) );
+          $("#order_check_total_price").html( (obj.total_price) + " Kyats" );
+          
 
           allOrderContainerClose();
           $("#Order_Check_Container").removeClass('d-none');

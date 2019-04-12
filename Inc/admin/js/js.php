@@ -946,6 +946,7 @@
           $("#order_check_vip_quantity").html( (obj.vip_quantity) );
           $("#order_check_vvip_price").html((obj.vvip_price) + " Kyats");
           $("#order_check_vvip_quantity").html( (obj.vvip_quantity) );
+          $("#order_check_total_price").html( (obj.total_price) + " Kyats" );
 
           allOrderContainerClose();
           $("#Order_Check_Container").removeClass('d-none');
@@ -964,6 +965,18 @@
               $("#order_check_confirm_or_not_loading").addClass("d-none");
               $("#order_check_confirm_or_not_container").addClass("d-none");
               AllInOneOrder();
+            } else if(data.errors) {
+              console.log(data.errors);
+              data.errors.map( function (value) {
+                var thi = $("<div>", {class: "alert alert-danger", role: "alert"})
+                .append(value)
+                .prependTo("#right_side");
+                  setTimeout(function () {
+                      $(thi).remove();
+                  }, 3000);
+              });
+              
+              $("#order_check_confirm_or_not_loading").addClass("d-none");
             }
           });
 

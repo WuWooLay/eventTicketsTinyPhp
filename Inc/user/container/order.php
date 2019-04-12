@@ -173,6 +173,19 @@
                                 </div>
                                 <!-- vvip End -->
 
+                                <!-- Total Price -->
+                                <div class="col-md-6 table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td> Total Price Ticket</td>
+                                        </tr>
+                                        <tr>
+                                            <td id="order_check_total_price"> 100 </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!-- Total End -->
+
                                 
                             </div>
                         </div>

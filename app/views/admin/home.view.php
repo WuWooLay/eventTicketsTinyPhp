@@ -19,8 +19,8 @@
                 </div>
             <!-- Left Side Container End -->
 
-            <!-- Left Side Container -->
-            <div class="col-md-9 mb-3">
+            <!-- Right Side Container -->
+            <div class="col-md-9 mb-3" id="right_side">
                     
                     <!-- Dashboard Container  -->
                     <div id="Dashboard_Container" class="fadeIn ">
@@ -53,7 +53,7 @@
                     <!-- Profile Container End -->
             
             </div>
-            <!-- Left Side Container End -->
+            <!-- Right Side Container End -->
 
             </div>
 

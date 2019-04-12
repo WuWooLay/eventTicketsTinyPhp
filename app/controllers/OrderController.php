@@ -51,6 +51,7 @@
                 "orders.vip_quantity","orders.vvip",
                 "orders.vvip_price","orders.vvip_quantity",
                 "orders.user_id",
+                "orders.total_price",
                 "user.name as user_name",
                 "user.phone as user_phone",
                 "user.image as user_image",
@@ -97,6 +98,7 @@
                 "orders.vip_quantity","orders.vvip",
                 "orders.vvip_price","orders.vvip_quantity",
                 "orders.user_id",
+                "orders.total_price",
                 "user.name as user_name",
                 "user.phone as user_phone",
                 "user.image as user_image",
@@ -164,6 +166,7 @@
                 "orders.vip_quantity","orders.vvip",
                 "orders.vvip_price","orders.vvip_quantity",
                 "orders.user_id",
+                "orders.total_price",
                 "user.name as user_name",
                 "user.phone as user_phone",
                 "user.image as user_image",
@@ -221,6 +224,7 @@
                 "orders.vip_quantity","orders.vvip",
                 "orders.vvip_price","orders.vvip_quantity",
                 "orders.user_id",
+                "orders.total_price",
                 "user.name as user_name",
                 "user.phone as user_phone",
                 "user.image as user_image",
@@ -277,6 +281,7 @@
                 "orders.vip_quantity","orders.vvip",
                 "orders.vvip_price","orders.vvip_quantity",
                 "orders.user_id",
+                "orders.total_price",
                 "user.name as user_name",
                 "user.phone as user_phone",
                 "user.image as user_image",
@@ -333,6 +338,7 @@
                 "orders.vip_quantity","orders.vvip",
                 "orders.vvip_price","orders.vvip_quantity",
                 "orders.user_id",
+                "orders.total_price",
                 "user.name as user_name",
                 "user.phone as user_phone",
                 "user.image as user_image",
@@ -384,6 +390,7 @@
             "orders.vip_quantity","orders.vvip",
             "orders.vvip_price","orders.vvip_quantity",
             "orders.user_id",
+                "orders.total_price",
             "user.name as user_name",
             "user.phone as user_phone",
             "user.image as user_image",
@@ -400,6 +407,22 @@
         // echo "<pre>";
         // print_r(json_encode($order));
         // die();
+        $errors = [];
+        if( $order["ga_quantity"] > $ticket["ga_quantity"]) {
+            $errors[] = 'Order Ga Quantity is More Than Ticket Qty.';
+        }
+
+        if( $order["vip_quantity"] > $ticket["vip_quantity"]) {
+            $errors[] = 'Order Vip Quantity is More Than Ticket Qty.';
+        }
+
+        if( $order["vvip_quantity"] > $ticket["vvip_quantity"]) {
+            $errors[] = 'Order Vvip Quantity is More Than Ticket Qty.';
+        }
+
+        if(count($errors) > 0 ) {
+            die($this->json(["errors" => $errors]));
+        }
 
         $ga =$ticket["ga_quantity"] - $order["ga_quantity"];
         $vip =$ticket["vip_quantity"] - $order["vip_quantity"];
