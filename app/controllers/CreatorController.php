@@ -218,4 +218,25 @@
 
         return ($creatorModel->pageCount($table, $cond, $limit));
     }
+
+    // DashBoard    
+    public function dashBoard($id = 2) {
+        $adminModel = $this->load->model('adminModel');
+        
+        $order = "ticket";
+        $result["tickets"] = $adminModel->dashBoard($order, ' WHERE user_id = ' . $id); 
+
+        $order = "ticket";
+        $result["pending_tickets"] = $adminModel->dashBoard($order, ' WHERE status = 1 AND user_id = ' . $id);
+        
+        $order = "ticket";
+        $result["success_tickets"] = $adminModel->dashBoard($order, ' WHERE status = 2 AND user_id = ' . $id);
+        
+        $order = "ticket";
+        $result["reject_tickets"] = $adminModel->dashBoard($order, ' WHERE status = 3 AND user_id = ' . $id);
+    
+        return die(
+            $this->json($result)
+        );
+    }
  }

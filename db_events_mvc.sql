@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2019 at 11:24 PM
+-- Generation Time: Apr 12, 2019 at 02:14 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -105,7 +105,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `ticket_id`, `user_id`, `image`, `status`, `ga`, `ga_price`, `ga_quantity`, `vip`, `vip_price`, `vip_quantity`, `vvip`, `vvip_price`, `vvip_quantity`, `total_price`, `created_at`, `modified_at`, `deleted_at`) VALUES
-(1, 3, 3, '\'afeafeff\'', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, '2019-04-11 20:18:56', '0000-00-00 00:00:00', NULL);
+(1, 7, 3, 'http://localhost/eventticket/assets/images/ticket/ticket_22_51_42_5caf6996703b1.jpg', 1, 1, 45000, 0, 1, 60000, 2, 0, 0, 0, 120000, '2019-04-11 22:22:34', '0000-00-00 00:00:00', NULL);
 
 -- --------------------------------------------------------
 

@@ -883,6 +883,7 @@
           getPendingTicketByAdmin();
           getSuccessTicketByAdmin();
           getRejectTicketByAdmin();
+          DashBoard();
         }
         AllInOneTicket();
 
@@ -1163,12 +1164,13 @@
           getPendingOrderByAdmin();
           getSuccessOrderByAdmin();
           getRejectOrderByAdmin();
+          DashBoard();
         }
 
         AllInOneOrder();
 
 
-        function dashboard() {
+        function DashBoard() {
           var url = "<?= URL ?>/admin/dashboard";
           $.get(url, function (data) {
             Object.keys(data).map(function (key) {
@@ -1177,7 +1179,7 @@
           });
         }
 
-        dashboard();
+        DashBoard();
 
     });
 

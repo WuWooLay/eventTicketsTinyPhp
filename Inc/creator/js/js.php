@@ -492,6 +492,19 @@
           allTicketContainerClose();
           $("#Ticket_Check_Container").removeClass('d-none');
         }
+
+
+        function DashBoard() {
+          var id = <?= $_SESSION['auth']['id'] ?>;
+          var url = "<?= URL ?>/creator/dashboard/" + id;
+          $.get(url, function (data) {
+            Object.keys(data).map(function (key) {
+              $("#dashboard_"+key).html(data[key]);
+            });
+          });
+        }
+
+        DashBoard();
     });
 
 </script>
