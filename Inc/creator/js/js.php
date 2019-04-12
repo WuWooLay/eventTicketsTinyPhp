@@ -91,6 +91,8 @@
                   $("#Ticket_Add_Form_Error").html(success);
                   $("#Ticket_Add_Form")[0].reset();
                   getTicketByUserId();
+                  DashBoard();
+
                 }
               }
               $("#Ticket_Add_Form_Loading").addClass('d-none');

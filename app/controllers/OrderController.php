@@ -366,22 +366,75 @@
         if($id == null || $id == '' || $id == 0 ) {
             return die($this->json(["errors"=>["Cant Confirm"]] ,400));
         }
-        $data = [
-            "status" => 2
-        ];
         
         // Call User Model
         $orderModel = $this->load->model('orderModel');
+        $ticketModel = $this->load->model('ticketModel');
 
-        $cond = "id=" . $id ;
+        
+        
+        $select = [
+            "orders.id",
+            "orders.image",
+            "orders.status",
+            "orders.ga",
+            "orders.ga_price",
+            "orders.ga_quantity",
+            "orders.vip","orders.vip_price",
+            "orders.vip_quantity","orders.vvip",
+            "orders.vvip_price","orders.vvip_quantity",
+            "orders.user_id",
+            "user.name as user_name",
+            "user.phone as user_phone",
+            "user.image as user_image",
+            "ticket.id as ticket_id",
+            "ticket.title as ticket_title",
+            "order_status.name as status_name",
+        ];
+        
+        $order = $orderModel->findById($id, $select)[0];
 
-        $result = $orderModel->update($data, $cond);
+        $ticket_id = $order["ticket_id"];
+        $ticket = $ticketModel->findById($ticket_id)[0];
+
+        // echo "<pre>";
+        // print_r(json_encode($order));
+        // die();
+
+        $ga =$ticket["ga_quantity"] - $order["ga_quantity"];
+        $vip =$ticket["vip_quantity"] - $order["vip_quantity"];
+        $vvip =$ticket["vvip_quantity"] - $order["vvip_quantity"];
+      
+
+        $data = [
+            "ga_quantity" => $ga,
+            "vip_quantity" => $vip,
+            "vvip_quantity" => $vvip
+        ];
+
+        // die(json_encode($data));
+        
+        // Call User Model
+
+        $cond = "id=" . $ticket_id;
+        // die(print_r($data) . $cond);
+        $result = $ticketModel->update($data, $cond);
 
         if($result) {
-            return die($this->json(["status" => true, "message" => "Successfully Updated"]));
-        } else {
-            return die($this->json(["errors" => ["Cant Updated Email is Already"]], 400));
+            $status = [
+                "status" => 2
+            ];
+            $cond = "id=" . $id ;
+            $result = $orderModel->update($status, $cond);
+            if($result) {
+                return die($this->json(["status" => true, "message" => "Successfully Updated"]));
+            } else {
+                return die($this->json(["errors" => ["Cant Updated Email is Already"]], 400));
+            }
         }
+
+
+      
     }
 
     /**
