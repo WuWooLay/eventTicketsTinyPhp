@@ -215,4 +215,29 @@
 
         return ($adminModel->pageCount($table, $cond, $limit));
     }
+
+
+    // DashBoard    
+    public function dashBoard() {
+        $adminModel = $this->load->model('adminModel');
+        
+        $ticket = "ticket";
+        $result["tickets"] = $adminModel->dashBoard($ticket, ' WHERE `deleted_at` IS NULL ');
+
+        $creator = "user";
+        $result["creators"] = $adminModel->dashBoard($creator, ' WHERE `role_id`=2  ');
+
+        $user = "user";
+        $result["users"] = $adminModel->dashBoard($user, ' WHERE `role_id`=1 ');
+
+        $admin = "user";
+        $result["admins"] = $adminModel->dashBoard($admin, ' WHERE `role_id`=3');
+
+        $order = "orders";
+        $result["orders"] = $adminModel->dashBoard($admin, ' '); 
+    
+        return die(
+            $this->json($result)
+        );
+    }
  }

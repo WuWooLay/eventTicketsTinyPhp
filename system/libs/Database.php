@@ -170,5 +170,15 @@ class Database extends PDO {
      * All Get 
      * 
      */
+
+    public function allGet($table, $cond) {
+        // die($cond);
+        $sql = "SELECT COUNT(*) FROM $table $cond";
+        // die($sql);
+        $stmt = $this->prepare($sql);
+        $stmt->execute();
+        $no_of_row = $stmt->fetchColumn();
+        return $no_of_row;
+    }
     
 }

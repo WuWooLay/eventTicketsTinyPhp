@@ -1167,6 +1167,18 @@
 
         AllInOneOrder();
 
+
+        function dashboard() {
+          var url = "<?= URL ?>/admin/dashboard";
+          $.get(url, function (data) {
+            Object.keys(data).map(function (key) {
+              $("#dashboard_"+key).html(data[key]);
+            });
+          });
+        }
+
+        dashboard();
+
     });
 
 </script>
