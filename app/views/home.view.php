@@ -23,68 +23,25 @@
         </div>
 
         <div class="row" id="user_show_ticket_container">
-
-          <div class="col-sm-6 col-md-3 mb-3">
-            <div class="card" style="">
-              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
-
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary buyticket"> Buy Ticket </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-3 mb-3">
-            <div class="card" style="">
-              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
-
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary buyticket"> Buy Ticket </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-3 mb-3">
-            <div class="card" style="">
-              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
-
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary buyticket"> Buy Ticket </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-sm-6 col-md-3 mb-3">
-            <div class="card" style="">
-              <div class="image-container" style="background-image:url(<?= URL ?>/assets/images/logo/homewallpaper.jpg)">
-
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary buyticket"> Buy Ticket </a>
-              </div>
-            </div>
-          </div>
-
+          
         </div>
           
     </div>
     <!-- Sample Cards End -->
 
+    <!-- Events Banner -->
+    <div class="event_banner">
+
+    </div>
+    <!-- Events Banner -->
+
     <!-- Icon Container -->
     <div class="container mt-5">
+      <h3 class="text-center mb-5"> Our Services </h3>
+
 
         <div class="row">
+
 
           <div class="col-md-4 mb-4 text-center">
             <img class="Service_Icon" src="<?= URL ?>/assets/images/logo/twentyfourhour.svg" alt="">
@@ -106,6 +63,10 @@
           
     </div>
     <!-- Icon Container End -->
+
+    <!-- FOoter -->
+    
+    <!-- FOoter End-->
 
   </div>
   <!-- Home Container End-->
@@ -457,7 +418,7 @@
             // 
 
             function makeTicketCard(obj) {
-            return $('<div>', {class: 'col-sm-6 col-md-3 mb-3'})
+            return $('<div>', {class: 'col-sm-6 col-md-3 mb-3 fadeIn'})
                     .append(
                       $('<div>', {class: 'card'})
                       .append(
@@ -503,7 +464,10 @@
              } );
           }
 
-          getByUserTicket();
+          setTimeout( function () {
+            getByUserTicket();
+          }, (500));
+
 
             
       });

@@ -249,3 +249,14 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 
     }
+
+    .event_banner {
+        height: 40vh;
+        background: #000;
+        background-image: url(http://eventticket.com/assets/images/logo/banner.png);
+        /* background-attachment: fixed; */
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        /* filter: grayscale(66%); */
+    }
