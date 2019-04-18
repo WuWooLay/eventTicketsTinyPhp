@@ -2,6 +2,21 @@
 .bounceIn{-webkit-animation-duration:.75s;animation-duration:.75s;-webkit-animation-name:bounceIn;animation-name:bounceIn;-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
 @-webkit-keyframes fadeIn {from {opacity: 0;}to {opacity: 1;}}@keyframes fadeIn {from {opacity: 0;} to {opacity: 1;}}.fadeIn{-webkit-animation-duration:.75s;animation-duration:.75s;-webkit-animation-name:fadeIn;animation-name:fadeIn;-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both}
   
+/* Logo */
+.HomeLogo {
+    width: 94px;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+
+@media screen and (max-width: 860px) {
+    .HomeLogo {
+        top: 3px;
+        width: 73px;
+    }
+}
 
 /* Loading */
 .lds-dual-ring {
