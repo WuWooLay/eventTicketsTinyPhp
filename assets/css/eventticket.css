@@ -43,7 +43,7 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: #000;
-    background-image: url(http://eventticket.com/assets/images/logo/homewallpaper.jpg);
+    background-image: url(http://localhost/eventticket/assets/images/logo/homewallpaper.jpg);
     /* background-attachment: fixed; */
     background-position: center bottom;
     background-size: cover;
@@ -70,7 +70,7 @@
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: #000;
-    background-image: url(http://eventticket.com/assets/images/logo/aboutwallpaper.jpg);
+    background-image: url(http://localhost/eventticket/assets/images/logo/aboutwallpaper.jpg);
     background-attachment: fixed;
     background-position: top center;
     background-size: cover;
@@ -253,10 +253,31 @@
     .event_banner {
         height: 40vh;
         background: #000;
-        background-image: url(http://eventticket.com/assets/images/logo/banner.png);
+        background-image: url(http://localhost/eventticket/assets/images/logo/banner.png);
         /* background-attachment: fixed; */
         background-position: center center;
         background-size: cover;
         background-repeat: no-repeat;
         /* filter: grayscale(66%); */
+    }
+
+
+    /* Span BillCour */
+    .bio-span {
+        padding: .3rem 0.5rem;
+        color: white;
+        border-radius: 3rem;
+        margin: 0.2rem 0.1rem;
+        font-size: .8rem;
+        background: rgb(30,87,153); /* Old browsers */
+        background: -moz-linear-gradient(-45deg, rgba(30,87,153,1) 0%, rgba(41,137,216,1) 50%, rgba(32,124,202,1) 51%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(-45deg, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(135deg, rgba(30,87,153,1) 0%,rgba(41,137,216,1) 50%,rgba(32,124,202,1) 51%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    }
+
+    .about-image-container {
+        height: 150px;
+        width: 150px;
+        margin: 23px auto 0 auto;
     }

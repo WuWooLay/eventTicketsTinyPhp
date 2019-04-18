@@ -202,7 +202,43 @@
 
             <!-- Form Start -->
             <div class="card-body">
-              <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius nisi veniam, doloremque at ipsum cum a! Quae in molestias ullam vero, nisi consequuntur amet deleniti. Commodi doloribus deserunt laudantium obcaecati!</p>
+              <h6>
+              In this site, you can use more easier way like getting user experience completely. My site support the connection between event creators and users to be more reliable, satisfied and valueable. And then, this site is also an one click among the technical trends. If you want to know more, you can contact me...
+              </h6>
+
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-4">
+                      <div class="about-image-container text-center">
+                        <img src="http://localhost/eventticket/assets/images/logo/profile.jpg" class="img-fluid" alt="Responsive image">
+                      </div>
+                  </div>
+                  
+                  <div class="col-lg-8">
+                    <ul class="list-group">
+                      <a class="list-group-item text-primary"  target="_blank" href="https://www.facebook.com/profile.php?id=100009423682732">
+                        <i class="material-icons text-primary">account_circle</i>
+                        Si Thu Nyunt Swe
+                      </a>
+
+                      <a class="list-group-item text-primary" href="tel:+959250676233">
+                        <i class="material-icons text-primary">phone</i>
+                        09250676233 
+                      </a>
+
+                      <li class="list-group-item" href="#">
+                        <i class="material-icons text-primary">card_membership</i>
+                        <span class="bio-span">PHP</span>
+                        <span class="bio-span">Laravel</span>
+                        <span class="bio-span">Ui/Ux</span>
+                        <span class="bio-span">Javascript</span>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
             </div>
             <!-- Form End -->
           </div>
@@ -227,9 +263,11 @@
 
             <!-- Form Start -->
             <div class="card-body">
-                <p> What Ups .</p>
-      
-                <p> Out Ph : <a href="tel:+95945456456"> 0945456456 </a> </p>
+              <p>
+                In this site, you can use more easier way like getting user experience completely. My site support the connection between event creators and users to be more reliable, satisfied and valueable. And then, this site is also an one click among the technical trends. If you want to know more, you can contact me...
+              </p>
+                
+                <p> Out Ph : <a href="tel:+959250676233"> 09250676233 </a> </p>
 
                 <p> <button class="btn btn-raised btn-danger btn-sm toHome"> Back</button></p>
             </div>
