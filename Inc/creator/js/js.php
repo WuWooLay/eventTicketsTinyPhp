@@ -12,6 +12,7 @@
         var input = $('#'+value);
         var picker = new MaterialDatetimePicker()
         .on('submit', function (val) {
+            $(input).data("time", val);
             $(input).val(val.format("YYYY-MM-DD  h:mm:ss a"));
         });
         
@@ -51,15 +52,69 @@
         // Ga / Vip / VVIp
       })
 
-      // Form Reset
+      // Form Submit
       $("#Ticket_Add_Form").on('submit', function (e) {
         e.preventDefault();
+        console.log("Submit");
+       
         // var formData = new FormData(this);
         // for(var pair of formData.entries()) {
         //   console.log(pair[0]+ ' => '+ pair[1]); 
         // }
-        // return true;
 
+        var errors = [];
+        var startDate = $("#ticket_start_date").val();
+        var endDate = $("#ticket_end_date").val();
+
+        if(startDate == '' ) {
+          errors.push('Start Date required');
+        }
+
+        if(endDate == '' ) {
+          errors.push('End Date is required');
+        }
+
+        if(errors.length > 0 ) {
+          errors.map( function (error) {
+            var thi = $('<div>', {class: 'alert alert-danger', role: 'alert'})
+            .append(error)
+            .appendTo("#Ticket_Add_Form_Error");
+            setTimeout(function() {
+              $(thi).remove();
+            }, 2000);
+          });
+          return;
+        }
+
+        var now = moment().set({hour:0,minute:0,second:0,millisecond:0}).valueOf();
+        startDate = moment($("#ticket_start_date").data("time")).valueOf();
+        endDate = moment($("#ticket_end_date").data("time")).valueOf();
+
+        console.log(now);
+        console.log(startDate);
+        console.log(endDate);
+        // return;
+
+        if(startDate < now ) {
+          errors.push(' Start Date is Less than Now ');
+        }
+
+        if( endDate < startDate) {
+          errors.push(' EndDate is Less than Start Date ');
+        }
+
+        if(errors.length > 0 ) {
+          errors.map( function (error) {
+            var thi = $('<div>', {class: 'alert alert-danger', role: 'alert'})
+            .append(error)
+            .appendTo("#Ticket_Add_Form_Error");
+            setTimeout(function() {
+              $(thi).remove();
+            }, 3000);
+          });
+          return;
+        }
+        
         var url = $(this).data('action');
 
           $.ajax({
@@ -102,11 +157,14 @@
               if(e) {
                 console.log(e);
                 console.log(e.responseJSON);
-                var err = "";
                 e.responseJSON.errors.map(function (error) {
-                  err += '<div class="alert alert-danger" role="alert">' + error + '</div>';
+                  var thi = $('<div>', {class: 'alert alert-danger', role: 'alert'})
+                  .append(error)
+                  .appendTo("#Ticket_Add_Form_Error");
+                    setTimeout(function() {
+                      $(thi).remove();
+                    }, 3000);
                 });
-                $("#Ticket_Add_Form_Error").html(err);
               }
             }
           });

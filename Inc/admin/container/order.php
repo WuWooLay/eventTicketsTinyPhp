@@ -249,8 +249,8 @@
         <div class="fadeIn d-none" id="Order_Check_Container">
             <div class="card">
                     
-                    <div class="card-header ">
-                        <h4>  
+                    <div class="card-header pb-0">
+                        <h4 class="mb-1">  
                             Order Detail   
                         </h4>
 
@@ -258,6 +258,51 @@
                             <button type="button" id="order_check_confirm_button" class="btn btn-primary btn-raised btn-sm"> Confirm </button>
                             <button type="button" id="order_check_reject_button" class="btn btn-danger btn-raised btn-sm"> Reject </button>
                             <div id="order_check_confirm_or_not_loading" class="lds-dual-ring d-none"></div>
+
+                            <div id="order_check_ticket_list_table" class="container mt-1">
+                                <div class="row">
+
+                                    <div class="col-md-6 col-lg-4">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                        <td colspan="2"> Left Ga </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Ga Qty </td> <td id="left_ga">0</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                        <td colspan="2">Left Vip </td>
+                                                </tr>
+                                                <tr>
+                                                        <td> Vip Qty </td> <td id="left_vip">0</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                        <td colspan="2"> Left VVIP</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>Vvip Qty </td> <td id="left_vvip">0/td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -271,27 +316,7 @@
 
                       <!--  Start -->
                       <div class="card-body">
-                         <!-- All List -->
-                         <div class="container-fluid table-responsive">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td>Post By </td> 
-                                            <td class="table_tr_pos_for_icon" id="order_check_user_name">
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td> Phone </td> 
-                                            <td class="" id="order_check_user_phone">
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Title</td> <td id="order_check_title"> </td>
-                                        </tr>
-                                    </table>
-                        </div>
-                        <!-- All List End -->
+                         
 
                         <div class="container-fluid">
                             <div class="row">
@@ -359,8 +384,29 @@
                                 
                             </div>
                         </div>
-                        
-                      
+
+                        <!-- All List -->
+                        <div class="container-fluid table-responsive">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <td>Post By </td> 
+                                            <td class="table_tr_pos_for_icon" id="order_check_user_name">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td> Phone </td> 
+                                            <td class="" id="order_check_user_phone">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Title</td> <td id="order_check_title"> </td>
+                                        </tr>
+                                    </table>
+                        </div>
+                        <!-- All List End -->
+
                         <!-- <p class="card-text" id="order_check_end_date"></p> -->
                     </div>
                     <!--  End -->

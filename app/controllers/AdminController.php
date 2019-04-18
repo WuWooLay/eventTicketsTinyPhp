@@ -234,7 +234,7 @@
         $result["admins"] = $adminModel->dashBoard($admin, ' WHERE `role_id`=3');
 
         $order = "orders";
-        $result["orders"] = $adminModel->dashBoard($admin, ' '); 
+        $result["orders"] = $adminModel->dashBoard($order, ' '); 
     
         return die(
             $this->json($result)

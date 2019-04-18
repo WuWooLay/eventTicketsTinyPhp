@@ -56,10 +56,23 @@
                 "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket.title as ticket_title",
+                "ticket.ga as ticket_ga",
+                "ticket.ga_quantity as ticket_ga_quantity",
+                "ticket.vip as ticket_vip",
+                "ticket.vip_quantity as ticket_vip_quantity",
+                "ticket.vvip as ticket_vvip",
+                "ticket.vvip_quantity as ticket_vvip_quantity",
                 "order_status.name as status_name",
             ];
             
             $data["data"] = $orderModel->findById($id, $select)[0];
+
+            foreach(["ga", "vip", "vvip"] as $kk => $vv) {
+                $data["data"]["ticket_list"][$vv]= $data["data"]["ticket_".$vv];
+                $data["data"]["ticket_list"][$vv . "_quantity"]= $data["data"]["ticket_".$vv."_quantity"];
+                unset($data["data"]["ticket_".$vv]);
+                unset($data["data"]["ticket_".$vv."_quantity"]);
+            }
 
             if(!($data["data"])) {
 
@@ -103,10 +116,30 @@
                 "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket.title as ticket_title",
+                "ticket.ga as ticket_ga",
+                "ticket.ga_quantity as ticket_ga_quantity",
+                "ticket.vip as ticket_vip",
+                "ticket.vip_quantity as ticket_vip_quantity",
+                "ticket.vvip as ticket_vvip",
+                "ticket.vvip_quantity as ticket_vvip_quantity",
                 "order_status.name as status_name",
             ];
 
             $result = $orderModel->All($select, $page_no);
+
+            foreach($result as $key => $value) {
+
+                foreach(["ga", "vip", "vvip"] as $kk => $vv) {
+                    $result[$key]["ticket_list"][$vv]= $value["ticket_".$vv];
+                    $result[$key]["ticket_list"][$vv . "_quantity"]= $value["ticket_".$vv."_quantity"];
+                    unset($result[$key]["ticket_".$vv]);
+                    unset($result[$key]["ticket_".$vv."_quantity"]);
+                }
+               
+                // $result["ticket_list"]["ga"] =;
+                // $result["ticket_list"]["ga_quantity"] = $result["ticket_ga_quantity"];
+            };
+
 
 
             $data = [
@@ -171,10 +204,29 @@
                 "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket.title as ticket_title",
+                "ticket.ga as ticket_ga",
+                "ticket.ga_quantity as ticket_ga_quantity",
+                "ticket.vip as ticket_vip",
+                "ticket.vip_quantity as ticket_vip_quantity",
+                "ticket.vvip as ticket_vvip",
+                "ticket.vvip_quantity as ticket_vvip_quantity",
                 "order_status.name as status_name",
             ];
 
             $result =  $orderModel->getByUserId($select, $id, $page_no);
+
+            foreach($result as $key => $value) {
+
+                foreach(["ga", "vip", "vvip"] as $kk => $vv) {
+                    $result[$key]["ticket_list"][$vv]= $value["ticket_".$vv];
+                    $result[$key]["ticket_list"][$vv . "_quantity"]= $value["ticket_".$vv."_quantity"];
+                    unset($result[$key]["ticket_".$vv]);
+                    unset($result[$key]["ticket_".$vv."_quantity"]);
+                }
+               
+                // $result["ticket_list"]["ga"] =;
+                // $result["ticket_list"]["ga_quantity"] = $result["ticket_ga_quantity"];
+            };
 
             if(!count($result)) {
                 return die($this->json(["errors"=> ["Cant Count!~!"]]));
@@ -229,10 +281,29 @@
                 "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket.title as ticket_title",
+                "ticket.ga as ticket_ga",
+                "ticket.ga_quantity as ticket_ga_quantity",
+                "ticket.vip as ticket_vip",
+                "ticket.vip_quantity as ticket_vip_quantity",
+                "ticket.vvip as ticket_vvip",
+                "ticket.vvip_quantity as ticket_vvip_quantity",
                 "order_status.name as status_name",
             ];
 
             $result =  $orderModel->getByPendingStatus($select, $status, $page_no);
+
+            foreach($result as $key => $value) {
+
+                foreach(["ga", "vip", "vvip"] as $kk => $vv) {
+                    $result[$key]["ticket_list"][$vv]= $value["ticket_".$vv];
+                    $result[$key]["ticket_list"][$vv . "_quantity"]= $value["ticket_".$vv."_quantity"];
+                    unset($result[$key]["ticket_".$vv]);
+                    unset($result[$key]["ticket_".$vv."_quantity"]);
+                }
+               
+                // $result["ticket_list"]["ga"] =;
+                // $result["ticket_list"]["ga_quantity"] = $result["ticket_ga_quantity"];
+            };
 
             if(!count($result)) {
                 return die($this->json(["errors"=> ["Cant Count!~!"]]));
@@ -286,10 +357,30 @@
                 "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket.title as ticket_title",
+                "ticket.ga as ticket_ga",
+                "ticket.ga_quantity as ticket_ga_quantity",
+                "ticket.vip as ticket_vip",
+                "ticket.vip_quantity as ticket_vip_quantity",
+                "ticket.vvip as ticket_vvip",
+                "ticket.vvip_quantity as ticket_vvip_quantity",
                 "order_status.name as status_name",
             ];
 
             $result =  $orderModel->getByPendingStatus($select, $status, $page_no);
+
+            foreach($result as $key => $value) {
+
+                foreach(["ga", "vip", "vvip"] as $kk => $vv) {
+                    $result[$key]["ticket_list"][$vv]= $value["ticket_".$vv];
+                    $result[$key]["ticket_list"][$vv . "_quantity"]= $value["ticket_".$vv."_quantity"];
+                    unset($result[$key]["ticket_".$vv]);
+                    unset($result[$key]["ticket_".$vv."_quantity"]);
+                }
+               
+                // $result["ticket_list"]["ga"] =;
+                // $result["ticket_list"]["ga_quantity"] = $result["ticket_ga_quantity"];
+            };
+
 
             if(!count($result)) {
                 return die($this->json(["errors"=> ["Cant Count!~!"]]));
@@ -343,10 +434,29 @@
                 "user.phone as user_phone",
                 "user.image as user_image",
                 "ticket.title as ticket_title",
+                "ticket.ga as ticket_ga",
+                "ticket.ga_quantity as ticket_ga_quantity",
+                "ticket.vip as ticket_vip",
+                "ticket.vip_quantity as ticket_vip_quantity",
+                "ticket.vvip as ticket_vvip",
+                "ticket.vvip_quantity as ticket_vvip_quantity",
                 "order_status.name as status_name",
             ];
 
             $result =  $orderModel->getByPendingStatus($select, $status, $page_no);
+
+            foreach($result as $key => $value) {
+
+                foreach(["ga", "vip", "vvip"] as $kk => $vv) {
+                    $result[$key]["ticket_list"][$vv]= $value["ticket_".$vv];
+                    $result[$key]["ticket_list"][$vv . "_quantity"]= $value["ticket_".$vv."_quantity"];
+                    unset($result[$key]["ticket_".$vv]);
+                    unset($result[$key]["ticket_".$vv."_quantity"]);
+                }
+               
+                // $result["ticket_list"]["ga"] =;
+                // $result["ticket_list"]["ga_quantity"] = $result["ticket_ga_quantity"];
+            };
 
             if(!count($result)) {
                 return die($this->json(["errors"=> ["Cant Count!~!"]]));
@@ -390,12 +500,18 @@
             "orders.vip_quantity","orders.vvip",
             "orders.vvip_price","orders.vvip_quantity",
             "orders.user_id",
-                "orders.total_price",
+            "orders.total_price",
             "user.name as user_name",
             "user.phone as user_phone",
             "user.image as user_image",
             "ticket.id as ticket_id",
             "ticket.title as ticket_title",
+            "ticket.ga as ticket_ga",
+            "ticket.ga_quantity as ticket_ga_quantity",
+            "ticket.vip as ticket_vip",
+            "ticket.vip_quantity as ticket_vip_quantity",
+            "ticket.vvip as ticket_vvip",
+            "ticket.vvip_quantity as ticket_vvip_quantity",
             "order_status.name as status_name",
         ];
         
@@ -409,15 +525,15 @@
         // die();
         $errors = [];
         if( $order["ga_quantity"] > $ticket["ga_quantity"]) {
-            $errors[] = 'Order Ga Quantity is More Than Ticket Qty.';
+            $errors[]["ga"] = 'Order Ga Quantity is More Than Ticket Qty.';
         }
 
         if( $order["vip_quantity"] > $ticket["vip_quantity"]) {
-            $errors[] = 'Order Vip Quantity is More Than Ticket Qty.';
+            $errors[]["vip"] = 'Order Vip Quantity is More Than Ticket Qty.';
         }
 
         if( $order["vvip_quantity"] > $ticket["vvip_quantity"]) {
-            $errors[] = 'Order Vvip Quantity is More Than Ticket Qty.';
+            $errors[]["vvip"] = 'Order Vvip Quantity is More Than Ticket Qty.';
         }
 
         if(count($errors) > 0 ) {

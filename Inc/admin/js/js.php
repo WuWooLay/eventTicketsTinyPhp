@@ -923,6 +923,9 @@
 
           // Check Confrim or not
           if(obj.status == 1) {
+            ['ga','vip','vvip'].map( function (dt) {
+              $("#left_"+dt).html(obj.ticket_list[dt+"_quantity"]);
+            });
             $("#order_check_confirm_or_not_container").removeClass('d-none');
             $("#order_check_confirm_button").data('id', obj.id);
             $("#order_check_reject_button").data('id', obj.id);
@@ -966,14 +969,19 @@
               $("#order_check_confirm_or_not_container").addClass("d-none");
               AllInOneOrder();
             } else if(data.errors) {
+              AllInOneOrder();
               console.log(data.errors);
               data.errors.map( function (value) {
-                var thi = $("<div>", {class: "alert alert-danger", role: "alert"})
-                .append(value)
-                .prependTo("#right_side");
-                  setTimeout(function () {
-                      $(thi).remove();
-                  }, 3000);
+
+                console.log("Value => ", value);
+                Object.keys(value).map( function (d) {
+                  var thi = $("<div>", {class: "alert alert-danger", role: "alert"})
+                  .append(value[d])
+                  .prependTo("#right_side");
+                    setTimeout(function () {
+                        $(thi).remove();
+                    }, 3000);
+                });
               });
               
               $("#order_check_confirm_or_not_loading").addClass("d-none");
@@ -1181,7 +1189,6 @@
         }
 
         AllInOneOrder();
-
 
         function DashBoard() {
           var url = "<?= URL ?>/admin/dashboard";

@@ -173,8 +173,8 @@ class Database extends PDO {
 
     public function allGet($table, $cond) {
         // die($cond);
-        $sql = "SELECT COUNT(*) FROM $table $cond";
-        // die($sql);
+        $sql = "SELECT COUNT(*) FROM $table $cond"; 
+        // die($table);
         $stmt = $this->prepare($sql);
         $stmt->execute();
         $no_of_row = $stmt->fetchColumn();

@@ -131,7 +131,7 @@
         public function dashBoard($sql, $cond ) {
             // die($cond);
             return $this->db->allGet($sql, $cond);
-        }
+        } 
         
 
     }
