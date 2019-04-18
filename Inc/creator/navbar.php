@@ -81,7 +81,6 @@
     </div>   
 
   <div class="container">
-    <a class="navbar-brand" href="#"> Event Ticket </a>
     
     <button 
         class="navbar-toggler" 
