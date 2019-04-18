@@ -418,6 +418,10 @@
             // 
 
             function makeTicketCard(obj) {
+                  var str = ( obj.ticket_list.ga_quantity == 0 && 
+                              obj.ticket_list.vip_quantity == 0 && 
+                              obj.ticket_list.vvip_quantity == 0)  ? 'SoldOut' : '';
+                           
             return $('<div>', {class: 'col-sm-6 col-md-3 mb-3 fadeIn'})
                     .append(
                       $('<div>', {class: 'card'})
@@ -430,12 +434,17 @@
                         .append("<p>"+obj.event_category_name+" in "+obj.location_name+"</p>")
                         .append("<p class='card-text card-description'>"+obj.description+"</p>")
                         .append(
-                          $("<button>", {type: "button", href: "#!", class: "btn btn-raised btn-"+(obj.free_ticket == 1 ? "success" : "info")+" buyticket" })
+                          $("<button>", {type: "button", href: "#!", 
+                            class: "btn btn-raised btn-"
+                            + (obj.free_ticket == 1 ? "success" : obj.free_ticket == 0 && str == '' ? 'info' : 'danger') 
+                            +" buyticket" 
+                          })
                           .append(
-                            obj.free_ticket == 1 ? "FreeTicket" : "Buy Now"
+                            obj.free_ticket == 1 ? "FreeTicket" : obj.free_ticket == 0 && str == '' ? 'Buy Now' : str
                           )
                           .data("id", obj.id)
                           .click( function () {
+                            console.log(obj);
                             toLoginPage();
                           })
                         )

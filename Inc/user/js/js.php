@@ -199,10 +199,14 @@
             $("#vip_user_input_quantity").val() <= 0 &&
             $("#vvip_user_input_quantity").val() <= 0 
           ) {
-
+            $("#ga_user_input_quantity").val(0);
+            $("#vip_user_input_quantity").val(0);
+            $("#vvip_user_input_quantity").val(0);
             alert("Plz Fill Something?")
             return;
           }
+
+
           var total = 0;
           var image = $("#ticket_check_image").data("image");
 
@@ -273,29 +277,30 @@
           // console.log(data);
           // return;
 
-         var url = "<?= URL ?>/order/insert";
-         $.post(url, data, function (res) {
-            console.log(res);
-            if(res.status) {
-
-             allInOne();
-             var thi = $("<div>", {class: "alert alert-success", role: "alert"})
-             .append("Successfully Ordered Pending")
-             .prependTo("#right_side")
-              setTimeout(function () {
-                  $(thi).fadeOut("slow");
-              }, 500);
-                
-              setTimeout(function () {
-                  $(thi).remove();
-              }, 1300);
-
-            } else if(res.errors) {
+          var url = "<?= URL ?>/order/insert";
+          $.post(url, data, function (res) {
               console.log(res);
-            }
-         });
+              if(res.status) {
+
+              allInOne();
+              var thi = $("<div>", {class: "alert alert-success", role: "alert"})
+              .append("Successfully Ordered Pending")
+              .prependTo("#right_side")
+                setTimeout(function () {
+                    $(thi).fadeOut("slow");
+                }, 500);
+                  
+                setTimeout(function () {
+                    $(thi).remove();
+                }, 1300);
+
+              } else if(res.errors) {
+                console.log(res);
+              }
+          });
 
          });
+        //  Submit End
 
          var ticketTypeArr = [
            'ga',
@@ -304,12 +309,11 @@
          ];
 
          ticketTypeArr.map(function (value) {
-           $("#" + value + "_user_input_quantity").on("keyup", function (e) {
+          
+          $("#" + value + "_user_input_quantity").on("keyup", function (e) {
              var val = $(this).val();
              var thi = $(this);
-
-            //  var check_quantity =;
-             console.log(val);
+            //  console.log("userQuantity=>",val);
 
              if(val == '') {
                 alert("Not Number");
@@ -317,12 +321,35 @@
                 return ;
              }
 
-             if(val >  $("#"+value+"_quantity").data("quantity")) {
+             console.log("Limited Qty =>",  $("#"+value+"_quantity").data("quantity"));
+
+             if(parseInt(val) >  parseInt($("#"+value+"_quantity").data("quantity"))) {
                alert("Check Limt");
                $(thi).val( $("#"+value+"_quantity").data("quantity"));
              }
 
            });
+
+           $("#" + value + "_user_input_quantity").on("change", function (e) {
+             var val = $(this).val();
+             var thi = $(this);
+            //  console.log("userQuantity=>",val);
+
+             if(val == '') {
+                alert("Not Number");
+                $(thi).val(0);
+                return ;
+             }
+
+             console.log("Limited Qty =>",  $("#"+value+"_quantity").data("quantity"));
+
+             if(parseInt(val) >  parseInt($("#"+value+"_quantity").data("quantity"))) {
+               alert("Check Limt");
+               $(thi).val( $("#"+value+"_quantity").data("quantity"));
+             }
+
+           });
+
          });
 
         /**
@@ -362,6 +389,10 @@
          */
 
          function makeTicketCard(obj) {
+          var str = ( obj.ticket_list.ga_quantity == 0 && 
+                              obj.ticket_list.vip_quantity == 0 && 
+                              obj.ticket_list.vvip_quantity == 0)  ? 'SoldOut' : '';
+
            return $('<div>', {class: 'col-sm-6 col-md-4 mb-3'})
                   .append(
                     $('<div>', {class: 'card'})
@@ -374,9 +405,14 @@
                       .append("<p>"+obj.event_category_name+" in "+obj.location_name+"</p>")
                       .append("<p class='card-text card-description'>"+obj.description+"</p>")
                       .append(
-                        $("<button>", {type: "button", href: "#!", class: "btn btn-raised btn-"+(obj.free_ticket == 1 ? "success" : "info")+" buyticket" })
+                        $("<button>", {
+                          type: "button", href: "#!", 
+                          class: "btn btn-raised btn-"
+                            + (obj.free_ticket == 1 ? "success" : obj.free_ticket == 0 && str == '' ? 'info' : 'danger') 
+                            +" buyticket" 
+                        })
                         .append(
-                          obj.free_ticket == 1 ? "FreeTicket" : "Buy Now"
+                          obj.free_ticket == 1 ? "FreeTicket" : obj.free_ticket == 0 && str == '' ? 'Buy Now' : str
                         )
                         .data("id", obj.id)
                         .click( function () {
@@ -410,10 +446,18 @@
             .css('background-image', 'url('+obj.image+')')
             .data("image", obj.image);
             
+            var soldOut = false;
+            var totalCount_4soldout = 0;
             // Hiddien
             ['ga', 'vip', 'vvip'].map( function (val) {
               $("#"+val).addClass("d-none");
+              totalCount_4soldout += parseInt(obj.ticket_list[val + "_quantity"]);
+              console.log("SoldOUt", totalCount_4soldout);
             });
+            if(totalCount_4soldout == 0 ) {
+              soldOut = true;
+              console.log("Sold Out True");
+            } 
 
             // Set Ga
             if(obj.ticket_list.ga == 1 ) $("#ga").removeClass("d-none");
@@ -424,6 +468,9 @@
             $("#ga_price")
              .data("price", obj.ticket_list.ga_price)
              .html(obj.ticket_list.ga_price);
+            $("#ga_user_input_quantity")
+            .val(0)
+            .attr("max", obj.ticket_list.ga_quantity);
             
             // Set vip
             if(obj.ticket_list.vip == 1 ) $("#vip").removeClass("d-none");
@@ -434,6 +481,9 @@
             $("#vip_price")
              .data("price", obj.ticket_list.vip_price)
              .html(obj.ticket_list.vip_price);
+            $("#vip_user_input_quantity")
+            .val(0)
+            .attr("max", obj.ticket_list.vip_quantity); 
             
             // Set vvip
             if(obj.ticket_list.vvip == 1 ) $("#vvip").removeClass("d-none");
@@ -444,10 +494,12 @@
             $("#vvip_price")
              .data("price", obj.ticket_list.vvip_price)
              .html(obj.ticket_list.vvip_price);
-            
-             
+            $("#vvip_user_input_quantity")
+            .val(0)
+            .attr("max", obj.ticket_list.vvip_quantity); 
 
-            if(obj.free_ticket != 1) {
+            // If Sold Out Or Free Ticket 
+            if(obj.free_ticket != 1 && soldOut != true) {
               $("#ticket_check_form").removeClass("d-none");
             }
 
