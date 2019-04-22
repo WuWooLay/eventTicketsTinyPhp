@@ -147,7 +147,9 @@
 
        }
 
-        
+        public static function pass($str) {
+            return base64_decode($str);
+        }
 
     }
     

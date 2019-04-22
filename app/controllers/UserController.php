@@ -152,13 +152,12 @@
     * @desc    Insert Creator
     */ 
     public function insertcreator() {
-
         $resultError = Validation::UserInput();
         
         if(!$resultError["isValid"]) {
             return die($this->json($resultError, 400));
         }
-
+       
         $data = [
             "name" => $_POST['name'],
             "email" => $_POST['email'],
@@ -181,6 +180,40 @@
 
         if($result["status"]) {
             unset($result["data"]["passsword"]);
+
+            //Create a new PHPMailer instance
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->SMTPDebug = 0;
+            $mail->Host = 'smtp.gmail.com';
+            $mail->Port = 587;
+            //Set the encryption system to use - ssl (deprecated) or tls
+            $mail->SMTPSecure = 'tls';
+            //Whether to use SMTP authentication
+            $mail->SMTPAuth = true;
+            //Username to use for SMTP authentication - use full email address for gmail
+            $mail->Username = EMAIL;
+            //Password to use for SMTP authentication
+            $mail->Password = Middleware::pass(PASS);
+            //Set who the message is to be sent from
+            $mail->setFrom(EMAIL, MAIL_REPLY);
+            //Set an alternative reply-to address
+            $mail->addReplyTo(EMAIL);
+            //Set who the message is to be sent to
+            $mail->addAddress($_POST['email']);
+            $mail->isHTML(true);
+            //Set the subject line
+            $mail->Subject = 'Creator Account Password Set .';
+            $password =  $_POST['password'] ;
+            $html = '<div style="margin: 0 auto ;max-width:640px;"> ' ;
+            $html .= '<img src="https://i.ibb.co/X8gYPfP/banner.jpg" style="width: 100%"> <br>';
+            $html .= '<div><h3>Creator Email is '. $_POST['email'] .' </h3></div>';
+            $html .= '<div><h3>Creator Password is '. $password .' </h3> <p>You Can Now Login As Creator</p> </div>';
+            $html .= '<div><p> Thanks for your register.</p> </div>';
+            $html .= "</div>";
+            $mail->Body = $html;
+            $mail->AltBody = 'This is Password Returning For Creator';
+            $mail->send();
             return die($this->json($result));
         } else {
             return die($this->json(["errors" => ["Cant Inserted!!"]], 400));
@@ -221,6 +254,7 @@
 
         if($result["status"]) {
             unset($result["data"]["passsword"]);
+
             return die($this->json($result));
         } else {
             return die($this->json(["errors" => ["Cant Inserted!!"]], 400));

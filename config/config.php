@@ -12,7 +12,11 @@
         "DB_USER" => "root",
         "DB_PASS" => "",
         "LIMIT_PAGE_OFFSET" => 10,
-        "DEFAULT_USER_IMAGE" => "/assets/images/logo/default.svg"
+        "DEFAULT_USER_IMAGE" => "/assets/images/logo/default.svg",
+        "EMAIL" => "lwinmoepaingodev@gmail.com",
+        "PASS" => "aWhhdmVsb3ZlbXlkb2c",
+        "MAIL_REPLY" => "EventTicket.Com"
+
     ];
 
     foreach($constant as $key => $value) {

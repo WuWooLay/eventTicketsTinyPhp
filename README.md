@@ -21,6 +21,11 @@ You Only Need To Know Below That . In `index.php`
 * 127.0.0.1 eventticket.com
 * 127.0.0.1 127.0.0.1:8000
 
+### C:\xampp\php\php.ini
+
+*  curl.cainfo="C:\xampp\htdocs\eventticket\middleware\cacert.pem"
+*  openssl.cafile="C:\xampp\htdocs\eventticket\middleware\cacert.pem"
+
 ## In Coifg VitualHostOpen
 ###  C:\xampp\apache\conf\extra\httpd-vhosts.conf 
 

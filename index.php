@@ -1,5 +1,5 @@
 <?php
-
+    
     // Require Main CLass 
     require_once "./config/config.php";
 
@@ -8,6 +8,9 @@
         require_once "./system/libs/${class}.php";
     });
 
+
+    require_once "./middleware/PHPMailer.php";
+    require_once "./middleware/Smtp.php";
     require_once "./validation/validation.php";
     require_once "./middleware/middleware.php";
 

@@ -10,7 +10,9 @@
     <!-- Home WallPaper -->
     <div class="HomeWallpaper">
         <div class="ButtonContainer">
+          
           <h2 class=""> Let's Have Fun Together </h2>
+          
           <button type="button" class="btn btn-raised btn-primary" id="getStartBtn"> Get Start </button>
         </div>
     </div>
